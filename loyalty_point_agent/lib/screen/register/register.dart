@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/login/login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -71,32 +70,6 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text('Kata Sandi'),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Ex. Password',
-                      ),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black26,
-                fixedSize: const Size(350, 50),
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              },
               child: const Text(
                 'Daftar',
                 style: TextStyle(fontSize: 18),
