@@ -70,7 +70,7 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text('Password'),
+                    const Text('Kata Sandi'),
                     TextFormField(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
