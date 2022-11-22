@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,39 +25,31 @@ class _RegisterState extends State<Register> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: Row(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Anda Sudah Memiliki Akun ? '),
-                  InkWell(
-                    child: const Text(
-                      'Masuk',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
+                children: const [
+                  Text(
+                    'Masuk',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Silahkan gunakan akun yang sudah \npernah login diaplikasi ini',
+                    textAlign: TextAlign.center,
                   )
                 ],
               ),
             ),
             Form(
               child: Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
+                padding:
+                    const EdgeInsets.only(left: 50, right: 50, bottom: 130),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Username'),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Ex. Ahmad Krisdiantoro',
-                      ),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
                     const Text('Email'),
                     TextFormField(
                       decoration: const InputDecoration(
@@ -70,8 +62,28 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 30,
                     ),
+                    const Text('Kata Sandi'),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Ex. Password',
+                      ),
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black26,
+                fixedSize: const Size(350, 50),
+              ),
+              onPressed: () {},
               child: const Text(
-                'Daftar',
+                'Masuk',
                 style: TextStyle(fontSize: 18),
               ),
             ),
