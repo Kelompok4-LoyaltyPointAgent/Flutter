@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/home_provider.dart';
-import 'package:loyalty_point_agent/screen/home/navbar.dart';
+import 'package:loyalty_point_agent/screen/login/login.dart';
+import 'package:loyalty_point_agent/screen/register/register.dart';
 import 'package:loyalty_point_agent/screen/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: Register(),
       ),
     );
   }
