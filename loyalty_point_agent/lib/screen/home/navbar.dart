@@ -3,6 +3,7 @@ import 'package:loyalty_point_agent/providers/home_provider.dart';
 import 'package:loyalty_point_agent/screen/home/beranda_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/profile_screen.dart';
+import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class NavBarScreen extends StatefulWidget {
@@ -26,8 +27,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.blue,
+        backgroundColor: yellowColor,
+        unselectedItemColor: nabBarColorUnselected,
+        selectedItemColor: navbarColorSelected,
         elevation: 1.5,
         currentIndex: currentScreenIndex,
         showUnselectedLabels: true,
@@ -35,20 +37,15 @@ class _NavBarScreenState extends State<NavBarScreen> {
         items: [
           BottomNavigationBarItem(
             label: 'Beranda',
-            icon: Icon(
-                (currentScreenIndex == 0) ? Icons.home : Icons.home_outlined),
+            icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
             label: 'Poin',
-            icon: Icon((currentScreenIndex == 1)
-                ? Icons.star
-                : Icons.star_border_outlined),
+            icon: Icon(Icons.star),
           ),
           BottomNavigationBarItem(
             label: 'Profil',
-            icon: Icon((currentScreenIndex == 2)
-                ? Icons.event_available
-                : Icons.event_available_outlined),
+            icon: Icon(Icons.person),
           ),
         ],
       ),

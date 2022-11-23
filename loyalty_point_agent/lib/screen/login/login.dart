@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/home/navbar.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -81,7 +82,15 @@ class _LoginState extends State<Login> {
                 backgroundColor: Colors.black26,
                 fixedSize: const Size(350, 50),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NavBarScreen(),
+                  ),
+                  (route) => false,
+                );
+              },
               child: const Text(
                 'Masuk',
                 style: TextStyle(fontSize: 18),
