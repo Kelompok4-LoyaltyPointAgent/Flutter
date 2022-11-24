@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/login/login.dart';
+import 'package:loyalty_point_agent/utils/theme.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -8,34 +9,50 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  late ValueNotifier<bool> isObscure;
+  @override
+  void initState() {
+    isObscure = ValueNotifier(true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 100, bottom: 20),
-                child: const CircleAvatar(
-                  backgroundColor: Color.fromRGBO(209, 219, 217, 1),
-                  minRadius: 50,
+                padding: const EdgeInsets.only(top: 50),
+                child: const Image(
+                  height: 200,
+                  image: AssetImage('assets/logo1.png'),
                 ),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Anda Sudah Memiliki Akun ? '),
+                  Text(
+                    'Anda Sudah Memiliki Akun ? ',
+                    style: navyTextStyle,
+                  ),
                   InkWell(
-                    child: const Text(
+                    child: Text(
                       'Masuk',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: yellowTextStyle.copyWith(fontWeight: semiBold),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Login(),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),
@@ -46,11 +63,19 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Username'),
+                    Text(
+                      'Nama Lengkap',
+                      style: navyTextStyle.copyWith(fontWeight: semiBold),
+                    ),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: yellowColor),
+                        ),
+                        border: const OutlineInputBorder(),
                         hintText: 'Ex. Ahmad Krisdiantoro',
+                        fillColor: whiteColor,
+                        filled: true,
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
@@ -58,11 +83,19 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text('Email'),
+                    Text(
+                      'Email',
+                      style: navyTextStyle.copyWith(fontWeight: semiBold),
+                    ),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: yellowColor),
+                        ),
+                        border: const OutlineInputBorder(),
                         hintText: 'Ex. example@gmail.com',
+                        fillColor: whiteColor,
+                        filled: true,
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
@@ -70,15 +103,35 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text('Kata Sandi'),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Ex. Password',
-                      ),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
+                    Text(
+                      'Kata Sandi',
+                      style: navyTextStyle.copyWith(fontWeight: semiBold),
+                    ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: isObscure,
+                      builder: ((context, value, _) {
+                        return TextFormField(
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: yellowColor),
+                            ),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Ex. Password',
+                            fillColor: whiteColor,
+                            filled: true,
+                            suffixIcon: IconButton(
+                              onPressed: () =>
+                                  isObscure.value = !isObscure.value,
+                              icon: Icon(
+                                value ? Icons.visibility_off : Icons.visibility,
+                              ),
+                            ),
+                          ),
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.text,
+                          obscureText: value,
+                        );
+                      }),
                     ),
                   ],
                 ),
@@ -86,7 +139,7 @@ class _RegisterState extends State<Register> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black26,
+                backgroundColor: yellowColor,
                 fixedSize: const Size(350, 50),
               ),
               onPressed: () {
@@ -96,9 +149,10 @@ class _RegisterState extends State<Register> {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Daftar',
-                style: TextStyle(fontSize: 18),
+                style: blackRegulerTextStyle.copyWith(
+                    fontWeight: semiBold, fontSize: 16),
               ),
             ),
           ],
