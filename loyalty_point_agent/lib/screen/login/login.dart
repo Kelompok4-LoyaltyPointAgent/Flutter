@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/home/navbar.dart';
+import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

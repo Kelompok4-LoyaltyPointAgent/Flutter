@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/home/widgets/card_rekomendasi.dart';
+import 'package:loyalty_point_agent/screen/pulsa/pulsa_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class BerandaScreen extends StatelessWidget {
@@ -67,24 +68,34 @@ class BerandaScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          Image.asset(
-                            'assets/pulsa.png',
-                            height: 90,
-                            width: 90,
-                          ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          Text(
-                            'Pulsa',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PulsaScreen(),
                             ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/pulsa.png',
+                              height: 90,
+                              width: 90,
+                            ),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            Text(
+                              'Pulsa',
+                              style: navyTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         width: 60,
@@ -154,7 +165,7 @@ class BerandaScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      CardRekomendasi(
+                      const CardRekomendasi(
                         image: 'assets/provider_telkomsel.png',
                         title: 'Kring-kring',
                         description:
@@ -163,7 +174,7 @@ class BerandaScreen extends StatelessWidget {
                         date: '30 Hari',
                         poin: '5000 Poin',
                       ),
-                      CardRekomendasi(
+                      const CardRekomendasi(
                         image: 'assets/provider_telkomsel.png',
                         title: 'Kring-kring',
                         description:
@@ -172,7 +183,7 @@ class BerandaScreen extends StatelessWidget {
                         date: '30 Hari',
                         poin: '5000 Poin',
                       ),
-                      CardRekomendasi(
+                      const CardRekomendasi(
                         image: 'assets/provider_telkomsel.png',
                         title: 'Kring-kring',
                         description:
