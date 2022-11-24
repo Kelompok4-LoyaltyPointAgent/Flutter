@@ -32,7 +32,7 @@ class CardRekomendasi extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5), //color of shadow
             spreadRadius: 5, //spread radius
             blurRadius: 7, // blur radius
-            offset: Offset(0, 2), // changes position of shadow
+            offset: const Offset(0, 2), // changes position of shadow
           )
         ],
       ),

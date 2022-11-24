@@ -22,6 +22,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final navigatorKey = GlobalKey<NavigatorState>();
     NavBarProvider navBarProvider = Provider.of<NavBarProvider>(context);
     int currentScreenIndex = navBarProvider.fetchCurrentScreenIndex;
 
@@ -34,7 +35,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
         currentIndex: currentScreenIndex,
         showUnselectedLabels: true,
         onTap: (value) => navBarProvider.updateScreenIndex(value),
-        items: [
+        items: const [
           BottomNavigationBarItem(
             label: 'Beranda',
             icon: Icon(Icons.home),
@@ -49,7 +50,13 @@ class _NavBarScreenState extends State<NavBarScreen> {
           ),
         ],
       ),
-      body: screens[currentScreenIndex],
+      body: Navigator(
+        key: navigatorKey,
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+              builder: (_) => screens.elementAt(currentScreenIndex));
+        },
+      ),
     );
   }
 }
