@@ -25,10 +25,22 @@ class _RegisterState extends State<Register> {
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 50),
-                child: const Image(
-                  height: 200,
-                  image: AssetImage('assets/logo1.png'),
+                padding: const EdgeInsets.only(top: 100, bottom: 30),
+                child: Column(
+                  children: [
+                    const Image(
+                      height: 100,
+                      image: AssetImage('assets/logo_utama.png'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Hola Pulsa',
+                      style: yellowTextStyle.copyWith(
+                          fontWeight: bold, fontSize: 24),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -59,7 +71,7 @@ class _RegisterState extends State<Register> {
             ),
             Form(
               child: Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,7 +93,7 @@ class _RegisterState extends State<Register> {
                       keyboardType: TextInputType.name,
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Text(
                       'Email',
@@ -101,7 +113,7 @@ class _RegisterState extends State<Register> {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Text(
                       'Kata Sandi',
@@ -133,26 +145,29 @@ class _RegisterState extends State<Register> {
                         );
                       }),
                     ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: yellowColor,
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Login(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Daftar',
+                        style: blackRegulerTextStyle.copyWith(
+                            fontWeight: semiBold, fontSize: 16),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: yellowColor,
-                fixedSize: const Size(350, 50),
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              },
-              child: Text(
-                'Daftar',
-                style: blackRegulerTextStyle.copyWith(
-                    fontWeight: semiBold, fontSize: 16),
               ),
             ),
           ],
