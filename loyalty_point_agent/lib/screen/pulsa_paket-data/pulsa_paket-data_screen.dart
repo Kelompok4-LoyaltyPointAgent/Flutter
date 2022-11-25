@@ -16,6 +16,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
     'Indosat',
   ];
 
+  var provider;
+
   String? selectedValue;
   @override
   Widget build(BuildContext context) {
@@ -109,10 +111,22 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                       .toList(),
                   onChanged: (value) {},
                 ),
+
                 Container(
                   padding: const EdgeInsets.only(top: 20),
                   child: const WidgetPulsaPaketData(),
                 ),
+                // Column(
+                //   children: [
+                //     if (selectedValue == null)
+                //       Text('Not Selected')
+                //     else
+                //       Container(
+                //         padding: const EdgeInsets.only(top: 20),
+                //         child: const WidgetPulsaPaketData(),
+                //       ),
+                //   ],
+                // )
               ],
             ),
           ),
