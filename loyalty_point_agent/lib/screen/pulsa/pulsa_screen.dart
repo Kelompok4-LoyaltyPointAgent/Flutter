@@ -8,12 +8,12 @@ class PulsaScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Back')),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Back'),
+        ),
       ),
-      body: SafeArea(child: Text('test pulsa')),
     );
   }
 }
