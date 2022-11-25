@@ -11,6 +11,7 @@ Color navbarColorSelected = const Color(0xff01478C);
 Color nabBarColorUnselected = const Color(0xffFEF0CD);
 Color grayishColor = const Color(0xffFEF0CD);
 Color navyColor = const Color(0xff01478C);
+Color gbColor = const Color(0xff80A3C5);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: blackColor,
@@ -34,6 +35,10 @@ TextStyle navyTextStyle = GoogleFonts.poppins(
 
 TextStyle yellowTextStyle = GoogleFonts.poppins(
   color: yellowColor,
+);
+
+TextStyle gbTextStyle = GoogleFonts.poppins(
+  color: gbColor,
 );
 
 FontWeight light = FontWeight.w300;
