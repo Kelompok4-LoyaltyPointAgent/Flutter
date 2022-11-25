@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/home_provider.dart';
+import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/screen/home/beranda_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/profile_screen.dart';
