@@ -13,6 +13,7 @@ class PulsaScreen extends StatelessWidget {
             },
             child: Text('Back')),
       ),
+      body: SafeArea(child: Text('test pulsa')),
     );
   }
 }
