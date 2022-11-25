@@ -132,6 +132,7 @@ class _RegisterState extends State<Register> {
                             fillColor: whiteColor,
                             filled: true,
                             suffixIcon: IconButton(
+                              splashRadius: 20,
                               onPressed: () =>
                                   isObscure.value = !isObscure.value,
                               icon: Icon(
