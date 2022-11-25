@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/home/widgets/card_rekomendasi.dart';
-import 'package:loyalty_point_agent/screen/pulsa/pulsa_screen.dart';
+import 'package:loyalty_point_agent/screen/pulsa_paket-data/pulsa_paket-data_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class BerandaScreen extends StatelessWidget {
@@ -73,7 +73,8 @@ class BerandaScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PulsaScreen(),
+                              builder: (context) =>
+                                  const PulsaPaketDataScreen(),
                             ),
                           );
                         },
@@ -100,24 +101,35 @@ class BerandaScreen extends StatelessWidget {
                       const SizedBox(
                         width: 60,
                       ),
-                      Column(
-                        children: [
-                          Image.asset(
-                            'assets/paket_data.png',
-                            height: 90,
-                            width: 90,
-                          ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          Text(
-                            'Paket Data',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PulsaPaketDataScreen(),
                             ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/paket_data.png',
+                              height: 90,
+                              width: 90,
+                            ),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            Text(
+                              'Paket Data',
+                              style: navyTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
