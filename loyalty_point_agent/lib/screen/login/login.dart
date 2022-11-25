@@ -97,6 +97,7 @@ class _LoginState extends State<Login> {
                             fillColor: whiteColor,
                             filled: true,
                             suffixIcon: IconButton(
+                              splashRadius: 20,
                               onPressed: () =>
                                   isObscure.value = !isObscure.value,
                               icon: Icon(
