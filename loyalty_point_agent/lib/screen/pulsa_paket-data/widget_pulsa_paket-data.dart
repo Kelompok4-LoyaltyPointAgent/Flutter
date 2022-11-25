@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/pulsa_paket-data/detail_pemesanan.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class WidgetPulsaPaketData extends StatefulWidget {
@@ -66,6 +67,14 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
                               style: yellowTextStyle.copyWith(
                                   fontWeight: bold, fontSize: 18),
                             ),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DetailPemesananScreen(),
+                                ),
+                              );
+                            },
                           ),
                         );
                       }),
