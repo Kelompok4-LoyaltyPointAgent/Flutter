@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/home/widgets/card_rekomendasi.dart';
-import 'package:loyalty_point_agent/screen/pulsa_paket-data/detail_pemesanan.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
 import 'package:loyalty_point_agent/screen/pulsa_paket-data/pulsa_paket-data_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class BerandaScreen extends StatelessWidget {
@@ -171,7 +172,7 @@ class BerandaScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const PulsaPaketDataScreen(),
+                                      const RekomendasiScreen(),
                                 ),
                               );
                             },
@@ -188,7 +189,7 @@ class BerandaScreen extends StatelessWidget {
                       itemCount: 2,
                       primary: false,
                       itemBuilder: (BuildContext context, int index) {
-                        return CardRekomendasi(
+                        return RekomendasiCard(
                           image: 'assets/provider_telkomsel.png',
                           title: 'Kring-kring',
                           description:
@@ -201,7 +202,7 @@ class BerandaScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const DetailPemesananScreen(),
+                                    const RekomendasiPemesananScreen(),
                               ),
                             );
                           },
@@ -243,7 +244,7 @@ class BerandaScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const PulsaPaketDataScreen(),
+                                      const RekomendasiScreen(),
                                 ),
                               );
                             },
@@ -260,7 +261,7 @@ class BerandaScreen extends StatelessWidget {
                       itemCount: 2,
                       primary: false,
                       itemBuilder: (BuildContext context, int index) {
-                        return CardRekomendasi(
+                        return RekomendasiCard(
                           image: 'assets/provider_telkomsel.png',
                           title: 'Kring-kring',
                           description:
@@ -273,7 +274,7 @@ class BerandaScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const DetailPemesananScreen(),
+                                    const RekomendasiPemesananScreen(),
                               ),
                             );
                           },

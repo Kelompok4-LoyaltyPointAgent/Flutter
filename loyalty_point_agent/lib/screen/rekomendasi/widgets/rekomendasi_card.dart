@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class CardRekomendasi extends StatelessWidget {
+class RekomendasiCard extends StatelessWidget {
   final String image;
   final String title;
   final String description;
@@ -10,7 +10,7 @@ class CardRekomendasi extends StatelessWidget {
   final String poin;
   final Function()? onPressed;
 
-  const CardRekomendasi({
+  const RekomendasiCard({
     super.key,
     required this.image,
     required this.title,

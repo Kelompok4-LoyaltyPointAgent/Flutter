@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/poin_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class PoinPenukaranScreen extends StatefulWidget {
-  const PoinPenukaranScreen({super.key});
+class RekomendasiPemesananScreen extends StatefulWidget {
+  const RekomendasiPemesananScreen({super.key});
 
   @override
-  State<PoinPenukaranScreen> createState() => _PoinPenukaranScreenState();
+  State<RekomendasiPemesananScreen> createState() =>
+      _RekomendasiPemesananScreenState();
 }
 
-class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
+class _RekomendasiPemesananScreenState
+    extends State<RekomendasiPemesananScreen> {
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -18,7 +20,7 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Detail Hadiah',
+          'Detail Paket atau Pulsa',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
@@ -36,8 +38,8 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
         padding: const EdgeInsets.all(16),
         child: Form(
           key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Nomor Telepon',
@@ -60,7 +62,7 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(
-                height: 50,
+                height: 25,
               ),
               Center(
                 child: Text(
@@ -200,13 +202,33 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
                   color: grayishColor,
                 ),
                 child: Text(
+                  'Deskripsi Paket',
+                  style: navyTextStyle.copyWith(
+                    fontWeight: semiBold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 40,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: grayishColor,
+                ),
+                child: Text(
                   'Syarat dan Ketentuan',
                   style: navyTextStyle.copyWith(
                     fontWeight: semiBold,
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 42,
@@ -215,7 +237,8 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const PoinDetailPemesananScreen(),
+                        builder: (context) =>
+                            const RekomendasiDetailPemesananScreen(),
                       ),
                     );
                   },
