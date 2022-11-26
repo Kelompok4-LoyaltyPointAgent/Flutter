@@ -36,7 +36,7 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
             ],
           ),
           SizedBox(
-            height: 400, //height of TabBarView
+            height: 500, //height of TabBarView
             child: TabBarView(
               children: <Widget>[
                 Center(

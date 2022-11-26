@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/home/widgets/card_rekomendasi.dart';
+import 'package:loyalty_point_agent/screen/pulsa_paket-data/detail_pemesanan.dart';
 import 'package:loyalty_point_agent/screen/pulsa_paket-data/pulsa_paket-data_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
@@ -44,180 +45,251 @@ class BerandaScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 25),
-                  //padding: const EdgeInsets.symmetric(vertical: 10),
-                  height: 124,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        'assets/background_card.png',
-                      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 25),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                // height: 124,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      'assets/background_card.png',
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const PulsaPaketDataScreen(),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PulsaPaketDataScreen(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/pulsa.png',
+                            height: 90,
+                            width: 90,
+                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          Text(
+                            'Pulsa',
+                            style: navyTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: semiBold,
                             ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/pulsa.png',
-                              height: 90,
-                              width: 90,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 60,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PulsaPaketDataScreen(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/paket_data.png',
+                            height: 90,
+                            width: 90,
+                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          Text(
+                            'Paket Data',
+                            style: navyTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: semiBold,
                             ),
-                            // const SizedBox(
-                            //   height: 10,
-                            // ),
-                            Text(
-                              'Pulsa',
-                              style: navyTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: semiBold,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                'Rekomendasi Untukmu',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semiBold,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: whiteColor,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Pulsa',
+                            style: navyTextStyle.copyWith(
+                              fontSize: 20,
+                              fontWeight: semiBold,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PulsaPaketDataScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Lihat Semua',
+                              style: yellowTextStyle,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      primary: false,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CardRekomendasi(
+                          image: 'assets/provider_telkomsel.png',
+                          title: 'Kring-kring',
+                          description:
+                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
+                          price: 'Rp. 50.000',
+                          date: '30 Hari',
+                          poin: '5000 Poin',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetailPemesananScreen(),
                               ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: whiteColor,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Paket Data',
+                            style: navyTextStyle.copyWith(
+                              fontSize: 20,
+                              fontWeight: semiBold,
                             ),
-                          ],
-                        ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PulsaPaketDataScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Lihat Semua',
+                              style: yellowTextStyle,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        width: 60,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const PulsaPaketDataScreen(),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/paket_data.png',
-                              height: 90,
-                              width: 90,
-                            ),
-                            // const SizedBox(
-                            //   height: 10,
-                            // ),
-                            Text(
-                              'Paket Data',
-                              style: navyTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: semiBold,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      primary: false,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CardRekomendasi(
+                          image: 'assets/provider_telkomsel.png',
+                          title: 'Kring-kring',
+                          description:
+                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
+                          price: 'Rp. 50.000',
+                          date: '30 Hari',
+                          poin: '5000 Poin',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetailPemesananScreen(),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  'Rekomendasi Untukmu',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: whiteColor,
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Pulsa',
-                              style: navyTextStyle.copyWith(
-                                fontSize: 20,
-                                fontWeight: semiBold,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Lihat Semua',
-                                style: yellowTextStyle,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const CardRekomendasi(
-                        image: 'assets/provider_telkomsel.png',
-                        title: 'Kring-kring',
-                        description:
-                            'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                        price: 'Rp. 50.000',
-                        date: '30 Hari',
-                        poin: '5000 Poin',
-                      ),
-                      const CardRekomendasi(
-                        image: 'assets/provider_telkomsel.png',
-                        title: 'Kring-kring',
-                        description:
-                            'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                        price: 'Rp. 50.000',
-                        date: '30 Hari',
-                        poin: '5000 Poin',
-                      ),
-                      const CardRekomendasi(
-                        image: 'assets/provider_telkomsel.png',
-                        title: 'Kring-kring',
-                        description:
-                            'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                        price: 'Rp. 50.000',
-                        date: '30 Hari',
-                        poin: '5000 Poin',
-                      ),
-                      // CardRekomendasi(
-                      //   image: 'assets/provider_telkomsel.png',
-                      //   title: 'Kring-kring',
-                      //   description:
-                      //       'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                      //   price: 'Rp. 50.000',
-                      //   date: '30 Hari',
-                      //   poin: '5000 Poin',
-                      // ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
           ),
         ),
       ),
