@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/pulsa_paket-data/detail_pemesanan.dart';
+import 'package:loyalty_point_agent/screen/product/detail_pemesanan.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:sizer/sizer.dart';
 
 class WidgetPulsaPaketData extends StatefulWidget {
   const WidgetPulsaPaketData({super.key});
@@ -36,7 +37,7 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
             ],
           ),
           SizedBox(
-            height: 500, //height of TabBarView
+            height: 60.h,
             child: TabBarView(
               children: <Widget>[
                 Center(

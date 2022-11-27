@@ -15,6 +15,8 @@ Color gbColor = const Color(0xff80A3C5);
 Color snugYellow = const Color(0xffFDDA82);
 Color lightYellow = const Color(0xffFCC12F);
 Color darkGreyColor = const Color(0xff434952);
+Color dangerColor = const Color(0xff991628);
+Color succesColor = const Color(0xff197722);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: blackColor,
@@ -54,6 +56,12 @@ TextStyle snugYellowTextStyle = GoogleFonts.poppins(
 
 TextStyle lightYellowTextStyle = GoogleFonts.poppins(
   color: lightYellow,
+);
+TextStyle dangerTextStyle = GoogleFonts.poppins(
+  color: dangerColor,
+);
+TextStyle succsesTextStyle = GoogleFonts.poppins(
+  color: succesColor,
 );
 
 FontWeight light = FontWeight.w300;
