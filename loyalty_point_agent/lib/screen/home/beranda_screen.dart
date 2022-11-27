@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
-import 'package:loyalty_point_agent/screen/pulsa_paket-data/pulsa_paket-data_screen.dart';
+import 'package:loyalty_point_agent/screen/product/pulsa_paket-data_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 10,
             ),
             Text(
-              'Ahmad Krisdiantoro',
+              'Namikaze Minato',
               style: whiteTextStyle.copyWith(
                 fontSize: 18,
                 fontWeight: bold,
@@ -55,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 10,
                 ),
                 Text(
-                  '9999999',
+                  '9999999999999999999999999',
                   style: yellowTextStyle.copyWith(fontSize: 14),
                 )
               ],
@@ -83,6 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 10,
             ),
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FavoritScreen(),
+                  ),
+                );
+              },
               leading: Icon(
                 Icons.favorite,
                 color: yellowColor,
@@ -96,6 +106,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const RiwayatTransaksiScreen(),
+                  ),
+                );
+              },
               leading: Icon(
                 Icons.shopping_bag_sharp,
                 color: yellowColor,
@@ -109,6 +126,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const KeamananScreen(),
+                  ),
+                );
+              },
               leading: Icon(
                 Icons.lock_sharp,
                 color: yellowColor,

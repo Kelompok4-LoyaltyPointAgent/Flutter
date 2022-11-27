@@ -1,6 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/pulsa_paket-data/widget_pulsa_paket-data.dart';
+import 'package:loyalty_point_agent/screen/product/widgets/widget_pulsa_paket-data.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class PulsaPaketDataScreen extends StatefulWidget {
@@ -15,8 +15,6 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
     'Telkomsel',
     'Indosat',
   ];
-
-  var provider;
 
   String? selectedValue;
   @override
@@ -111,11 +109,11 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                       .toList(),
                   onChanged: (value) {},
                 ),
-
                 Container(
                   padding: const EdgeInsets.only(top: 20),
                   child: const WidgetPulsaPaketData(),
                 ),
+
                 // Column(
                 //   children: [
                 //     if (selectedValue == null)
