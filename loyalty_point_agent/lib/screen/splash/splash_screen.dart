@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/register/register.dart';
+import 'package:loyalty_point_agent/screen/onboarding/onboarding_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Register(),
+            builder: (context) => const OnboardingScreen(),
           ),
           (route) => false,
         );
