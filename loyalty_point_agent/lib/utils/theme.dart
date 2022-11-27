@@ -12,6 +12,9 @@ Color nabBarColorUnselected = const Color(0xffFEF0CD);
 Color grayishColor = const Color(0xffFEF0CD);
 Color navyColor = const Color(0xff01478C);
 Color gbColor = const Color(0xff80A3C5);
+Color snugYellow = const Color(0xffFDDA82);
+Color lightYellow = const Color(0xffFCC12F);
+Color darkGreyColor = const Color(0xff434952);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: blackColor,
@@ -37,8 +40,20 @@ TextStyle yellowTextStyle = GoogleFonts.poppins(
   color: yellowColor,
 );
 
+TextStyle darkGreyTextStyle = GoogleFonts.poppins(
+  color: darkGreyColor,
+);
+
 TextStyle gbTextStyle = GoogleFonts.poppins(
   color: gbColor,
+);
+
+TextStyle snugYellowTextStyle = GoogleFonts.poppins(
+  color: snugYellow,
+);
+
+TextStyle lightYellowTextStyle = GoogleFonts.poppins(
+  color: lightYellow,
 );
 
 FontWeight light = FontWeight.w300;
