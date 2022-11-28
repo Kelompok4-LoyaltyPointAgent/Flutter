@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final val = context.read<CheckboxProvider>().isChecked;
+    final val = context.watch<CheckboxProvider>().val == false;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -146,8 +146,9 @@ class _LoginState extends State<Login> {
                       children: [
                         Checkbox(
                           value: val,
-                          onChanged: (value) =>
-                              context.read<CheckboxProvider>().change(),
+                          onChanged: (value) => context
+                              .read<CheckboxProvider>()
+                              .set(value! ? false : true),
                         ),
                         Text(
                           'Ingatkan Saya',
