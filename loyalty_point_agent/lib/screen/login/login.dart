@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,6 +21,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final val = context.read<CheckboxProvider>().isChecked;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -26,7 +29,7 @@ class _LoginState extends State<Login> {
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 100, bottom: 30),
+                padding: const EdgeInsets.only(top: 100, bottom: 10),
                 child: Column(
                   children: [
                     const Image(
@@ -46,11 +49,36 @@ class _LoginState extends State<Login> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Text(
                 'Silahkan gunakan akun yang sudah \npernah login diaplikasi ini',
                 style: navyTextStyle,
                 textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Anda Belum Memiliki Akun ? ',
+                    style: navyTextStyle,
+                  ),
+                  InkWell(
+                    child: Text(
+                      'Daftar',
+                      style: yellowTextStyle.copyWith(fontWeight: semiBold),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Login(),
+                        ),
+                      );
+                    },
+                  )
+                ],
               ),
             ),
             Form(
@@ -112,7 +140,23 @@ class _LoginState extends State<Login> {
                       }),
                     ),
                     const SizedBox(
-                      height: 100,
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: val,
+                          onChanged: (value) =>
+                              context.read<CheckboxProvider>().change(),
+                        ),
+                        Text(
+                          'Ingatkan Saya',
+                          style: yellowTextStyle,
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 70,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
