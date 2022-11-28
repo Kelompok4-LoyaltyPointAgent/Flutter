@@ -195,17 +195,20 @@ class _RekomendasiPemesananScreenState
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 40,
-                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: grayishColor,
                 ),
-                child: Text(
-                  'Deskripsi Paket',
-                  style: navyTextStyle.copyWith(
-                    fontWeight: semiBold,
+                child: ExpansionTile(
+                  title: Text(
+                    'Deskripsi Paket',
+                    style: navyTextStyle.copyWith(
+                      fontWeight: semiBold,
+                    ),
                   ),
+                  children: [
+                    Text('data'),
+                  ],
                 ),
               ),
               const SizedBox(
@@ -213,17 +216,20 @@ class _RekomendasiPemesananScreenState
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 40,
-                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: grayishColor,
                 ),
-                child: Text(
-                  'Syarat dan Ketentuan',
-                  style: navyTextStyle.copyWith(
-                    fontWeight: semiBold,
+                child: ExpansionTile(
+                  title: Text(
+                    'Syarat dan Ketentuan',
+                    style: navyTextStyle.copyWith(
+                      fontWeight: semiBold,
+                    ),
                   ),
+                  children: [
+                    Text('data'),
+                  ],
                 ),
               ),
               const SizedBox(

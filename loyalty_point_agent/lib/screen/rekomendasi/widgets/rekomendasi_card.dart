@@ -26,7 +26,7 @@ class RekomendasiCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         //height: 150,
         width: double.infinity,
         decoration: BoxDecoration(

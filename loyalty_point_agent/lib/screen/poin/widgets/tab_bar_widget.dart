@@ -36,12 +36,14 @@ class _TabBarWidgetState extends State<TabBarWidget> {
               ),
             ],
           ),
-          SizedBox(
-            height: 530, //height of TabBarView
+          Expanded(
+            //flex: 9,
+            //height: MediaQuery.of(context).size.height, //height of TabBarView
             child: TabBarView(
               children: <Widget>[
                 Center(
                   child: ListView.builder(
+                    shrinkWrap: true,
                     itemCount: 6,
                     itemBuilder: (BuildContext context, int index) {
                       return PoinRekomendasiCard(
