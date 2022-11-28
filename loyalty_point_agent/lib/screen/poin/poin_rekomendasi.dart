@@ -25,11 +25,9 @@ class PoinRekomendasiScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(top: 20),
-          child: const TabBarWidget(),
-        ),
+      body: Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: const TabBarWidget(),
       ),
     );
   }

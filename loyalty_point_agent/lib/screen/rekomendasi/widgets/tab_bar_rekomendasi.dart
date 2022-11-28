@@ -36,8 +36,8 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
               ),
             ],
           ),
-          SizedBox(
-            height: 530, //height of TabBarView
+          Expanded(
+            //height: 530, //height of TabBarView
             child: TabBarView(
               children: <Widget>[
                 Center(

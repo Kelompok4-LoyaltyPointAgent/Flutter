@@ -25,11 +25,9 @@ class RekomendasiScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(top: 20),
-          child: const TabBarRekomendasi(),
-        ),
+      body: Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: const TabBarRekomendasi(),
       ),
     );
   }
