@@ -1,10 +1,16 @@
 import 'package:flutter/foundation.dart';
 
 class CheckboxProvider with ChangeNotifier {
-  bool isChecked = false;
+  bool _isChecked = false;
 
-  void change() {
-    isChecked = !isChecked;
+  // void change() {
+  //   isChecked = !isChecked;
+  //   notifyListeners();
+  // }
+  bool get val => _isChecked;
+
+  void set(bool isChecked) {
+    _isChecked = isChecked;
     notifyListeners();
   }
 }
