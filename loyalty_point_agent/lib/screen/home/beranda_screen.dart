@@ -13,15 +13,39 @@ class BerandaScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: grayishColor,
-        title: Text(
-          'Hai, Kartika Noviyanti!',
-          style: blackTextStyle.copyWith(
-            fontSize: 16,
-            fontWeight: medium,
-          ),
+        backgroundColor: whiteColor,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hai, Kartika Noviyanti!',
+              style: navyTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: semiBold,
+              ),
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: yellowColor,
+                  size: 24,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  '1000 poin',
+                  style: yellowTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        toolbarHeight: 60,
+        toolbarHeight: 70,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
@@ -33,7 +57,7 @@ class BerandaScreen extends StatelessWidget {
             icon: Icon(
               Icons.notifications_none,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
           ),
           IconButton(
@@ -41,8 +65,11 @@ class BerandaScreen extends StatelessWidget {
             icon: Icon(
               Icons.info_outline,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
+          ),
+          const SizedBox(
+            width: 10,
           ),
         ],
       ),
