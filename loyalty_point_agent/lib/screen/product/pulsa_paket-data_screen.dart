@@ -67,22 +67,15 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                 ),
                 DropdownButtonFormField2(
                   decoration: InputDecoration(
-                    //Add isDense true and zero Padding.
-                    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                     isDense: true,
                     contentPadding: EdgeInsets.zero,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: yellowColor),
                     ),
                     border: const OutlineInputBorder(),
-
                     fillColor: whiteColor,
                     filled: true,
-                    //Add more decoration as you want here
-                    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                   ),
-
-                  // isExpanded: true,
                   hint: const Text(
                     'Pilih Provider Kartu Anda',
                   ),
@@ -95,9 +88,6 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                   ),
                   iconSize: 40,
                   buttonHeight: 60,
-                  // dropdownDecoration: BoxDecoration(
-                  //   // borderRadius: BorderRadius.circular(15),
-                  // ),
                   items: providerItems
                       .map((item) => DropdownMenuItem<String>(
                             value: item,
