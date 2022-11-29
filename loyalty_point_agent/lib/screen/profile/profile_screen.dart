@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -156,6 +157,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 10,
             ),
             ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PusatBantuanScreen(),
+                  ),
+                );
+              },
               leading: Icon(
                 Icons.favorite,
                 color: yellowColor,
