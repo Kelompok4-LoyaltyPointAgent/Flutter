@@ -3,6 +3,7 @@ import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/providers/onboarding_provider.dart';
 import 'package:loyalty_point_agent/screen/splash/splash_screen.dart';
+import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,14 +25,15 @@ class MyApp extends StatelessWidget {
           create: (context) => OnboardingProvider(),
         ),
       ],
-      // child: const MaterialApp(
-      //   debugShowCheckedModeBanner: false,
-      //   home: SplashScreen(),
-      // ),
       child: Sizer(builder: (context, orientation, deviceType) {
-        return const MaterialApp(
+        return MaterialApp(
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(color: yellowColor),
+            ),
+          ),
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: const SplashScreen(),
         );
       }),
     );
