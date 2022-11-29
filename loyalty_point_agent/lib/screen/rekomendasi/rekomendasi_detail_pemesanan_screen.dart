@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -183,10 +185,14 @@ class _RekomendasiDetailPemesananScreenState
                 child: InkWell(
                   onTap: () {
                     showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const AlertDialog(
-                        content: SingleChildScrollView(
-                          child: RekomendasiTransaksiSuksess(),
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: const AlertDialog(
+                          content: SingleChildScrollView(
+                            child: RekomendasiTransaksiSuksess(),
+                          ),
                         ),
                       ),
                     );
