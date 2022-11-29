@@ -28,9 +28,9 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: yellowColor,
-        unselectedItemColor: nabBarColorUnselected,
-        selectedItemColor: navbarColorSelected,
+        backgroundColor: navyColor,
+        unselectedItemColor: greyColor,
+        selectedItemColor: yellowColor,
         elevation: 1.5,
         currentIndex: currentScreenIndex,
         showUnselectedLabels: true,
@@ -38,15 +38,24 @@ class _NavBarScreenState extends State<NavBarScreen> {
         items: const [
           BottomNavigationBarItem(
             label: 'Beranda',
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              size: 30,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Poin',
-            icon: Icon(Icons.star),
+            icon: Icon(
+              Icons.star,
+              size: 30,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Profil',
-            icon: Icon(Icons.person),
+            icon: Icon(
+              Icons.person,
+              size: 30,
+            ),
           ),
         ],
       ),
