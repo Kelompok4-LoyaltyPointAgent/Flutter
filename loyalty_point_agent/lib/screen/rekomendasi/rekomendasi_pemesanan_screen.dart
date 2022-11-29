@@ -255,7 +255,7 @@ class _RekomendasiPemesananScreenState
                     ),
                   ),
                   child: Text(
-                    'Tukarkan',
+                    'Lanjutkan Pemesanan',
                     style: navyTextStyle.copyWith(
                       fontWeight: semiBold,
                     ),
