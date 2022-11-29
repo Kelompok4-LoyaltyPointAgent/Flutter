@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -175,10 +177,14 @@ class PoinDetailPemesananScreen extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const AlertDialog(
-                        content: SingleChildScrollView(
-                          child: PoinTransaksiSuksess(),
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: const AlertDialog(
+                          content: SingleChildScrollView(
+                            child: PoinTransaksiSuksess(),
+                          ),
                         ),
                       ),
                     );
