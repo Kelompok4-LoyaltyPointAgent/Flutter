@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/widgets/deskripsi_paket_item.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/widgets/syarat_ketentuan_item.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class RekomendasiPemesananScreen extends StatefulWidget {
@@ -206,8 +208,8 @@ class _RekomendasiPemesananScreenState
                       fontWeight: semiBold,
                     ),
                   ),
-                  children: [
-                    Text('data'),
+                  children: const [
+                    DeskripsiPaketItem(),
                   ],
                 ),
               ),
@@ -227,8 +229,8 @@ class _RekomendasiPemesananScreenState
                       fontWeight: semiBold,
                     ),
                   ),
-                  children: [
-                    Text('data'),
+                  children: const [
+                    SyaratKetentuanItem(),
                   ],
                 ),
               ),

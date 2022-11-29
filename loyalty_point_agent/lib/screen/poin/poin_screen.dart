@@ -97,20 +97,36 @@ class PoinScreen extends StatelessWidget {
                 child: Wrap(
                   spacing: 80,
                   runSpacing: 20,
-                  children: const [
+                  children: [
                     CardMenu(
                       image: 'assets/pulsa.png',
                       title: 'Pulsa',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PoinRekomendasiScreen(),
+                          ),
+                        );
+                      },
                     ),
                     CardMenu(
                       image: 'assets/paket_data.png',
                       title: 'Paket Data',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PoinRekomendasiScreen(),
+                          ),
+                        );
+                      },
                     ),
-                    CardMenu(
+                    const CardMenu(
                       image: 'assets/tarik_tunai.png',
                       title: 'Tarik Tunai',
                     ),
-                    CardMenu(
+                    const CardMenu(
                       image: 'assets/dompet_elektronik.png',
                       title: 'E-Wallet',
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/syarat_ketentuan_poin.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class PoinPenukaranScreen extends StatefulWidget {
@@ -32,12 +33,12 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Nomor Telepon',
@@ -207,11 +208,13 @@ class _PoinPenukaranScreenState extends State<PoinPenukaranScreen> {
                     ),
                   ),
                   children: const [
-                    Text('data'),
+                    SyaratKetentuanPoin(),
                   ],
                 ),
               ),
-              const Spacer(),
+              const SizedBox(
+                height: 40,
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 42,
