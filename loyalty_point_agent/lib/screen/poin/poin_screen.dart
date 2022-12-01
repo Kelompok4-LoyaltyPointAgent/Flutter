@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/poin_penukaran_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.dart';
@@ -198,7 +199,7 @@ class PoinScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const PoinPenukaranScreen(),
+                                    const PoinDetailPulsaScreen(),
                               ),
                             );
                           },
@@ -255,7 +256,7 @@ class PoinScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const PoinPenukaranScreen(),
+                                    const PoinDetailPaketDataScreen(),
                               ),
                             );
                           },

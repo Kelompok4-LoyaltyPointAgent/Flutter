@@ -1,11 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class PoinDetailPemesananScreen extends StatelessWidget {
-  const PoinDetailPemesananScreen({super.key});
+class PoinDetailPenukaranScreen extends StatelessWidget {
+  const PoinDetailPenukaranScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class PoinDetailPemesananScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Detail Pemesanan',
+          'Detail Penukaran',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
