@@ -128,27 +128,6 @@ class _RekomendasiDetailPemesananScreenState
               visualDensity: const VisualDensity(vertical: -4),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Gunakan Poin',
-                style: blackTextStyle,
-              ),
-              trailing: Switch(
-                // This bool value toggles the switch.
-                value: light,
-                activeColor: Colors.red,
-                onChanged: (bool value) {
-                  // This is called when the user toggles the switch.
-                  setState(() {
-                    light = value;
-                  });
-                },
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
-            ),
-          ),
         ],
       ),
       bottomSheet: Container(

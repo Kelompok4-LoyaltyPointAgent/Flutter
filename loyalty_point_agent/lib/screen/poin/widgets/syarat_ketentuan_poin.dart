@@ -70,7 +70,7 @@ class SyaratKetentuanPoin extends StatelessWidget {
             ),
           ),
           title: Text(
-            'Kami berhak melakukan blacklist akun Anda jika ditemukan hal yang melanggar peraturan yang telah diterapkan',
+            'Voucher tidak dapat diuangkan atau di-refund',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
@@ -87,41 +87,7 @@ class SyaratKetentuanPoin extends StatelessWidget {
             ),
           ),
           title: Text(
-            'Kuota Internet dapat digunakan di semua jaringan 2G/3G/4G.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
-          ),
-        ),
-        ListTile(
-          minLeadingWidth: 0,
-          leading: Text(
-            '6.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
-          ),
-          title: Text(
-            'Kuota tidak akan terakumulasi dengan paket lainnya.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
-          ),
-        ),
-        ListTile(
-          minLeadingWidth: 0,
-          leading: Text(
-            '7.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
-          ),
-          title: Text(
-            'Pastikan pembelian paket berhasil dengan menerima SMS notifikasi pembelian paket berhasil.',
+            'Kami berhak melakukan blacklist akun Anda jika ditemukan hal yang melanggar peraturan yang telah diterapkan',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,

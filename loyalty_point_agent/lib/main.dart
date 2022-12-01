@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/providers/onboarding_provider.dart';
 import 'package:loyalty_point_agent/screen/splash/splash_screen.dart';

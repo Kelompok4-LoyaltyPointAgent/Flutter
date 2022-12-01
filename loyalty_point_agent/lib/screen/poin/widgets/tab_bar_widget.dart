@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/poin_penukaran_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_rekomendasi_card.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
@@ -58,7 +59,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PoinPenukaranScreen(),
+                              builder: (context) =>
+                                  const PoinDetailPulsaScreen(),
                             ),
                           );
                         },
@@ -82,7 +84,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PoinPenukaranScreen(),
+                              builder: (context) =>
+                                  const PoinDetailPaketDataScreen(),
                             ),
                           );
                         },
