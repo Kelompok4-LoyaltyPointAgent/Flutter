@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/providers/onboarding_provider.dart';
 import 'package:loyalty_point_agent/screen/splash/splash_screen.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => OnboardingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LoginProvider(),
         ),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {
