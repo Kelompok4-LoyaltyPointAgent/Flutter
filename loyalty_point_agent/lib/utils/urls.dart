@@ -4,4 +4,5 @@ class Urls {
 
   static const String login = 'api/v1/login';
   static const String register = 'api/v1/register';
+  static const String user = 'api/v1/user/me';
 }

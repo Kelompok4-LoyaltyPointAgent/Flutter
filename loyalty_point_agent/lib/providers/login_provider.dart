@@ -7,7 +7,7 @@ import 'package:loyalty_point_agent/utils/finite_state.dart';
 class LoginProvider extends ChangeNotifier {
   final LoginService loginService = LoginService();
 
-  LoginModel? users;
+  LoginModel? result;
 
   MyState myState = MyState.initial;
 
@@ -19,13 +19,14 @@ class LoginProvider extends ChangeNotifier {
       myState = MyState.loading;
       notifyListeners();
 
-      users = await loginService.login(
+      final result = await loginService.login(
         email: email,
         password: password,
       );
 
       myState = MyState.loaded;
       notifyListeners();
+      return result;
     } catch (e) {
       if (e is DioError) {
         e.response!.statusCode;
