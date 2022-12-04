@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/providers/onboarding_provider.dart';
+import 'package:loyalty_point_agent/providers/register_provider.dart';
 import 'package:loyalty_point_agent/screen/splash/splash_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LoginProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RegisterProvider(),
         ),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {

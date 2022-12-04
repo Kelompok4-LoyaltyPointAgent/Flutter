@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/register_model.dart';
+import 'package:loyalty_point_agent/providers/register_provider.dart';
+
 import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,6 +13,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   late ValueNotifier<bool> isObscure;
   @override
   void initState() {
@@ -17,7 +25,17 @@ class _RegisterState extends State<Register> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    RegisterProvider auth =
+        Provider.of<RegisterProvider>(context, listen: false);
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -70,6 +88,7 @@ class _RegisterState extends State<Register> {
               ),
             ),
             Form(
+              key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
                 child: Column(
@@ -80,6 +99,7 @@ class _RegisterState extends State<Register> {
                       style: navyTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     TextFormField(
+                      controller: nameController,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: yellowColor),
@@ -91,6 +111,12 @@ class _RegisterState extends State<Register> {
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'nama tidak boleh kosong';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -100,6 +126,7 @@ class _RegisterState extends State<Register> {
                       style: navyTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: yellowColor),
@@ -111,6 +138,12 @@ class _RegisterState extends State<Register> {
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'email tidak boleh kosong';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -123,6 +156,7 @@ class _RegisterState extends State<Register> {
                       valueListenable: isObscure,
                       builder: ((context, value, _) {
                         return TextFormField(
+                          controller: passwordController,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: yellowColor),
@@ -143,6 +177,12 @@ class _RegisterState extends State<Register> {
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.text,
                           obscureText: value,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'password tidak boleh kosong';
+                            }
+                            return null;
+                          },
                         );
                       }),
                     ),
@@ -155,11 +195,21 @@ class _RegisterState extends State<Register> {
                         minimumSize: const Size(double.infinity, 50),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const Login(),
-                          ),
-                        );
+                        final isValidForm = _formKey.currentState!.validate();
+                        if (isValidForm) {
+                          auth.register(
+                            RegisterModel(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                            context,
+                          );
+
+                          nameController.clear();
+                          emailController.clear();
+                          passwordController.clear();
+                        }
                       },
                       child: Text(
                         'Daftar',
