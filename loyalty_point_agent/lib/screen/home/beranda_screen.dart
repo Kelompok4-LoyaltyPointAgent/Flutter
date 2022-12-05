@@ -14,6 +14,7 @@ class BerandaScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: whiteColor,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
