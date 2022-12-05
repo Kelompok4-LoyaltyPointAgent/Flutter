@@ -205,10 +205,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTile(
               onTap: () {
                 deleteToken.deleteToken();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Login(),
+                    builder: (context) => const Login(),
                   ),
                 );
               },

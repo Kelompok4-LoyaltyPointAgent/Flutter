@@ -1,8 +1,9 @@
 class UserModel {
-  final int? id;
+  final String? id;
   final String? name;
   final String? email;
   final String? password;
+  final String? poin;
   final String? token;
 
   UserModel({
@@ -10,6 +11,7 @@ class UserModel {
     this.name,
     this.email,
     this.password,
+    this.poin,
     this.token,
   });
 
@@ -17,6 +19,7 @@ class UserModel {
         id: json['id'],
         name: json['name'],
         email: json['email'],
+        poin: json['points'].toString(),
         password: json['password'],
         token: json['token'],
       );
