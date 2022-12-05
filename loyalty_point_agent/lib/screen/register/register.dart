@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/register_model.dart';
 import 'package:loyalty_point_agent/providers/register_provider.dart';
-
 import 'package:loyalty_point_agent/screen/login/login.dart';
+import 'package:loyalty_point_agent/screen/register/widgets/dialog_berhasil.dart';
+import 'package:loyalty_point_agent/screen/register/widgets/dialog_gagal.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +24,45 @@ class _RegisterState extends State<Register> {
   late ValueNotifier<bool> isObscure;
   @override
   void initState() {
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+
+    registerProvider.addListener(
+      () {
+        if (registerProvider.myState == MyState.failed) {
+          showModalBottomSheet(
+            isDismissible: false,
+            enableDrag: false,
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            builder: (context) => BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: const DialogGagal(),
+            ),
+          );
+        } else if (registerProvider.myState == MyState.loaded) {
+          showModalBottomSheet(
+            isDismissible: false,
+            enableDrag: false,
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            builder: (context) => BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: const DialogBerhasil(),
+            ),
+          );
+        }
+      },
+    );
+
     isObscure = ValueNotifier(true);
     super.initState();
   }
@@ -211,10 +254,19 @@ class _RegisterState extends State<Register> {
                           passwordController.clear();
                         }
                       },
-                      child: Text(
-                        'Daftar',
-                        style: blackRegulerTextStyle.copyWith(
-                            fontWeight: semiBold, fontSize: 16),
+                      child: Consumer<RegisterProvider>(
+                        builder: (context, login, circular) {
+                          if (login.myState == MyState.loading) {
+                            return circular!;
+                          } else {
+                            return Text(
+                              'Daftar',
+                              style: blackRegulerTextStyle.copyWith(
+                                  fontWeight: semiBold, fontSize: 16),
+                            );
+                          }
+                        },
+                        child: const CircularProgressIndicator(),
                       ),
                     ),
                   ],
