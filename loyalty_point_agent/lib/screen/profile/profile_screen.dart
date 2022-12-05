@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
+import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,6 +19,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final deleteToken = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColor,
@@ -199,6 +203,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             ListTile(
+              onTap: () {
+                deleteToken.deleteToken();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ),
+                );
+              },
               leading: Icon(
                 Icons.logout,
                 color: yellowColor,

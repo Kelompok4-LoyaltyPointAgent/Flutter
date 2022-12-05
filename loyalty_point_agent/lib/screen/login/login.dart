@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/screen/register/register.dart';
@@ -209,8 +210,10 @@ class _LoginState extends State<Login> {
                           formKey.currentState!.save();
 
                           await loginProvider.login(
-                            email: emailController.text,
-                            password: passwordController.text,
+                            LoginModel(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
                           );
                         }
                       },
