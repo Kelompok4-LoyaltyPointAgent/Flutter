@@ -20,7 +20,6 @@ class UserService {
         ),
       );
 
-      // print(response.data['data']);
       return UserModel.fromJson(response.data['data']);
     } on DioError catch (_) {
       rethrow;

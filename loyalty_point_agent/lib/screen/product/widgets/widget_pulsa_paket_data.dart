@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/screen/product/detail_pemesanan.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class WidgetPulsaPaketData extends StatefulWidget {
@@ -11,6 +14,17 @@ class WidgetPulsaPaketData extends StatefulWidget {
 }
 
 class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      Duration.zero,
+      () {
+        Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -81,46 +95,70 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
                       }),
                 ),
                 Center(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          color: grayishColor,
-                          child: ListTile(
-                            title: Text(
-                              'Si Paling SAKTI',
-                              style: navyTextStyle.copyWith(fontWeight: bold),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '58 GB',
-                                  style:
-                                      gbTextStyle.copyWith(fontWeight: medium),
-                                ),
-                                Row(
-                                  children: [
-                                    const Text('30 hari'),
-                                    const Text(' | '),
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 15,
+                  child: Consumer<PaketDataProvider>(
+                    builder: (context, provider, index) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Sorry, your data still empty');
+                          } else {
+                            return ListView.builder(
+                                itemCount: provider.data!.data!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Card(
+                                    color: grayishColor,
+                                    child: ListTile(
+                                      title: Text(
+                                        provider.data!.data![index].name,
+                                        style: navyTextStyle.copyWith(
+                                            fontWeight: bold),
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${provider.data!.data![index].package.totalInternet} GB',
+                                            style: gbTextStyle.copyWith(
+                                                fontWeight: semiBold,
+                                                fontSize: 12),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  '${provider.data!.data![index].package.activePeriod} Hari'),
+                                              const Text(' | '),
+                                              Icon(
+                                                Icons.star,
+                                                color: yellowColor,
+                                                size: 15,
+                                              ),
+                                              Text(
+                                                  '${provider.data!.data![index].rewardPoints} Poin'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                        'Rp. ${provider.data!.data![index].price}',
+                                        style: yellowTextStyle.copyWith(
+                                            fontWeight: bold, fontSize: 16),
+                                      ),
                                     ),
-                                    const Text('14500 Poin'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            trailing: Text(
-                              'Rp. 145.500',
-                              style: yellowTextStyle.copyWith(
-                                  fontWeight: bold, fontSize: 18),
-                            ),
-                          ),
-                        );
-                      }),
+                                  );
+                                });
+                          }
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

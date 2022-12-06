@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
-import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
