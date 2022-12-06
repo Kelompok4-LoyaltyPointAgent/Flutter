@@ -22,6 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final deleteToken = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: backgroundColor,
         title: Column(
           children: [
@@ -206,10 +207,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 deleteToken.deleteToken();
 
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Login(),
+                    builder: (context) => Login(),
                   ),
                 );
               },

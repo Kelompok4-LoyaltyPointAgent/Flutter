@@ -34,17 +34,19 @@ class _LoginState extends State<Login> {
           ),
         );
       } else if (loginProvider.myState == MyState.loaded) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Berhasil Masuk',
-            ),
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text(
+        //       'Berhasil Masuk',
+        //     ),
+        //   ),
+        // );
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const NavBarScreen(),
+            builder: (context) => const NavBarScreen(
+              pageIndex: 0,
+            ),
           ),
           (route) => false,
         );
@@ -207,7 +209,7 @@ class _LoginState extends State<Login> {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
+                          //formKey.currentState!.save();
 
                           await loginProvider.login(
                             LoginModel(

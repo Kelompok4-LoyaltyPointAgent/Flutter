@@ -7,7 +7,8 @@ import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class NavBarScreen extends StatefulWidget {
-  const NavBarScreen({Key? key}) : super(key: key);
+  final int pageIndex;
+  const NavBarScreen({Key? key, this.pageIndex = 0}) : super(key: key);
 
   @override
   State<NavBarScreen> createState() => _NavBarScreenState();
@@ -19,6 +20,12 @@ class _NavBarScreenState extends State<NavBarScreen> {
     const PoinScreen(),
     const ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    context.read<NavBarProvider>().screenIndex = widget.pageIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
