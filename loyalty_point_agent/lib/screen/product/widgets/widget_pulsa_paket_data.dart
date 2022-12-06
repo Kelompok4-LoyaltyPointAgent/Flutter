@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
-import 'package:loyalty_point_agent/screen/product/detail_pemesanan.dart';
+import 'package:loyalty_point_agent/screen/product/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -83,12 +83,12 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
                                   fontWeight: bold, fontSize: 18),
                             ),
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DetailPemesananScreen(),
-                                ),
-                              );
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const DetailPemesananScreen(),
+                              //   ),
+                              // );
                             },
                           ),
                         );
@@ -107,50 +107,62 @@ class _WidgetPulsaPaketDataState extends State<WidgetPulsaPaketData> {
                             return const Text('Sorry, your data still empty');
                           } else {
                             return ListView.builder(
-                                itemCount: provider.data!.data!.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Card(
-                                    color: grayishColor,
-                                    child: ListTile(
-                                      title: Text(
-                                        provider.data!.data![index].name,
-                                        style: navyTextStyle.copyWith(
-                                            fontWeight: bold),
-                                      ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '${provider.data!.data![index].package.totalInternet} GB',
-                                            style: gbTextStyle.copyWith(
-                                                fontWeight: semiBold,
-                                                fontSize: 12),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  '${provider.data!.data![index].package.activePeriod} Hari'),
-                                              const Text(' | '),
-                                              Icon(
-                                                Icons.star,
-                                                color: yellowColor,
-                                                size: 15,
-                                              ),
-                                              Text(
-                                                  '${provider.data!.data![index].rewardPoints} Poin'),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Text(
-                                        'Rp. ${provider.data!.data![index].price}',
-                                        style: yellowTextStyle.copyWith(
-                                            fontWeight: bold, fontSize: 16),
-                                      ),
+                              itemCount: provider.data!.data!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Card(
+                                  color: grayishColor,
+                                  child: ListTile(
+                                    title: Text(
+                                      provider.data!.data![index].name,
+                                      style: navyTextStyle.copyWith(
+                                          fontWeight: bold),
                                     ),
-                                  );
-                                });
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${provider.data!.data![index].package.totalInternet} GB',
+                                          style: gbTextStyle.copyWith(
+                                              fontWeight: semiBold,
+                                              fontSize: 12),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                                '${provider.data!.data![index].package.activePeriod} Hari'),
+                                            const Text(' | '),
+                                            Icon(
+                                              Icons.star,
+                                              color: yellowColor,
+                                              size: 15,
+                                            ),
+                                            Text(
+                                                '${provider.data!.data![index].rewardPoints} Poin'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Text(
+                                      'Rp. ${provider.data!.data![index].price}',
+                                      style: yellowTextStyle.copyWith(
+                                          fontWeight: bold, fontSize: 16),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailPaketDataScreen(
+                                            id: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            );
                           }
                         case MyState.failed:
                           return const Text('Ada Masalah');
