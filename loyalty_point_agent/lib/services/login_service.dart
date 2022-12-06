@@ -9,7 +9,7 @@ class LoginService {
 
   Future<UserModel> login(LoginModel data) async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
-    String? token;
+    // String? token;
     try {
       final response = await _dio.post(
         Urls.baseUrl + Urls.login,
@@ -19,28 +19,10 @@ class LoginService {
       // print(response.data['data']);
       UserModel user = UserModel.fromJson(response.data);
       await prefs.setString("token", response.data['data']["token"]);
-      token = response.data['data']['token'];
+      // token = response.data['data']['token'];
       //await storeCredentialToLocal(user);
       // print(token);
       return user;
-    } on DioError catch (_) {
-      rethrow;
-    }
-  }
-
-  Future<UserModel> fetchUser() async {
-    SharedPreferences? prefs = await SharedPreferences.getInstance();
-    String? token;
-
-    token = prefs.getString("token");
-    try {
-      final response = await _dio.get(Urls.baseUrl + Urls.user,
-          options: Options(headers: {
-            "Authorization": "Bearer $token",
-          }));
-
-      // print(response.data['data']);
-      return UserModel.fromJson(response.data['data']);
     } on DioError catch (_) {
       rethrow;
     }
