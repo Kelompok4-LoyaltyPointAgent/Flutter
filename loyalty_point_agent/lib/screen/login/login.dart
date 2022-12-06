@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil.dart';
 import 'package:loyalty_point_agent/screen/register/register.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -34,19 +36,27 @@ class _LoginState extends State<Login> {
           ),
         );
       } else if (loginProvider.myState == MyState.loaded) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Berhasil Masuk',
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text(
+        //       'Berhasil Masuk',
+        //     ),
+        //   ),
+        // );
+
+        showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
             ),
           ),
-        );
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const NavBarScreen(),
+          builder: (context) => BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: const LoginBerhasil(),
           ),
-          (route) => false,
         );
       }
     });
@@ -207,7 +217,7 @@ class _LoginState extends State<Login> {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
+                          //formKey.currentState!.save();
 
                           await loginProvider.login(
                             LoginModel(

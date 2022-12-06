@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/screen/onboarding/onboarding_screen.dart';
-import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,13 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
             ? Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NavBarScreen(),
+                  builder: (context) => const NavBarScreen(),
                 ),
               )
             : Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OnboardingScreen(),
+                  builder: (context) => const OnboardingScreen(),
                 ),
               );
       },

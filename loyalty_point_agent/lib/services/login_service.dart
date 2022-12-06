@@ -3,26 +3,25 @@ import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/models/user_model.dart';
 import 'package:loyalty_point_agent/utils/urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginService {
   final Dio _dio = Dio();
 
   Future<UserModel> login(LoginModel data) async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
-    String? token;
+    // String? token;
     try {
       final response = await _dio.post(
         Urls.baseUrl + Urls.login,
         data: data,
       );
 
-      print(response.data['data']);
+      // print(response.data['data']);
       UserModel user = UserModel.fromJson(response.data);
       await prefs.setString("token", response.data['data']["token"]);
-      token = response.data['data']['token'];
+      // token = response.data['data']['token'];
       //await storeCredentialToLocal(user);
-      print(token);
+      // print(token);
       return user;
     } on DioError catch (_) {
       rethrow;

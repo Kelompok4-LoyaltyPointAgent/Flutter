@@ -14,7 +14,7 @@ class RegisterService {
       );
       final user = UserModel.fromJson(res.data);
       return user;
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       rethrow;
     }
   }

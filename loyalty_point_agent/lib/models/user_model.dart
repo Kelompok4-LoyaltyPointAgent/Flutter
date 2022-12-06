@@ -1,8 +1,11 @@
 class UserModel {
-  final int? id;
+  final String? id;
   final String? name;
   final String? email;
   final String? password;
+  final String? newPassword;
+  final String? confirmPassword;
+  final String? poin;
   final String? token;
 
   UserModel({
@@ -10,6 +13,9 @@ class UserModel {
     this.name,
     this.email,
     this.password,
+    this.newPassword,
+    this.confirmPassword,
+    this.poin,
     this.token,
   });
 
@@ -17,7 +23,18 @@ class UserModel {
         id: json['id'],
         name: json['name'],
         email: json['email'],
-        password: json['password'],
+        poin: json['points'].toString(),
+        password: json['old_password'],
+        newPassword: json['new_password'],
+        confirmPassword: json['confirm_password'],
         token: json['token'],
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'old_password': password,
+      'new_password': newPassword,
+      'confirm_password': confirmPassword,
+    };
+  }
 }

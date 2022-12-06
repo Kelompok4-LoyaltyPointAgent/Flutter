@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:loyalty_point_agent/models/login_model.dart';
-import 'package:loyalty_point_agent/models/user_model.dart';
 import 'package:loyalty_point_agent/services/login_service.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,10 +32,9 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  deleteToken() async {
+  void deleteToken() async {
     _prefs = await SharedPreferences.getInstance();
     _prefs!.remove('token');
-    notifyListeners();
   }
 
   // Future getCurrentUser() async {
