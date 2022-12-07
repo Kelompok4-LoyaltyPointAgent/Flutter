@@ -6,5 +6,6 @@ class Urls {
   static const String register = 'api/v1/register';
   static const String user = 'api/v1/users/me';
   static const String changePassword = 'api/v1/users/change-password';
+  static const String pulsa = '/api/v1/products/credits';
   static const String paketData = 'api/v1/products/packages';
 }

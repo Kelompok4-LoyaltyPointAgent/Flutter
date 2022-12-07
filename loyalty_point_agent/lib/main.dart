@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
 import 'package:loyalty_point_agent/providers/onboarding_provider.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/register_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
