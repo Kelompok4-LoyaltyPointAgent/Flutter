@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final val = context.watch<CheckboxProvider>().val == false;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -138,23 +136,6 @@ class _LoginState extends State<Login> {
                           obscureText: value,
                         );
                       }),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: val,
-                          onChanged: (value) => context
-                              .read<CheckboxProvider>()
-                              .set(value! ? false : true),
-                        ),
-                        Text(
-                          'Ingatkan Saya',
-                          style: yellowTextStyle,
-                        )
-                      ],
                     ),
                     const SizedBox(
                       height: 70,

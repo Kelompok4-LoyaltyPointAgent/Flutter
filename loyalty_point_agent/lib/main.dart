@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => OnboardingProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => CheckboxProvider(),
-        ),
       ],
       // child: const MaterialApp(
       //   debugShowCheckedModeBanner: false,
