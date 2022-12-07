@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PaketDataProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => PulsaProvider(),
+        ),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {
         return MaterialApp(

@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/finite_state.dart';
 
 class DetailPulsaScreen extends StatefulWidget {
-  const DetailPulsaScreen({super.key});
+  final int id;
+  const DetailPulsaScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<DetailPulsaScreen> createState() => _DetailPulsaScreenState();
@@ -69,148 +77,162 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
               thickness: 5,
               color: greyColor,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'Hola Kring-kring',
-                      style: navyTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: semiBold,
-                      ),
+            Consumer<PulsaProvider>(builder: (context, provider, _) {
+              switch (provider.myState) {
+                case MyState.loading:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case MyState.loaded:
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text(
+                            provider.data!.data![widget.id].name,
+                            style: navyTextStyle.copyWith(
+                              fontSize: 20,
+                              fontWeight: semiBold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.credit_card_outlined,
+                              color: yellowColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Provider',
+                              style: blackTextStyle,
+                            ),
+                            const Spacer(),
+                            Text(
+                              provider.data!.data![widget.id].provider,
+                              style: blackTextStyle.copyWith(
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.schedule,
+                              color: yellowColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Masa Aktif',
+                              style: blackTextStyle,
+                            ),
+                            const Spacer(),
+                            Text(
+                              '${provider.data!.data![widget.id].credit.activePeriod} Hari',
+                              style: blackTextStyle.copyWith(
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.smartphone_outlined,
+                              color: yellowColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Nominial Pulsa',
+                              style: blackTextStyle,
+                            ),
+                            const Spacer(),
+                            Text(
+                              '-',
+                              style: blackTextStyle.copyWith(
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.phone_outlined,
+                              color: yellowColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Telepon',
+                              style: blackTextStyle,
+                            ),
+                            const Spacer(),
+                            Text(
+                              '200 Menit',
+                              style: blackTextStyle.copyWith(
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.email_outlined,
+                              color: yellowColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'SMS',
+                              style: blackTextStyle,
+                            ),
+                            const Spacer(),
+                            Text(
+                              '-',
+                              style: blackTextStyle.copyWith(
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.credit_card_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Provider',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Indosat',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Masa Aktif',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '30 Hari',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.smartphone_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Nominial Pulsa',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '-',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Telepon',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '200 Menit',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.email_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'SMS',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '-',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+                  );
+                case MyState.failed:
+                  return const Text('Ada Masalah');
+                default:
+                  return const SizedBox();
+              }
+            }),
           ],
         ),
       ),
@@ -225,57 +247,73 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
             topRight: Radius.circular(20),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 15),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Sub Total',
-                    style: whiteTextStyle,
-                  ),
-                  Text(
-                    '120000',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: semiBold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 42,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RekomendasiDetailPemesananScreen(),
+        child: Consumer<PulsaProvider>(
+          builder: (context, provider, _) {
+            switch (provider.myState) {
+              case MyState.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case MyState.loaded:
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 17, vertical: 15),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Sub Total',
+                            style: whiteTextStyle,
+                          ),
+                          Text(
+                            'Rp. ${provider.data!.data![widget.id].price}',
+                            style: whiteTextStyle.copyWith(
+                              fontWeight: semiBold,
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: yellowColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 42,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const RekomendasiDetailPemesananScreen(),
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: yellowColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Lanjutkan Pemesanan',
+                            style: navyTextStyle.copyWith(
+                              fontWeight: semiBold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    'Lanjutkan Pemesanan',
-                    style: navyTextStyle.copyWith(
-                      fontWeight: semiBold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+                );
+              case MyState.failed:
+                return const Text('Ada Masalah');
+              default:
+                return const SizedBox();
+            }
+          },
         ),
       ),
     );

@@ -17,10 +17,10 @@ class PulsaModel {
     required this.status,
   });
 
-  String message;
-  List<Datum> data;
+  String? message;
+  List<Datum>? data;
   dynamic errors;
-  int status;
+  int? status;
 
   factory PulsaModel.fromJson(Map<String, dynamic> json) => PulsaModel(
         message: json["message"],
@@ -31,7 +31,7 @@ class PulsaModel {
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
         "errors": errors,
         "status": status,
       };
@@ -49,7 +49,7 @@ class Datum {
     required this.stock,
     required this.recommended,
     required this.productPicture,
-    required this.package,
+    required this.credit,
   });
 
   String id;
@@ -62,7 +62,7 @@ class Datum {
   int stock;
   bool recommended;
   ProductPicture productPicture;
-  Package package;
+  Credit credit;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -75,7 +75,7 @@ class Datum {
         stock: json["stock"],
         recommended: json["recommended"],
         productPicture: ProductPicture.fromJson(json["product_picture"]),
-        package: Package.fromJson(json["package"]),
+        credit: Credit.fromJson(json["credit"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,59 +89,31 @@ class Datum {
         "stock": stock,
         "recommended": recommended,
         "product_picture": productPicture.toJson(),
-        "package": package.toJson(),
+        "credit": credit.toJson(),
       };
 }
 
-class Package {
-  Package({
+class Credit {
+  Credit({
     required this.id,
     required this.activePeriod,
-    required this.totalInternet,
-    required this.mainInternet,
-    required this.nightInternet,
-    required this.socialMedia,
-    required this.call,
-    required this.sms,
-    required this.description,
-    required this.termsOfService,
+    required this.amount,
   });
 
   String id;
   int activePeriod;
-  int totalInternet;
-  int mainInternet;
-  int nightInternet;
-  int socialMedia;
-  int call;
-  int sms;
-  String description;
-  String termsOfService;
+  int amount;
 
-  factory Package.fromJson(Map<String, dynamic> json) => Package(
+  factory Credit.fromJson(Map<String, dynamic> json) => Credit(
         id: json["id"],
         activePeriod: json["active_period"],
-        totalInternet: json["total_internet"],
-        mainInternet: json["main_internet"],
-        nightInternet: json["night_internet"],
-        socialMedia: json["social_media"],
-        call: json["call"],
-        sms: json["sms"],
-        description: json["description"],
-        termsOfService: json["terms_of_service"],
+        amount: json["amount"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "active_period": activePeriod,
-        "total_internet": totalInternet,
-        "main_internet": mainInternet,
-        "night_internet": nightInternet,
-        "social_media": socialMedia,
-        "call": call,
-        "sms": sms,
-        "description": description,
-        "terms_of_service": termsOfService,
+        "amount": amount,
       };
 }
 
