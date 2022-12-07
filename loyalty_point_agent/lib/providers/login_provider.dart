@@ -32,10 +32,9 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  deleteToken() async {
+  void deleteToken() async {
     _prefs = await SharedPreferences.getInstance();
     _prefs!.remove('token');
-    notifyListeners();
   }
 
   // Future getCurrentUser() async {
