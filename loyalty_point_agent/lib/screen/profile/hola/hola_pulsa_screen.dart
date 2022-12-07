@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -36,9 +37,7 @@ class _HolaPulsaScreenState extends State<HolaPulsaScreen> {
             height: 40.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                // image: AssetImage('assets/logo_utama.png'),
-                image: NetworkImage(
-                    'https://p4.wallpaperbetter.com/wallpaper/782/814/396/2d-digital-art-anime-anime-girls-pixiv-hd-wallpaper-preview.jpg'),
+                image: AssetImage('assets/potrait4.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -86,18 +85,36 @@ class _HolaPulsaScreenState extends State<HolaPulsaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Transaksi berhasil, pulsa belum diterima',
+                            DataHola.data1,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data1_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      DataHola.data1_3,
+                                      style: blackRegulerTextStyle,
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -108,18 +125,28 @@ class _HolaPulsaScreenState extends State<HolaPulsaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Cara melakukan pembelian produk pulsa yang sama',
+                            DataHola.data2,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data2_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -130,18 +157,36 @@ class _HolaPulsaScreenState extends State<HolaPulsaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Tidak dapat melakukan pembelian pulsa',
+                            DataHola.data3,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data3_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      DataHola.data3_3,
+                                      style: blackRegulerTextStyle,
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
