@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_pulsa_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +19,7 @@ class DetailPulsaScreen extends StatefulWidget {
 
 class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
   final formKey = GlobalKey<FormState>();
+  TextEditingController nomerController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                     height: 5,
                   ),
                   TextFormField(
+                    controller: nomerController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: yellowColor),
@@ -69,6 +71,12 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                     ),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'no tidak boleh kosong';
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ),
@@ -283,13 +291,20 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                         height: 42,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const RekomendasiDetailPemesananScreen(),
-                              ),
-                            );
+                            final isValidForm =
+                                formKey.currentState!.validate();
+                            if (isValidForm) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      RekomendasiPemesananPulsaScreen(
+                                    id: widget.id,
+                                    nomer: nomerController.text,
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: yellowColor,

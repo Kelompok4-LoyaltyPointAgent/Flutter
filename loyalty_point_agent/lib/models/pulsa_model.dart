@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final pulsaModel = pulsaModelFromJson(jsonString);
-
 import 'dart:convert';
 
 PulsaModel pulsaModelFromJson(String str) =>
