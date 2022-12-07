@@ -14,6 +14,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
   final List<String> providerItems = [
     'Telkomsel',
     'Indosat',
+    'Tri',
+    'Axis',
+    'Smartfren',
+    'XL',
   ];
 
   String? selectedValue;

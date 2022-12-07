@@ -1,11 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
-import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/widget/logout_dialog.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deleteToken = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -212,8 +212,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               onTap: () async {
-                // Uri url = Uri.parse('https://wa.me/628139122779');
-                Uri url = Uri.parse('https://youtube.com');
+                Uri url = Uri.parse('https://wa.me/628139122779');
+                // Uri url = Uri.parse('https://youtube.com');
                 if (await canLaunchUrl(url)) {
                   await launchUrl(url);
                 } else {
@@ -234,12 +234,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               onTap: () {
-                deleteToken.deleteToken();
-
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) => BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: AlertDialog(
+                      insetPadding: EdgeInsets.zero,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 24, horizontal: 16),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                          bottom: Radius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: navyColor,
+                      content: const SingleChildScrollView(
+                        child: LogoutDialog(),
+                      ),
+                    ),
                   ),
                 );
               },
