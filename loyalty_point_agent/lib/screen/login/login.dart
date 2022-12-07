@@ -36,6 +36,14 @@ class _LoginState extends State<Login> {
           ),
         );
       } else if (loginProvider.myState == MyState.loaded) {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text(
+        //       'Berhasil Masuk',
+        //     ),
+        //   ),
+        // );
+
         showModalBottomSheet(
           isDismissible: false,
           enableDrag: false,

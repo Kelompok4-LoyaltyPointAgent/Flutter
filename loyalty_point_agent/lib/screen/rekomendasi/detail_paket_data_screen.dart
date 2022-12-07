@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/deskripsi_paket_item.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/syarat_ketentuan_item.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class DetailPaketDataScreen extends StatefulWidget {
-  const DetailPaketDataScreen({super.key});
+  final int id;
+  const DetailPaketDataScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<DetailPaketDataScreen> createState() => _DetailPaketDataScreenState();
@@ -13,6 +20,8 @@ class DetailPaketDataScreen extends StatefulWidget {
 
 class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
   final formKey = GlobalKey<FormState>();
+  String check = '-1';
+  TextEditingController nomerController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +61,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                     height: 5,
                   ),
                   TextFormField(
+                    controller: nomerController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: yellowColor),
@@ -63,6 +73,12 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                     ),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'no tidak boleh kosong';
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ),
@@ -71,197 +87,218 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
               thickness: 5,
               color: greyColor,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'Halo Pelajar 58 GB',
-                      style: navyTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: semiBold,
+            Consumer<PaketDataProvider>(
+              builder: (context, provider, _) {
+                switch (provider.myState) {
+                  case MyState.loading:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case MyState.loaded:
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Text(
+                              provider.data!.data![widget.id].name,
+                              style: navyTextStyle.copyWith(
+                                fontSize: 20,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.credit_card_outlined,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Provider',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                provider.data!.data![widget.id].provider,
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.schedule,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Masa Aktif',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${provider.data!.data![widget.id].package.activePeriod} Hari',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.language,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Internet Utama',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${provider.data!.data![widget.id].package.mainInternet} GB',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.language,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Internet Malam',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${provider.data!.data![widget.id].package.nightInternet} GB',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.list,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Sosial Media',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${provider.data!.data![widget.id].package.socialMedia} GB',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.phone_outlined,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Telepon',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                // ignore: unrelated_type_equality_checks
+                                check == true
+                                    ? provider
+                                        .data!.data![widget.id].package.call
+                                        .toString()
+                                    : 'Sepuasnya',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.email_outlined,
+                                color: yellowColor,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'SMS',
+                                style: blackTextStyle,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${provider.data!.data![widget.id].package.sms} SMS',
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.credit_card_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Provider',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Indosat',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Masa Aktif',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '30 Hari',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.language,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Internet Utama',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '3 GB',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.language,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Internet Malam',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '1 GB',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.list,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Sosial Media',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        '0 GB',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Telepon',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Sepuasnya',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.email_outlined,
-                        color: yellowColor,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'SMS',
-                        style: blackTextStyle,
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Sepuasnya',
-                        style: blackTextStyle.copyWith(
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    );
+                  case MyState.failed:
+                    return const Text('Ada Masalah');
+                  default:
+                    return const SizedBox();
+                }
+              },
             ),
             Divider(
               thickness: 5,
@@ -333,58 +370,75 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
             topRight: Radius.circular(20),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 15),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Sub Total',
-                    style: whiteTextStyle,
-                  ),
-                  Text(
-                    '120000',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: semiBold,
+        child: Consumer<PaketDataProvider>(builder: (context, provider, _) {
+          switch (provider.myState) {
+            case MyState.loading:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case MyState.loaded:
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 17, vertical: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Sub Total',
+                          style: whiteTextStyle,
+                        ),
+                        Text(
+                          'Rp. ${provider.data!.data![widget.id].price}',
+                          style: whiteTextStyle.copyWith(
+                            fontWeight: semiBold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 42,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RekomendasiDetailPemesananScreen(),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 42,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RekomendasiPemesananPaketDataScreen(
+                                id: widget.id,
+                                nomer: nomerController.text,
+                              ),
+                            ),
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: yellowColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'Lanjutkan Pemesanan',
+                          style: navyTextStyle.copyWith(
+                            fontWeight: semiBold,
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: yellowColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ),
-                  child: Text(
-                    'Lanjutkan Pemesanan',
-                    style: navyTextStyle.copyWith(
-                      fontWeight: semiBold,
-                    ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ),
+              );
+            case MyState.failed:
+              return const Text('Ada Masalah');
+            default:
+              return const SizedBox();
+          }
+        }),
       ),
     );
   }

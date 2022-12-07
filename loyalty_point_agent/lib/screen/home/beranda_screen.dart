@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
@@ -22,6 +24,12 @@ class _BerandaScreenState extends State<BerandaScreen> {
     super.initState();
     Future.delayed(Duration.zero, () {
       Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+    });
+    Future.delayed(Duration.zero, () {
+      Provider.of<PulsaProvider>(context, listen: false).fetchPulsa();
+    });
+    Future.delayed(Duration.zero, () {
+      Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
     });
   }
 
@@ -247,28 +255,56 @@ class _BerandaScreenState extends State<BerandaScreen> {
                         ],
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) {
-                        return RekomendasiCard(
-                          image: 'assets/provider_telkomsel.png',
-                          title: 'Kring-kring',
-                          description:
-                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                          price: 'Rp. 50.000',
-                          date: '30 Hari',
-                          poin: '5000 Poin',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DetailPulsaScreen(),
-                              ),
+                    Consumer<PulsaProvider>(
+                      builder: (context, provider, _) {
+                        switch (provider.myState) {
+                          case MyState.loading:
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        );
+                          case MyState.loaded:
+                            if (provider.data == null) {
+                              return const Text('Sorry, your data still empty');
+                            } else {
+                              return SizedBox(
+                                child: ListView.builder(
+                                  itemCount: 2,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return RekomendasiCard(
+                                      image: 'assets/provider_telkomsel.png',
+                                      title: provider.data!.data![index].name,
+                                      description:
+                                          'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
+                                      price:
+                                          'Rp. ${provider.data!.data![index].price.toString()}',
+                                      date:
+                                          '${provider.data!.data![index].credit.activePeriod} Hari',
+                                      poin:
+                                          '${provider.data!.data![index].pricePoints} Poin',
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailPulsaScreen(
+                                              id: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+                          case MyState.failed:
+                            return const Text('Ada Masalah');
+                          default:
+                            return const SizedBox();
+                        }
                       },
                     ),
                     const SizedBox(
@@ -318,29 +354,56 @@ class _BerandaScreenState extends State<BerandaScreen> {
                         ],
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) {
-                        return RekomendasiCard(
-                          image: 'assets/provider_telkomsel.png',
-                          title: 'Kring-kring',
-                          description:
-                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                          price: 'Rp. 50.000',
-                          date: '30 Hari',
-                          poin: '5000 Poin',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const DetailPaketDataScreen(),
-                              ),
+                    Consumer<PaketDataProvider>(
+                      builder: (context, provider, _) {
+                        switch (provider.myState) {
+                          case MyState.loading:
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        );
+                          case MyState.loaded:
+                            if (provider.data == null) {
+                              return const Text('Sorry, your data still empty');
+                            } else {
+                              return SizedBox(
+                                child: ListView.builder(
+                                  itemCount: 1,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return RekomendasiCard(
+                                      image: 'assets/provider_telkomsel.png',
+                                      title: provider.data!.data![index].name,
+                                      description: provider.data!.data![index]
+                                          .package.description,
+                                      price:
+                                          'Rp. ${provider.data!.data![index].price.toString()}',
+                                      date:
+                                          '${provider.data!.data![index].package.activePeriod} Hari',
+                                      poin:
+                                          '${provider.data!.data![index].pricePoints} Poin',
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailPaketDataScreen(
+                                              id: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+                          case MyState.failed:
+                            return const Text('Ada Masalah');
+                          default:
+                            return const SizedBox();
+                        }
                       },
                     ),
                     const SizedBox(
