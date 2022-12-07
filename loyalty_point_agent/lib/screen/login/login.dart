@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/models/login_model.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil.dart';
+import 'package:loyalty_point_agent/screen/register/register.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -11,17 +17,50 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   late ValueNotifier<bool> isObscure;
   @override
   void initState() {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    loginProvider.addListener(() {
+      if (loginProvider.myState == MyState.failed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Email atau Kata Sandi Salah.',
+            ),
+          ),
+        );
+      } else if (loginProvider.myState == MyState.loaded) {
+        showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
+          ),
+          builder: (context) => BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: const LoginBerhasil(),
+          ),
+        );
+      }
+    });
+
     isObscure = ValueNotifier(true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -71,7 +110,7 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const Login(),
+                          builder: (context) => const Register(),
                         ),
                       );
                     },
@@ -80,6 +119,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             Form(
+              key: formKey,
               child: Padding(
                 padding:
                     const EdgeInsets.only(left: 20, right: 20, bottom: 130),
@@ -91,6 +131,20 @@ class _LoginState extends State<Login> {
                       style: navyTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     TextFormField(
+                      controller: emailController,
+                      validator: (String? value) {
+                        const String expression = "[a-zA-Z0-9+._%-+]{1,256}"
+                            "\\@"
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
+                            "("
+                            "\\."
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
+                            ")+";
+                        final RegExp regExp = RegExp(expression);
+                        return !regExp.hasMatch(value!)
+                            ? "Masukkan email yang valid!"
+                            : null;
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: yellowColor),
@@ -114,6 +168,14 @@ class _LoginState extends State<Login> {
                       valueListenable: isObscure,
                       builder: ((context, value, _) {
                         return TextFormField(
+                          controller: passwordController,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Mohon masukkan password yang benar';
+                            } else {
+                              return null;
+                            }
+                          },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: yellowColor),
@@ -145,19 +207,31 @@ class _LoginState extends State<Login> {
                         backgroundColor: yellowColor,
                         minimumSize: const Size(double.infinity, 50),
                       ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NavBarScreen(),
-                          ),
-                          (route) => false,
-                        );
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+
+                          await loginProvider.login(
+                            LoginModel(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                        }
                       },
-                      child: Text(
-                        'Masuk',
-                        style: blackRegulerTextStyle.copyWith(
-                            fontWeight: semiBold, fontSize: 16),
+                      child: Consumer<LoginProvider>(
+                        builder: (context, login, circular) {
+                          if (login.myState == MyState.loading) {
+                            return circular!;
+                          } else {
+                            return Text(
+                              'Masuk',
+                              style: blackRegulerTextStyle.copyWith(
+                                  fontWeight: semiBold, fontSize: 16),
+                            );
+                          }
+                        },
+                        child: const CircularProgressIndicator(),
                       ),
                     ),
                     const SizedBox(

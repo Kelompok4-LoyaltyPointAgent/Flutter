@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -126,27 +128,6 @@ class _RekomendasiDetailPemesananScreenState
               visualDensity: const VisualDensity(vertical: -4),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Gunakan Poin',
-                style: blackTextStyle,
-              ),
-              trailing: Switch(
-                // This bool value toggles the switch.
-                value: light,
-                activeColor: Colors.red,
-                onChanged: (bool value) {
-                  // This is called when the user toggles the switch.
-                  setState(() {
-                    light = value;
-                  });
-                },
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
-            ),
-          ),
         ],
       ),
       bottomSheet: Container(
@@ -183,10 +164,14 @@ class _RekomendasiDetailPemesananScreenState
                 child: InkWell(
                   onTap: () {
                     showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const AlertDialog(
-                        content: SingleChildScrollView(
-                          child: RekomendasiTransaksiSuksess(),
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: const AlertDialog(
+                          content: SingleChildScrollView(
+                            child: RekomendasiTransaksiSuksess(),
+                          ),
                         ),
                       ),
                     );

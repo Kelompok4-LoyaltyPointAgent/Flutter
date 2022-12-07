@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
@@ -56,8 +57,7 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const RekomendasiPemesananScreen(),
+                              builder: (context) => const DetailPulsaScreen(),
                             ),
                           );
                         },
@@ -82,7 +82,7 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const RekomendasiPemesananScreen(),
+                                  const DetailPaketDataScreen(),
                             ),
                           );
                         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/poin_penukaran_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.dart';
@@ -13,15 +14,15 @@ class PoinScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: grayishColor,
+        backgroundColor: whiteColor,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Hai, Kartika Noviyanti!',
-              style: blackTextStyle.copyWith(
+              style: navyTextStyle.copyWith(
                 fontSize: 16,
-                fontWeight: medium,
+                fontWeight: semiBold,
               ),
             ),
             Row(
@@ -34,14 +35,14 @@ class PoinScreen extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  '1000',
+                  '1000 poin',
                   style: yellowTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         toolbarHeight: 70,
@@ -56,7 +57,7 @@ class PoinScreen extends StatelessWidget {
             icon: Icon(
               Icons.notifications_none,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
           ),
           IconButton(
@@ -64,8 +65,11 @@ class PoinScreen extends StatelessWidget {
             icon: Icon(
               Icons.favorite,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
+          ),
+          const SizedBox(
+            width: 10,
           ),
         ],
       ),
@@ -94,20 +98,36 @@ class PoinScreen extends StatelessWidget {
                 child: Wrap(
                   spacing: 80,
                   runSpacing: 20,
-                  children: const [
+                  children: [
                     CardMenu(
                       image: 'assets/pulsa.png',
                       title: 'Pulsa',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PoinRekomendasiScreen(),
+                          ),
+                        );
+                      },
                     ),
                     CardMenu(
                       image: 'assets/paket_data.png',
                       title: 'Paket Data',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PoinRekomendasiScreen(),
+                          ),
+                        );
+                      },
                     ),
-                    CardMenu(
+                    const CardMenu(
                       image: 'assets/tarik_tunai.png',
                       title: 'Tarik Tunai',
                     ),
-                    CardMenu(
+                    const CardMenu(
                       image: 'assets/dompet_elektronik.png',
                       title: 'E-Wallet',
                     ),
@@ -179,7 +199,7 @@ class PoinScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const PoinPenukaranScreen(),
+                                    const PoinDetailPulsaScreen(),
                               ),
                             );
                           },
@@ -236,7 +256,7 @@ class PoinScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const PoinPenukaranScreen(),
+                                    const PoinDetailPaketDataScreen(),
                               ),
                             );
                           },
