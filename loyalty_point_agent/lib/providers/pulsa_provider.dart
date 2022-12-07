@@ -7,16 +7,23 @@ import 'package:loyalty_point_agent/utils/finite_state.dart';
 class PulsaProvider extends ChangeNotifier {
   final PulsaService dataPulsa = PulsaService();
 
-  List<Data> listData = [];
+  PulsaModel? data;
+  MyState myState = MyState.loading;
 
-  Future fetchPulsaData() async {
+  Future fetchPulsa() async {
+    myState = MyState.loading;
+    notifyListeners();
     try {
-      listData = await dataPulsa.fetchPulsa();
+      data = await dataPulsa.getPaketData();
+
+      myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
       if (e is DioError) {
         e.response!.statusCode;
       }
+      myState = MyState.failed;
+      notifyListeners();
     }
   }
 }

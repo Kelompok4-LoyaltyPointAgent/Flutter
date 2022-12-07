@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/models/pulsa_model.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
@@ -25,16 +24,12 @@ class _BerandaScreenState extends State<BerandaScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<UserProvider>(context, listen: false).fetchUsersData();
     });
-    Future.delayed(Duration.zero, () {
-      Provider.of<PulsaProvider>(context, listen: false).fetchPulsaData();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    PulsaProvider pulsaProvider = Provider.of<PulsaProvider>(context);
     return Scaffold(
-      //backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: whiteColor,
@@ -115,18 +110,6 @@ class _BerandaScreenState extends State<BerandaScreen> {
           ),
         ],
       ),
-      // body: Center(
-      //   child: ListView.separated(
-      //       itemBuilder: (context, index) {
-      //         return Container(
-      //           child: Text(pulsaProvider.listData[index].email!),
-      //         );
-      //       },
-      //       separatorBuilder: (context, index) {
-      //         return Divider();
-      //       },
-      //       itemCount: pulsaProvider.listData.length),
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -265,48 +248,49 @@ class _BerandaScreenState extends State<BerandaScreen> {
                         ],
                       ),
                     ),
-                    // ListView.separated(
-                    //     itemBuilder: (context, index) {
-                    //       return Container(
-                    //         child: Text(pulsaProvider.listData[index].name!),
-                    //       );
-                    //     },
-                    //     separatorBuilder: (context, index) {
-                    //       return Divider();
-                    //     },
-                    //     itemCount: pulsaProvider.listData.length),
-                    // FutureBuilder(
-                    //     future: pulsaProvider.fetchPulsaData(),
-                    //     builder: (context, snapshot) {
-                    //       return ListView.builder(
-                    //         shrinkWrap: true,
-                    //         itemCount: pulsaProvider.listData.length,
-                    //         primary: false,
-                    //         itemBuilder: (BuildContext context, int index) {
-                    //           final data = pulsaProvider.listData[index];
-                    //           return ListTile(
-                    //             title: Text(data.name!),
-                    //           );
-                    //           // return RekomendasiCard(
-                    //           //   image: data.product_picture!,
-                    //           //   title: data.provider.toString(),
-                    //           //   description: data.provider.toString(),
-                    //           //   price: data.price.toString(),
-                    //           //   date: data.masaAktif.toString(),
-                    //           //   poin: data.rewardPoints.toString(),
-                    //           //   onPressed: () {
-                    //           //     Navigator.push(
-                    //           //       context,
-                    //           //       MaterialPageRoute(
-                    //           //         builder: (context) =>
-                    //           //             const DetailPulsaScreen(),
-                    //           //       ),
-                    //           //     );
-                    //           //   },
-                    //           // );
-                    //         },
-                    //       );
-                    //     }),
+                    Consumer<PulsaProvider>(builder: (context, provider, _) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Sorry, your data still empty');
+                          } else {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 2,
+                              primary: false,
+                              itemBuilder: (BuildContext context, int index) {
+                                return RekomendasiCard(
+                                  image: 'assets/provider_telkomsel.png',
+                                  title: provider.data!.data[index].name,
+                                  description:
+                                      'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
+                                  price: 'Rp. 50.000',
+                                  date: '30 Hari',
+                                  poin: '5000 Poin',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DetailPulsaScreen(),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          }
+                          break;
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    }),
                     const SizedBox(
                       height: 10,
                     ),

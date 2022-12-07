@@ -8,30 +8,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PulsaService {
   final Dio _dio = Dio();
 
-  Future fetchPulsa() async {
+  Future<PulsaModel> getPaketData() async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
     String? token;
     token = prefs.getString("token");
     try {
       final response = await _dio.get(
-        'https://reqres.in/api/users/',
-        // options: Options(
-        //   headers: {
-        //     "Authorization": "Bearer $token",
-        //   },
-        // ),
+        Urls.baseUrl + Urls.paketData,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
       );
 
-      final List extactData = (jsonDecode(response.data))['data'];
-      List<Data> data = extactData.map((e) => Data.fromJson(e)).toList();
-      print(data);
-      return data;
+      // print(response.data);
 
-      //print(response.data['data']);
-      //final List extactData = (jsonDecode(response.data))['data'];
-      // final data = PulsaModel.fromJson(extactData);
-      // List jsonResponse = json.decode(response.data['data']);
-      // return jsonResponse.map((data) => PulsaModel.fromJson(data)).toList();
+      return PulsaModel.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }
