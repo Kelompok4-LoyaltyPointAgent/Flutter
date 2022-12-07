@@ -14,7 +14,7 @@ class PulsaProvider extends ChangeNotifier {
     myState = MyState.loading;
     notifyListeners();
     try {
-      data = await dataPulsa.getPaketData();
+      data = await dataPulsa.getPulsa();
 
       myState = MyState.loaded;
       notifyListeners();
