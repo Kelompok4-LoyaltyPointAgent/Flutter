@@ -1,25 +1,27 @@
-class PulsaModel {
-  final String? id;
-  final String? name;
-  final String? provider;
-  final int? price;
-  final int? pricePoints;
-  final String? product_picture;
+class Data {
+  int? id;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? avatar;
 
-  PulsaModel({
-    this.id,
-    this.name,
-    this.provider,
-    this.price,
-    this.pricePoints,
-    this.product_picture,
-  });
+  Data({this.id, this.email, this.firstName, this.lastName, this.avatar});
 
-  factory PulsaModel.fromJson(Map<String, dynamic> json) => PulsaModel(
-      id: json['id'],
-      name: json['name'],
-      provider: json['provider'],
-      price: json['price'],
-      pricePoints: json['price_points'],
-      product_picture: json['product_picure']);
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    email = json['email'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    avatar = json['avatar'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['email'] = email;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['avatar'] = avatar;
+    return data;
+  }
 }
