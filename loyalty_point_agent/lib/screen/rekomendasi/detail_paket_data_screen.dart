@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_detail_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/deskripsi_paket_item.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/syarat_ketentuan_item.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
@@ -21,6 +21,7 @@ class DetailPaketDataScreen extends StatefulWidget {
 class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
   final formKey = GlobalKey<FormState>();
   String check = '-1';
+  TextEditingController nomerController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +61,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                     height: 5,
                   ),
                   TextFormField(
+                    controller: nomerController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: yellowColor),
@@ -71,6 +73,12 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                     ),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'no tidak boleh kosong';
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ),
@@ -401,7 +409,10 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const RekomendasiDetailPemesananScreen(),
+                                  RekomendasiPemesananPaketDataScreen(
+                                id: widget.id,
+                                nomer: nomerController.text,
+                              ),
                             ),
                           );
                         },

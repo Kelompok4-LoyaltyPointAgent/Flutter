@@ -217,7 +217,7 @@ class _LoginState extends State<Login> {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          //formKey.currentState!.save();
+                          formKey.currentState!.save();
 
                           await loginProvider.login(
                             LoginModel(
