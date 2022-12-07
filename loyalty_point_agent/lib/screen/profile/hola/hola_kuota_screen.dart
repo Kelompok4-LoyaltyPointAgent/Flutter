@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -36,9 +37,7 @@ class _HolaKuotaScreenState extends State<HolaKuotaScreen> {
             height: 40.h,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                // image: AssetImage('assets/logo_utama.png'),
-                image: NetworkImage(
-                    'https://i.pinimg.com/originals/d3/03/8d/d3038d13a04645d63f82a7059b1948d8.jpg'),
+                image: AssetImage('assets/portrait2.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -86,18 +85,36 @@ class _HolaKuotaScreenState extends State<HolaKuotaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Transaksi berhasil, paket data belum diterima',
+                            DataHola.data4,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data4_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      DataHola.data4_3,
+                                      style: blackRegulerTextStyle,
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -108,18 +125,28 @@ class _HolaKuotaScreenState extends State<HolaKuotaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Cara melakukan pembelian produk paket data yang sama',
+                            DataHola.data5,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data5_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -130,18 +157,36 @@ class _HolaKuotaScreenState extends State<HolaKuotaScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Tidak dapat melakukan pembelian paket data',
+                            DataHola.data6,
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.data6_2,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      DataHola.data6_3,
+                                      style: blackRegulerTextStyle,
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
