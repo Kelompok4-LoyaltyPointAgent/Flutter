@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
-import 'package:loyalty_point_agent/screen/home/beranda_screen.dart';
+import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
-class DetailPemesananScreen extends StatefulWidget {
-  const DetailPemesananScreen({super.key, required this.id});
+import '../../providers/pulsa_provider.dart';
+
+class DetailPemesananPulsaScreen extends StatefulWidget {
+  const DetailPemesananPulsaScreen(
+      {super.key, required this.id, required this.number});
 
   final int id;
+  final String number;
 
   @override
-  State<DetailPemesananScreen> createState() => _DetailPemesananScreenState();
+  State<DetailPemesananPulsaScreen> createState() =>
+      _DetailPemesananPulsaScreenState();
 }
 
-class _DetailPemesananScreenState extends State<DetailPemesananScreen> {
+class _DetailPemesananPulsaScreenState
+    extends State<DetailPemesananPulsaScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<PaketDataProvider>(
+    return Consumer<PulsaProvider>(
       builder: (context, provider, _) {
         switch (provider.myState) {
           case MyState.loading:
@@ -68,7 +73,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          'Belum Dikerjakan',
+                          widget.number,
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -182,7 +187,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananScreen> {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const BerandaScreen(),
+                                  builder: (context) => const NavBarScreen(),
                                 ),
                               );
                             },

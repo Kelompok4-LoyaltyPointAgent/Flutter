@@ -11,6 +11,8 @@ class PulsaPaketDataScreen extends StatefulWidget {
 }
 
 class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController numberController = TextEditingController();
   final List<String> providerItems = [
     'Telkomsel',
     'Indosat',
@@ -43,6 +45,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.only(
                 top: 20, left: 20, right: 20, bottom: 130),
@@ -65,6 +68,14 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                   ),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
+                  controller: numberController,
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Mohon masukkan nomor yang benar';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -105,7 +116,9 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
-                  child: const WidgetPulsaPaketData(),
+                  child: WidgetPulsaPaketData(
+                    number: numberController.text,
+                  ),
                 ),
 
                 // Column(

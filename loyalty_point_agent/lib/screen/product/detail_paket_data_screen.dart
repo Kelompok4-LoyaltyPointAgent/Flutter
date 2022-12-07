@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/syarat_ketentuan_poin.dart';
-import 'package:loyalty_point_agent/screen/product/detail_pemesanan.dart';
+import 'package:loyalty_point_agent/screen/product/detail_pemesanan_data.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/deskripsi_paket_item.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailPaketDataScreen extends StatefulWidget {
-  const ProductDetailPaketDataScreen({required this.id, super.key});
-
+  const ProductDetailPaketDataScreen(
+      {required this.id, super.key, required this.number});
+  final String number;
   final int id;
 
   @override
@@ -347,7 +348,10 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailPemesananScreen(id: widget.id),
+                                      DetailPemesananDataScreen(
+                                    id: widget.id,
+                                    number: widget.number,
+                                  ),
                                 ),
                               );
                             },
