@@ -52,7 +52,9 @@ class LoginBerhasil extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NavBarScreen(),
+                    builder: (context) => const NavBarScreen(
+                      pageIndex: 0,
+                    ),
                   ),
                 );
               },

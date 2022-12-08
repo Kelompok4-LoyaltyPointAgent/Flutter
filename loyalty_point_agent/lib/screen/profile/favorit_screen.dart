@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_rekomendasi_card.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
@@ -44,12 +43,12 @@ class _FavoritScreenState extends State<FavoritScreen> {
               poin: '2500 poin',
               imageProvider: 'assets/telkomsel.png',
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PoinDetailPulsaScreen(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const PoinDetailPulsaScreen(),
+                //   ),
+                // );
               },
             );
           },
