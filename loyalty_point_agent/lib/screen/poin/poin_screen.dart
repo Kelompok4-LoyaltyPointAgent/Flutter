@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
@@ -20,35 +21,54 @@ class PoinScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: whiteColor,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hai, Kartika Noviyanti!',
-              style: navyTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: semiBold,
-              ),
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: yellowColor,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '1000 poin',
-                  style: yellowTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: medium,
-                  ),
-                ),
-              ],
-            ),
-          ],
+        title: Consumer<UserProvider>(
+          builder: (context, provider, _) {
+            switch (provider.myState) {
+              case MyState.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case MyState.loaded:
+                if (provider.user == null) {
+                  return const Text('Sorry, your data still empty');
+                } else {
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          provider.user!.name.toString(),
+                          style: navyTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: yellowColor,
+                              size: 24,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              provider.user!.poin.toString(),
+                              style: yellowTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: medium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]);
+                }
+              case MyState.failed:
+                return const Text('Oops, something went wrong!');
+              default:
+                return const SizedBox();
+            }
+          },
         ),
         toolbarHeight: 70,
         shape: const RoundedRectangleBorder(
@@ -68,7 +88,7 @@ class PoinScreen extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.favorite,
+              Icons.info_outline,
               size: 30,
               color: yellowColor,
             ),

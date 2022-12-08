@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/widget/feedback.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -188,6 +189,13 @@ class _HolaKuotaScreenState extends State<HolaKuotaScreen> {
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const FeedBack(),
+                      const SizedBox(
+                        height: 50,
                       ),
                     ],
                   ),

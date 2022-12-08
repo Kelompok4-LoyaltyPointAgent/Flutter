@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_kuota_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_layanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_poin_screen.dart';
@@ -17,6 +18,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
@@ -34,24 +36,19 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
           ),
         ),
       ),
-      body: Stack(
+      body: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                // image: AssetImage('assets/logo_utama.png'),
-                image: NetworkImage(
-                    'https://w0.peakpx.com/wallpaper/219/201/HD-wallpaper-anime-girl-anime-cat-cute-girl-kawai-kawaii-moon-wolf.jpg'),
-                fit: BoxFit.cover,
-              ),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            decoration: BoxDecoration(
+              color: backgroundColor,
             ),
-          ),
-          SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 16),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Text(
                     'Bantuan berdasarkan topik',
                     style: whiteTextStyle.copyWith(
@@ -78,7 +75,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                       ),
                     ),
                     child: Wrap(
-                      spacing: 60,
+                      spacing: 85,
                       runSpacing: 20,
                       children: [
                         InkWell(
@@ -116,7 +113,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                             );
                           },
                           child: const CardMenu(
-                            image: 'assets/tarik_tunai.png',
+                            image: 'assets/hola_poin.png',
                             title: 'Hola Poin',
                           ),
                         ),
@@ -129,7 +126,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                             );
                           },
                           child: const CardMenu(
-                            image: 'assets/dompet_elektronik.png',
+                            image: 'assets/layanan.png',
                             title: 'Layanan',
                           ),
                         ),
@@ -137,106 +134,181 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                     ),
                   ),
                 ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 17,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            //height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
                 const SizedBox(
-                  height: 17,
+                  height: 10,
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
+                Text(
+                  'Hola Pulsa',
+                  style:
+                      yellowTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Kata sandi digunakan\n untuk masuk ke akun anda',
+                  style: navyTextStyle.copyWith(
+                    fontWeight: semiBold,
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: yellowColor,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Kenalan tentang kami yuk !',
+                      style: navyTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: semiBold,
+                      ),
                     ),
-                  ),
-                  child: Column(
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Hola Pulsa',
-                        style: yellowTextStyle.copyWith(
-                            fontSize: 24, fontWeight: bold),
-                      ),
-                      Text(
-                        'Kata sandi digunakan untuk masuk ke akun \nanda dan bertransaksi',
-                        style: navyTextStyle.copyWith(fontWeight: semiBold),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Kenalan tentang kami yuk !',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
+                      ListTile(
+                        tileColor: whiteColor,
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Tentang Hola Pulsa',
+                                style: navyTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
                             ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Dapat apa saja di Hola Pulsa ?',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                DataHola.dataUtama1,
+                                style: blackRegulerTextStyle,
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Keunggulan Aplikasi Hola Pulsa',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: yellowColor,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Keunggulan Aplikasi Hola Pulsa',
+                      style: navyTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                    children: [
+                      ListTile(
+                        tileColor: whiteColor,
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Keuntungan Hola Pulsa',
+                                style: navyTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                DataHola.dataUtama2,
+                                style: blackRegulerTextStyle,
+                                textAlign: TextAlign.justify,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: yellowColor,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Dapat apa saja di Hola Pulsa ?',
+                      style: navyTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                    children: [
+                      ListTile(
+                        tileColor: whiteColor,
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Fasilitas terbaik hadir Untukmu',
+                                style: navyTextStyle.copyWith(
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                DataHola.dataUtama3,
+                                style: blackRegulerTextStyle,
+                                textAlign: TextAlign.justify,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
