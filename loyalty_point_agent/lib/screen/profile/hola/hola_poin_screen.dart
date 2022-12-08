@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/widget/feedback.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -37,8 +39,7 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 // image: AssetImage('assets/logo_utama.png'),
-                image: NetworkImage(
-                    'https://anievo.id/wp-content/uploads/2022/05/etyert34.jpg'),
+                image: AssetImage('assets/portrait3.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -86,18 +87,28 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
-                            'Masa berlaku Hola Poin',
+                            'Masa Berlaku Hola Poin',
                             style: navyTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    'Semua poin yang telah Anda kumpulkan akan dihapus per 31 Desember setiap tahunnya.',
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -108,7 +119,7 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         color: yellowColor,
-                        child: ListTile(
+                        child: ExpansionTile(
                           title: Text(
                             'Keuntungan yang saya dapatkan setelah memiliki Hola POIN',
                             style: navyTextStyle.copyWith(
@@ -116,55 +127,28 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
                               fontWeight: semiBold,
                             ),
                           ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
+                          children: [
+                            ListTile(
+                              tileColor: whiteColor,
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    DataHola.poin1,
+                                    style: blackRegulerTextStyle,
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Penukaran poin berhasil, namun hadiah belum saya terima',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
-                      ),
+                      const FeedBack(),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Syarat dan ketentuan dalam pengumpulan dan penukaran poin',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
+                        height: 50,
                       ),
                     ],
                   ),
