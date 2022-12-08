@@ -8,6 +8,7 @@ class CardRekomedasiPoin extends StatelessWidget {
   final String title;
   final String deskripsi;
   final String poin;
+  final String? voucher;
   final Function()? onPressed;
 
   const CardRekomedasiPoin({
@@ -18,6 +19,7 @@ class CardRekomedasiPoin extends StatelessWidget {
     required this.deskripsi,
     required this.poin,
     required this.imageProvider,
+    this.voucher,
     this.onPressed,
   });
 
@@ -44,9 +46,10 @@ class CardRekomedasiPoin extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(
+                Image.network(
                   image,
-                  width: 235,
+                  width: double.infinity,
+                  height: 175,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
@@ -82,12 +85,26 @@ class CardRekomedasiPoin extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: navyTextStyle.copyWith(
-                      fontSize: 14,
-                      fontWeight: semiBold,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        title,
+                        style: navyTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        voucher!,
+                        style: navyTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 5,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class PoinScreen extends StatelessWidget {
   const PoinScreen({Key? key}) : super(key: key);
@@ -14,6 +18,7 @@ class PoinScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: whiteColor,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +84,7 @@ class PoinScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
-                margin: const EdgeInsets.only(top: 25),
+                margin: const EdgeInsets.only(top: 17),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 47,
                   vertical: 10,
@@ -144,9 +149,9 @@ class PoinScreen extends StatelessWidget {
                 vertical: 10,
               ),
               width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: grayishColor,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -175,37 +180,66 @@ class PoinScreen extends StatelessWidget {
                         },
                         child: Text(
                           'Lihat Semua',
-                          style: yellowTextStyle,
+                          style: navyTextStyle,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 320,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CardRekomedasiPoin(
-                          provider: 'Telkomsel',
-                          image: 'assets/poin_rekomendasi.png',
-                          title: 'Halo Pulsa 50.000',
-                          deskripsi:
-                              'Tukarkan poin Anda untuk mendapatkan pulsa 50.000',
-                          poin: '2500 poin',
-                          imageProvider: 'assets/telkomsel.png',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PoinDetailPulsaScreen(),
+                  Consumer<PulsaProvider>(
+                    builder: (context, provider, _) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Sorry, your data still empty');
+                          } else {
+                            return SizedBox(
+                              height: 325,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 2,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CardRekomedasiPoin(
+                                    imageProvider:
+                                        'assets/provider_telkomsel.png',
+                                    image: provider
+                                        .data!.data![index].productPicture.url,
+                                    voucher: provider.data!.data![index].price
+                                        .toString(),
+                                    provider:
+                                        provider.data!.data![index].provider,
+                                    title: provider.data!.data![index].name,
+                                    deskripsi:
+                                        'Tukarkan poin Anda untuk mendapatkan pulsa ${provider.data!.data![index].price}',
+                                    poin:
+                                        '${provider.data!.data![index].pricePoints} Poin',
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PoinDetailPulsaScreen(
+                                            id: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             );
-                          },
-                        );
-                      },
-                    ),
+                          }
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
@@ -232,37 +266,66 @@ class PoinScreen extends StatelessWidget {
                         },
                         child: Text(
                           'Lihat Semua',
-                          style: yellowTextStyle,
+                          style: navyTextStyle,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 320,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CardRekomedasiPoin(
-                          provider: 'Telkomsel',
-                          image: 'assets/poin_rekomendasi.png',
-                          title: 'Halo Nonstop 4 GB ',
-                          deskripsi:
-                              'Hadir untuk Anda memberikan intenet sepuasnya dalam 24 Jam',
-                          poin: '2500 poin',
-                          imageProvider: 'assets/telkomsel.png',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PoinDetailPaketDataScreen(),
+                  Consumer<PaketDataProvider>(
+                    builder: (context, provider, _) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Sorry, your data still empty');
+                          } else {
+                            return SizedBox(
+                              height: 325,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 1,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CardRekomedasiPoin(
+                                    imageProvider:
+                                        'assets/provider_telkomsel.png',
+                                    image: provider
+                                        .data!.data![index].productPicture.url,
+                                    voucher:
+                                        '${provider.data!.data![index].package.totalInternet} GB',
+                                    provider:
+                                        provider.data!.data![index].provider,
+                                    title: provider.data!.data![index].name,
+                                    deskripsi: provider
+                                        .data!.data![index].package.description,
+                                    poin:
+                                        '${provider.data!.data![index].pricePoints} Poin',
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PoinDetailPaketDataScreen(
+                                            id: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             );
-                          },
-                        );
-                      },
-                    ),
+                          }
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    },
                   ),
                 ],
               ),

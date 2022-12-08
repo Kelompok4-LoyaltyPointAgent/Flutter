@@ -9,123 +9,73 @@ class SyaratKetentuanItem extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-          minLeadingWidth: 0,
           leading: Text(
-            '1.',
+            '1. Harga sudah termasuk PPN.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Harga sudah termasuk PPN.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '2.',
+            '2. Pelanggan tidak dapat meminta untuk diikutsertakan ke dalam suatu penawaran tertentu.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Pelanggan tidak dapat meminta untuk diikutsertakan ke dalam suatu penawaran tertentu.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '3.',
+            '3. Setelah masa berlaku paket berakhir, maka kuota paket yang tersisa akan hangus.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Setelah masa berlaku paket berakhir, maka kuota paket yang tersisa akan hangus.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '4.',
+            '4. Periode pembelian paket berbatas waktu sesuai dengan ketentuan dari perusahaan provider',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Periode pembelian paket berbatas waktu sesuai dengan ketentuan dari perusahaan provider',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '5.',
+            '5. Kuota Internet dapat digunakan di semua jaringan 2G/3G/4G.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Kuota Internet dapat digunakan di semua jaringan 2G/3G/4G.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '6.',
+            '6. Kuota tidak akan terakumulasi dengan paket lainnya.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Kuota tidak akan terakumulasi dengan paket lainnya.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         ListTile(
-          minLeadingWidth: 0,
           leading: Text(
-            '7.',
+            '7. Pastikan pembelian paket berhasil dengan menerima SMS notifikasi pembelian paket berhasil.',
             style: blackRegulerTextStyle.copyWith(
               fontSize: 12,
               fontWeight: semiBold,
             ),
-          ),
-          title: Text(
-            'Pastikan pembelian paket berhasil dengan menerima SMS notifikasi pembelian paket berhasil.',
-            style: blackRegulerTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: semiBold,
-            ),
+            textAlign: TextAlign.justify,
           ),
         ),
       ],
