@@ -16,9 +16,6 @@ class HistoryProvider extends ChangeNotifier {
       .where((element) => element.type == 'Redeem' || element.type == 'Cashout')
       .toList();
 
-  List<Data> get cashout =>
-      data!.data!.where((element) => element.type == 'Cashout').toList();
-
   MyState myState = MyState.loading;
 
   Future fetchHistory() async {
