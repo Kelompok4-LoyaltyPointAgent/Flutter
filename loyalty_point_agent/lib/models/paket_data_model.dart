@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final paketDataModel = paketDataModelFromJson(jsonString);
+
 import 'dart:convert';
 
 PaketDataModel paketDataModelFromJson(String str) =>
@@ -44,7 +48,9 @@ class Datum {
     required this.rewardPoints,
     required this.stock,
     required this.recommended,
+    required this.description,
     required this.productPicture,
+    required this.icon,
     required this.package,
   });
 
@@ -57,7 +63,9 @@ class Datum {
   int rewardPoints;
   int stock;
   bool recommended;
-  ProductPicture productPicture;
+  String description;
+  Icon productPicture;
+  Icon icon;
   Package package;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -70,7 +78,9 @@ class Datum {
         rewardPoints: json["reward_points"],
         stock: json["stock"],
         recommended: json["recommended"],
-        productPicture: ProductPicture.fromJson(json["product_picture"]),
+        description: json["description"],
+        productPicture: Icon.fromJson(json["product_picture"]),
+        icon: Icon.fromJson(json["icon"]),
         package: Package.fromJson(json["package"]),
       );
 
@@ -84,8 +94,38 @@ class Datum {
         "reward_points": rewardPoints,
         "stock": stock,
         "recommended": recommended,
+        "description": description,
         "product_picture": productPicture.toJson(),
+        "icon": icon.toJson(),
         "package": package.toJson(),
+      };
+}
+
+class Icon {
+  Icon({
+    required this.id,
+    required this.name,
+    required this.url,
+    required this.type,
+  });
+
+  String id;
+  String name;
+  String url;
+  String type;
+
+  factory Icon.fromJson(Map<String, dynamic> json) => Icon(
+        id: json["id"],
+        name: json["name"],
+        url: json["url"],
+        type: json["type"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "url": url,
+        "type": type,
       };
 }
 
@@ -99,8 +139,6 @@ class Package {
     required this.socialMedia,
     required this.call,
     required this.sms,
-    required this.description,
-    required this.termsOfService,
   });
 
   String id;
@@ -111,8 +149,6 @@ class Package {
   int socialMedia;
   int call;
   int sms;
-  String description;
-  String termsOfService;
 
   factory Package.fromJson(Map<String, dynamic> json) => Package(
         id: json["id"],
@@ -123,8 +159,6 @@ class Package {
         socialMedia: json["social_media"],
         call: json["call"],
         sms: json["sms"],
-        description: json["description"],
-        termsOfService: json["terms_of_service"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -136,31 +170,5 @@ class Package {
         "social_media": socialMedia,
         "call": call,
         "sms": sms,
-        "description": description,
-        "terms_of_service": termsOfService,
-      };
-}
-
-class ProductPicture {
-  ProductPicture({
-    required this.id,
-    required this.name,
-    required this.url,
-  });
-
-  String id;
-  String name;
-  String url;
-
-  factory ProductPicture.fromJson(Map<String, dynamic> json) => ProductPicture(
-        id: json["id"],
-        name: json["name"],
-        url: json["url"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "url": url,
       };
 }

@@ -115,8 +115,8 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                 return RekomendasiCard(
                                   image: 'assets/provider_telkomsel.png',
                                   title: provider.data!.data![index].name,
-                                  description: provider
-                                      .data!.data![index].package.description,
+                                  description:
+                                      provider.data!.data![index].description,
                                   price:
                                       'Rp. ${provider.data!.data![index].price.toString()}',
                                   date:

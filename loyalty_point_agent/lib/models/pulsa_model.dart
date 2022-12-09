@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final pulsaModel = pulsaModelFromJson(jsonString);
+
 import 'dart:convert';
 
 PulsaModel pulsaModelFromJson(String str) =>
@@ -7,10 +11,10 @@ String pulsaModelToJson(PulsaModel data) => json.encode(data.toJson());
 
 class PulsaModel {
   PulsaModel({
-    required this.message,
-    required this.data,
+    this.message,
+    this.data,
     this.errors,
-    required this.status,
+    this.status,
   });
 
   String? message;
@@ -44,7 +48,9 @@ class Datum {
     required this.rewardPoints,
     required this.stock,
     required this.recommended,
+    required this.description,
     required this.productPicture,
+    required this.icon,
     required this.credit,
   });
 
@@ -57,7 +63,9 @@ class Datum {
   int rewardPoints;
   int stock;
   bool recommended;
-  ProductPicture productPicture;
+  String description;
+  Icon productPicture;
+  Icon icon;
   Credit credit;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -70,7 +78,9 @@ class Datum {
         rewardPoints: json["reward_points"],
         stock: json["stock"],
         recommended: json["recommended"],
-        productPicture: ProductPicture.fromJson(json["product_picture"]),
+        description: json["description"],
+        productPicture: Icon.fromJson(json["product_picture"]),
+        icon: Icon.fromJson(json["icon"]),
         credit: Credit.fromJson(json["credit"]),
       );
 
@@ -84,7 +94,9 @@ class Datum {
         "reward_points": rewardPoints,
         "stock": stock,
         "recommended": recommended,
+        "description": description,
         "product_picture": productPicture.toJson(),
+        "icon": icon.toJson(),
         "credit": credit.toJson(),
       };
 }
@@ -94,45 +106,57 @@ class Credit {
     required this.id,
     required this.activePeriod,
     required this.amount,
+    required this.call,
+    required this.sms,
   });
 
   String id;
   int activePeriod;
   int amount;
+  int call;
+  int sms;
 
   factory Credit.fromJson(Map<String, dynamic> json) => Credit(
         id: json["id"],
         activePeriod: json["active_period"],
         amount: json["amount"],
+        call: json["call"],
+        sms: json["sms"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "active_period": activePeriod,
         "amount": amount,
+        "call": call,
+        "sms": sms,
       };
 }
 
-class ProductPicture {
-  ProductPicture({
+class Icon {
+  Icon({
     required this.id,
     required this.name,
     required this.url,
+    required this.type,
   });
 
   String id;
   String name;
   String url;
+  String type;
 
-  factory ProductPicture.fromJson(Map<String, dynamic> json) => ProductPicture(
+  factory Icon.fromJson(Map<String, dynamic> json) => Icon(
         id: json["id"],
         name: json["name"],
         url: json["url"],
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "url": url,
+        "type": type,
       };
 }
