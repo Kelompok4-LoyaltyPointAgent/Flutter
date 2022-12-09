@@ -240,6 +240,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         }
                                       case MyState.failed:
                                         return const Text('Ada Masalah');
+
                                       default:
                                         return const SizedBox();
                                     }
