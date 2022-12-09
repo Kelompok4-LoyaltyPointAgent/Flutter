@@ -77,7 +77,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data == null) {
+                          if (provider.data!.data == null) {
                             return const Text('Belum Ada Data');
                           } else {
                             return Padding(
@@ -250,7 +250,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data == null) {
+                          if (provider.data!.data == null) {
                             return const Text('Belum Ada Data');
                           } else {
                             return Padding(
