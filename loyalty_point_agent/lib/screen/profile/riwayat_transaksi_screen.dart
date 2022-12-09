@@ -22,11 +22,14 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String reedem = 'Redeem';
+    String berhasil = 'Success';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Riwayat',
+          'Riwayat ',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
@@ -82,7 +85,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                   top: 10, left: 10, right: 10),
                               child: Center(
                                 child: ListView.builder(
-                                    itemCount: provider.data!.data!.length,
+                                    itemCount: provider.purchase!.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Card(
@@ -95,15 +98,73 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    provider.data!.data![index]
-                                                        .product!.provider
-                                                        .toString(),
-                                                    style: dangerTextStyle
-                                                        .copyWith(
-                                                      fontSize: 12,
-                                                      fontWeight: medium,
-                                                    ),
+                                                  Row(
+                                                    children: [
+                                                      CircleAvatar(
+                                                        radius: 5,
+                                                        backgroundColor: berhasil !=
+                                                                provider
+                                                                    .purchase![
+                                                                        index]
+                                                                    .status
+                                                            ? dangerColor
+                                                            : succesColor,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      berhasil ==
+                                                              provider
+                                                                  .purchase![
+                                                                      index]
+                                                                  .status
+                                                          ? Text(
+                                                              provider
+                                                                  .purchase![
+                                                                      index]
+                                                                  .status
+                                                                  .toString(),
+                                                              style:
+                                                                  succsesTextStyle
+                                                                      .copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    medium,
+                                                              ),
+                                                            )
+                                                          : Text(
+                                                              provider
+                                                                  .purchase![
+                                                                      index]
+                                                                  .status
+                                                                  .toString(),
+                                                              style:
+                                                                  dangerTextStyle
+                                                                      .copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    medium,
+                                                              ),
+                                                            ),
+                                                      Text(
+                                                        ' | ',
+                                                        style: blackTextStyle
+                                                            .copyWith(
+                                                                fontSize: 13),
+                                                      ),
+                                                      Text(
+                                                        provider
+                                                            .purchase![index]
+                                                            .type
+                                                            .toString(),
+                                                        style:
+                                                            blackRegulerTextStyle
+                                                                .copyWith(
+                                                          fontSize: 12,
+                                                          fontWeight: medium,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Text(
                                                     '${provider.data!.data![index].product!.name}',
@@ -118,22 +179,25 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                   Text(
                                                     '25 November 2022',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 13),
+                                                        .copyWith(fontSize: 12),
                                                   ),
                                                   Text(
                                                     ' | ',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 13),
+                                                        .copyWith(fontSize: 12),
                                                   ),
                                                   Icon(
-                                                    Icons.star,
-                                                    color: yellowColor,
+                                                    Icons.add_circle_rounded,
+                                                    color: succesColor,
                                                     size: 15,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
                                                   ),
                                                   Text(
                                                     '${provider.data!.data![index].product!.rewardPoints} Poin',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 13),
+                                                        .copyWith(fontSize: 12),
                                                   ),
                                                 ],
                                               ),
@@ -178,67 +242,164 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                       }
                     },
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Center(
-                      child: ListView.builder(
-                          itemCount: 3,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Card(
-                              elevation: 2,
-                              color: whiteColor,
-                              child: ListTile(
-                                title: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                  Consumer<HistoryProvider>(
+                    builder: (context, provider, _) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Belum Ada Data');
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10),
+                              child: Center(
+                                child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 5,
-                                          backgroundColor: dangerColor,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          'Berhasil',
-                                          style: succsesTextStyle.copyWith(
-                                              fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      'Tarik Tunai',
-                                      style: navyTextStyle.copyWith(
-                                          fontWeight: bold),
+                                    Expanded(
+                                      child: ListView.builder(
+                                        itemCount: 2,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Card(
+                                            elevation: 2,
+                                            color: whiteColor,
+                                            child: ListTile(
+                                              title: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      CircleAvatar(
+                                                        radius: 5,
+                                                        backgroundColor:
+                                                            berhasil !=
+                                                                    provider
+                                                                        .redeem[
+                                                                            index]
+                                                                        .status
+                                                                ? dangerColor
+                                                                : succesColor,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      berhasil ==
+                                                              provider
+                                                                  .redeem[index]
+                                                                  .status
+                                                          ? Text(
+                                                              provider
+                                                                  .redeem[index]
+                                                                  .status
+                                                                  .toString(),
+                                                              style:
+                                                                  succsesTextStyle
+                                                                      .copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    medium,
+                                                              ),
+                                                            )
+                                                          : Text(
+                                                              provider
+                                                                  .redeem[index]
+                                                                  .status
+                                                                  .toString(),
+                                                              style:
+                                                                  dangerTextStyle
+                                                                      .copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    medium,
+                                                              ),
+                                                            ),
+                                                      Text(
+                                                        ' | ',
+                                                        style: blackTextStyle
+                                                            .copyWith(
+                                                                fontSize: 13),
+                                                      ),
+                                                      Text(
+                                                        provider
+                                                            .redeem[index].type
+                                                            .toString(),
+                                                        style:
+                                                            blackRegulerTextStyle
+                                                                .copyWith(
+                                                          fontSize: 12,
+                                                          fontWeight: medium,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                    reedem ==
+                                                            provider
+                                                                .redeem[index]
+                                                                .type
+                                                        ? '${provider.redeem[index].product!.name}'
+                                                        : 'Transfer Bank',
+                                                    style:
+                                                        navyTextStyle.copyWith(
+                                                            fontWeight: bold),
+                                                  ),
+                                                ],
+                                              ),
+                                              subtitle: Row(
+                                                children: [
+                                                  Text(
+                                                    reedem ==
+                                                            provider
+                                                                .redeem[index]
+                                                                .type
+                                                        ? '${provider.redeem[index].product!.provider}'
+                                                        : '${provider.redeem[index].method}',
+                                                    style: gbTextStyle,
+                                                  ),
+                                                  const Text(' | '),
+                                                  Icon(
+                                                    Icons.remove_circle,
+                                                    color: dangerColor,
+                                                    size: 15,
+                                                  ),
+                                                  Text(reedem ==
+                                                          provider.redeem[index]
+                                                              .type
+                                                      ? '${provider.redeem[index].product!.rewardPoints} Poin'
+                                                      : '${provider.redeem[index].amount} Poin'),
+                                                ],
+                                              ),
+                                              trailing: Text(
+                                                reedem ==
+                                                        provider
+                                                            .redeem[index].type
+                                                    ? '${provider.redeem[index].product!.price}'
+                                                    : 'Rp. ${provider.redeem[index].amount}',
+                                                style: yellowTextStyle.copyWith(
+                                                    fontWeight: bold,
+                                                    fontSize: 18),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ],
-                                ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                      'BCL',
-                                      style: gbTextStyle,
-                                    ),
-                                    const Text(' | '),
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 15,
-                                    ),
-                                    const Text('14500 Poin'),
-                                  ],
-                                ),
-                                trailing: Text(
-                                  'Rp. 100.000',
-                                  style: yellowTextStyle.copyWith(
-                                      fontWeight: bold, fontSize: 18),
                                 ),
                               ),
                             );
-                          }),
-                    ),
+                          }
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    },
                   ),
                 ],
               ),
