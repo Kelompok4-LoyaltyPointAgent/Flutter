@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
-import 'package:loyalty_point_agent/screen/register/register.dart';
+import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -55,11 +55,12 @@ class _LogoutDialogState extends State<LogoutDialog> {
               onPressed: () {
                 deleteToken.deleteToken();
 
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Register(),
+                    builder: (context) => const Login(),
                   ),
+                  (route) => false,
                 );
               },
               child: Text(
