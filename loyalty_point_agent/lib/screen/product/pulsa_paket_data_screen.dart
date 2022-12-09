@@ -32,17 +32,6 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
 
   String? selectedValue;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.delayed(
-  //     Duration.zero,
-  //     () {
-  //       Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,6 +229,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         }
                                       case MyState.failed:
                                         return const Text('Ada Masalah');
+
                                       default:
                                         return const SizedBox();
                                     }

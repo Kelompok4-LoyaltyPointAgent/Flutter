@@ -36,19 +36,4 @@ class LoginProvider extends ChangeNotifier {
     _prefs = await SharedPreferences.getInstance();
     _prefs!.remove('token');
   }
-
-  // Future getCurrentUser() async {
-  //   try {
-  //     myState = MyState.loading;
-  //     notifyListeners();
-  //     final LoginModel data = await LoginService().getCredentialFromLocal();
-
-  //     final UserModel user = await LoginService().login(data);
-  //     myState = MyState.loaded;
-  //     notifyListeners();
-  //     return user;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
 }

@@ -7,7 +7,6 @@ class UserModel {
   final String? confirmPassword;
   final String? poin;
   final String? token;
-  final String? number;
 
   UserModel({
     this.id,
@@ -18,7 +17,6 @@ class UserModel {
     this.confirmPassword,
     this.poin,
     this.token,
-    this.number,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
