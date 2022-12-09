@@ -8,6 +8,7 @@ import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.
 import 'package:loyalty_point_agent/screen/product/pulsa_paket_data_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -263,23 +264,24 @@ class _BerandaScreenState extends State<BerandaScreen> {
                               child: CircularProgressIndicator(),
                             );
                           case MyState.loaded:
-                            if (provider.data == null) {
+                            if (provider.data!.data == null) {
                               return const Text('Sorry, your data still empty');
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 2,
+                                  itemCount: 1,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: 'assets/provider_telkomsel.png',
+                                      image:
+                                          provider.data!.data![index].icon.url,
                                       title: provider.data!.data![index].name,
-                                      description:
-                                          'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                                      price:
-                                          'Rp. ${provider.data!.data![index].price.toString()}',
+                                      description: provider
+                                          .data!.data![index].description,
+                                      price: FormatCurrency.convertToIdr(
+                                          provider.data!.data![index].price, 0),
                                       date:
                                           '${provider.data!.data![index].credit.activePeriod} Hari',
                                       poin:
@@ -362,7 +364,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                               child: CircularProgressIndicator(),
                             );
                           case MyState.loaded:
-                            if (provider.data == null) {
+                            if (provider.data!.data == null) {
                               return const Text('Sorry, your data still empty');
                             } else {
                               return SizedBox(
@@ -373,12 +375,13 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: 'assets/provider_telkomsel.png',
+                                      image:
+                                          provider.data!.data![index].icon.url,
                                       title: provider.data!.data![index].name,
-                                      description: provider.data!.data![index]
-                                          .package.description,
-                                      price:
-                                          'Rp. ${provider.data!.data![index].price.toString()}',
+                                      description: provider
+                                          .data!.data![index].description,
+                                      price: FormatCurrency.convertToIdr(
+                                          provider.data!.data![index].price, 0),
                                       date:
                                           '${provider.data!.data![index].package.activePeriod} Hari',
                                       poin:

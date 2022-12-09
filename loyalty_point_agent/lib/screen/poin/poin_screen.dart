@@ -320,8 +320,8 @@ class PoinScreen extends StatelessWidget {
                                     provider:
                                         provider.data!.data![index].provider,
                                     title: provider.data!.data![index].name,
-                                    deskripsi: provider
-                                        .data!.data![index].package.description,
+                                    deskripsi:
+                                        provider.data!.data![index].description,
                                     poin:
                                         '${provider.data!.data![index].pricePoints} Poin',
                                     onPressed: () {

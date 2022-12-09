@@ -4,6 +4,7 @@ import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/product/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -166,8 +167,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                           child: CircularProgressIndicator(),
                                         );
                                       case MyState.loaded:
-                                        if (provider.data == null) {
-                                          return const Text('Kosong');
+                                        if (provider.data!.data == null) {
+                                          return const Text('Belum Ada Data');
                                         } else {
                                           return ListView.builder(
                                               itemCount:
@@ -200,7 +201,12 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                       ],
                                                     ),
                                                     trailing: Text(
-                                                      'Rp. ${provider.data!.data![index].price}',
+                                                      FormatCurrency
+                                                          .convertToIdr(
+                                                        provider.data!
+                                                            .data![index].price,
+                                                        0,
+                                                      ),
                                                       style: yellowTextStyle
                                                           .copyWith(
                                                               fontWeight: bold,
@@ -245,9 +251,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                           child: CircularProgressIndicator(),
                                         );
                                       case MyState.loaded:
-                                        if (provider.data == null) {
-                                          return const Text(
-                                              'Sorry, your data still empty');
+                                        if (provider.data!.data!.isEmpty) {
+                                          return const Text('Belum Ada Data');
                                         } else {
                                           return ListView.builder(
                                             itemCount:
@@ -294,7 +299,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                     ],
                                                   ),
                                                   trailing: Text(
-                                                    'Rp. ${provider.data!.data![index].price}',
+                                                    FormatCurrency.convertToIdr(
+                                                        provider.data!
+                                                            .data![index].price,
+                                                        0),
                                                     style: yellowTextStyle
                                                         .copyWith(
                                                             fontWeight: bold,

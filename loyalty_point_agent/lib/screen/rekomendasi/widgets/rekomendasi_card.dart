@@ -47,7 +47,7 @@ class RekomendasiCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.asset(
+                  Image.network(
                     image,
                     height: 37,
                     width: 37,

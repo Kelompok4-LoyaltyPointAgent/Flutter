@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/history_provider.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +78,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data == null) {
+                          if (provider.data!.data == null) {
                             return const Text('Belum Ada Data');
                           } else {
                             return Padding(
@@ -202,7 +203,10 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                 ],
                                               ),
                                               trailing: Text(
-                                                'Rp. ${provider.purchase![index].product!.price}',
+                                                FormatCurrency.convertToIdr(
+                                                    provider.purchase![index]
+                                                        .product!.price,
+                                                    0),
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
                                                     fontSize: 18),
@@ -379,7 +383,12 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                         provider
                                                             .redeem[index].type
                                                     ? '${provider.redeem[index].product!.price}'
-                                                    : 'Rp. ${provider.redeem[index].amount}',
+                                                    : FormatCurrency
+                                                        .convertToIdr(
+                                                            provider
+                                                                .redeem[index]
+                                                                .amount,
+                                                            0),
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
                                                     fontSize: 18),
