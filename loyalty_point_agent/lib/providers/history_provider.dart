@@ -9,6 +9,16 @@ class HistoryProvider extends ChangeNotifier {
 
   HistoryModel? data;
 
+  List<Data>? get purchase =>
+      data!.data!.where((element) => element.type == 'Purchase').toList();
+
+  List<Data> get redeem => data!.data!
+      .where((element) => element.type == 'Redeem' || element.type == 'Cashout')
+      .toList();
+
+  List<Data> get cashout =>
+      data!.data!.where((element) => element.type == 'Cashout').toList();
+
   MyState myState = MyState.loading;
 
   Future fetchHistory() async {
@@ -27,7 +37,4 @@ class HistoryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // List<Datum> get purchase =>
-  //     data!.data!.where((element) => element.type == 'Purchase').toList();
 }
