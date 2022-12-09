@@ -167,7 +167,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    '${provider.data!.data![index].product!.name}',
+                                                    '${provider.purchase![index].product!.name}',
                                                     style:
                                                         navyTextStyle.copyWith(
                                                             fontWeight: bold),
@@ -195,14 +195,14 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    '${provider.data!.data![index].product!.rewardPoints} Poin',
+                                                    '${provider.purchase![index].product!.rewardPoints} Poin',
                                                     style: blackTextStyle
                                                         .copyWith(fontSize: 12),
                                                   ),
                                                 ],
                                               ),
                                               trailing: Text(
-                                                'Rp. ${provider.data!.data![index].product!.price}',
+                                                'Rp. ${provider.purchase![index].product!.price}',
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
                                                     fontSize: 18),
