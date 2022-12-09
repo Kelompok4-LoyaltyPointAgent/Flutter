@@ -1,34 +1,33 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
-class RekomendasiPemesananPaketDataScreen extends StatefulWidget {
+class PoinPenukaranPulsaScreen extends StatefulWidget {
   final int id;
   final String nomer;
-  const RekomendasiPemesananPaketDataScreen({
+  const PoinPenukaranPulsaScreen({
     super.key,
     required this.id,
     required this.nomer,
   });
 
   @override
-  State<RekomendasiPemesananPaketDataScreen> createState() =>
-      _RekomendasiPemesananPaketDataScreenState();
+  State<PoinPenukaranPulsaScreen> createState() =>
+      _PoinPenukaranPulsaScreenState();
 }
 
-class _RekomendasiPemesananPaketDataScreenState
-    extends State<RekomendasiPemesananPaketDataScreen> {
+class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Detail Pemesanan',
+          'Detail Penukaran',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
@@ -42,7 +41,7 @@ class _RekomendasiPemesananPaketDataScreenState
           ),
         ),
       ),
-      body: Consumer<PaketDataProvider>(
+      body: Consumer<PulsaProvider>(
         builder: (context, provider, _) {
           switch (provider.myState) {
             case MyState.loading:
@@ -125,11 +124,11 @@ class _RekomendasiPemesananPaketDataScreenState
                     padding: const EdgeInsets.only(left: 10, right: 5),
                     child: ListTile(
                       title: Text(
-                        'Sub Total',
+                        'Poin yang dibutuhkan',
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        'Rp. ${provider.data!.data![widget.id].price}',
+                        provider.data!.data![widget.id].pricePoints.toString(),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -139,11 +138,11 @@ class _RekomendasiPemesananPaketDataScreenState
                     padding: const EdgeInsets.only(left: 10, right: 5),
                     child: ListTile(
                       title: Text(
-                        'Biaya Admin',
+                        'Poin saat ini',
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        'Rp 1.000',
+                        'Belum dikerjakan',
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -158,7 +157,7 @@ class _RekomendasiPemesananPaketDataScreenState
           }
         },
       ),
-      bottomSheet: Consumer<PaketDataProvider>(
+      bottomSheet: Consumer<PulsaProvider>(
         builder: (context, provider, _) {
           switch (provider.myState) {
             case MyState.loading:
@@ -179,13 +178,13 @@ class _RekomendasiPemesananPaketDataScreenState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Total Pembayaran',
+                            'Total Poin',
                             style: blackTextStyle.copyWith(
                               fontWeight: medium,
                             ),
                           ),
                           Text(
-                            'Rp. ${provider.data!.data![widget.id].price + 1000}',
+                            'belum dikerjakan',
                             style: blackTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
@@ -207,7 +206,7 @@ class _RekomendasiPemesananPaketDataScreenState
                                     ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                                 child: const AlertDialog(
                                   content: SingleChildScrollView(
-                                    child: RekomendasiTransaksiSuksess(),
+                                    child: PoinTransaksiSuksess(),
                                   ),
                                 ),
                               ),

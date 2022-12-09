@@ -83,7 +83,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                       ]);
                 }
               case MyState.failed:
-                return const Text('Oops, something went wrong!');
+                return const Text('Ada Masalah');
               default:
                 return const SizedBox();
             }

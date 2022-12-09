@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/history_provider.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class RiwayatTransaksiScreen extends StatefulWidget {
   const RiwayatTransaksiScreen({super.key});
@@ -9,6 +12,14 @@ class RiwayatTransaksiScreen extends StatefulWidget {
 }
 
 class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<HistoryProvider>(context, listen: false).fetchHistory();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,92 +66,117 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
             Expanded(
               child: TabBarView(
                 children: <Widget>[
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Center(
-                      child: ListView.builder(
-                          itemCount: 4,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Card(
-                              elevation: 2,
-                              color: whiteColor,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Telkomsel',
-                                          style: dangerTextStyle.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: medium,
-                                          ),
+                  Consumer<HistoryProvider>(
+                    builder: (context, provider, _) {
+                      switch (provider.myState) {
+                        case MyState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case MyState.loaded:
+                          if (provider.data == null) {
+                            return const Text('Belum Ada Data');
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10),
+                              child: Center(
+                                child: ListView.builder(
+                                    itemCount: provider.data!.data!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Card(
+                                        elevation: 2,
+                                        color: whiteColor,
+                                        child: Column(
+                                          children: [
+                                            ListTile(
+                                              title: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    provider.data!.data![index]
+                                                        .product!.provider
+                                                        .toString(),
+                                                    style: dangerTextStyle
+                                                        .copyWith(
+                                                      fontSize: 12,
+                                                      fontWeight: medium,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${provider.data!.data![index].product!.name}',
+                                                    style:
+                                                        navyTextStyle.copyWith(
+                                                            fontWeight: bold),
+                                                  ),
+                                                ],
+                                              ),
+                                              subtitle: Row(
+                                                children: [
+                                                  Text(
+                                                    '25 November 2022',
+                                                    style: blackTextStyle
+                                                        .copyWith(fontSize: 13),
+                                                  ),
+                                                  Text(
+                                                    ' | ',
+                                                    style: blackTextStyle
+                                                        .copyWith(fontSize: 13),
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: yellowColor,
+                                                    size: 15,
+                                                  ),
+                                                  Text(
+                                                    '${provider.data!.data![index].product!.rewardPoints} Poin',
+                                                    style: blackTextStyle
+                                                        .copyWith(fontSize: 13),
+                                                  ),
+                                                ],
+                                              ),
+                                              trailing: Text(
+                                                'Rp. ${provider.data!.data![index].product!.price}',
+                                                style: yellowTextStyle.copyWith(
+                                                    fontWeight: bold,
+                                                    fontSize: 18),
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                right: 20,
+                                                left: 20,
+                                                bottom: 10,
+                                              ),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: navyColor,
+                                                  minimumSize: const Size(
+                                                      double.infinity, 40),
+                                                ),
+                                                onPressed: () {},
+                                                child: Text(
+                                                  'Beli Lagi',
+                                                  style: whiteTextStyle,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                          'Si Paling Combo',
-                                          style: navyTextStyle.copyWith(
-                                              fontWeight: bold),
-                                        ),
-                                      ],
-                                    ),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          '25 November 2022',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 13),
-                                        ),
-                                        Text(
-                                          ' | ',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 13),
-                                        ),
-                                        Icon(
-                                          Icons.star,
-                                          color: yellowColor,
-                                          size: 15,
-                                        ),
-                                        Text(
-                                          '7250 Poin',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 13),
-                                        ),
-                                      ],
-                                    ),
-                                    trailing: Text(
-                                      'Rp. 145.000',
-                                      style: yellowTextStyle.copyWith(
-                                          fontWeight: bold, fontSize: 18),
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 20,
-                                      left: 20,
-                                      bottom: 10,
-                                    ),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: navyColor,
-                                        minimumSize:
-                                            const Size(double.infinity, 40),
-                                      ),
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Beli Lagi',
-                                        style: whiteTextStyle,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                      );
+                                    }),
                               ),
                             );
-                          }),
-                    ),
+                          }
+                        case MyState.failed:
+                          return const Text('Ada Masalah');
+                        default:
+                          return const SizedBox();
+                      }
+                    },
                   ),
                   Padding(
                     padding:
