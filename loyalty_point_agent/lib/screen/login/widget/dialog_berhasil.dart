@@ -49,13 +49,12 @@ class LoginBerhasil extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NavBarScreen(
-                      pageIndex: 0,
-                    ),
+                    builder: (context) => const NavBarScreen(),
                   ),
+                  (route) => false,
                 );
               },
               child: Text(

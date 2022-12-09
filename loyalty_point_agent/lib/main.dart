@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
 import 'package:loyalty_point_agent/providers/history_provider.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HistoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CheckboxProvider(),
         ),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {
