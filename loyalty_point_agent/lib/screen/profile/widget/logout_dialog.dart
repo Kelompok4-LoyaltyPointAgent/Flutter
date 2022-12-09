@@ -55,12 +55,12 @@ class _LogoutDialogState extends State<LogoutDialog> {
               onPressed: () {
                 deleteToken.deleteToken();
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Register(),
-                  ),
-                );
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Register(),
+                    ),
+                    (route) => false);
               },
               child: Text(
                 'Ya',

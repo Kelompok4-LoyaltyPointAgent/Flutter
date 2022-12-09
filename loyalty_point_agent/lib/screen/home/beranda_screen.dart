@@ -275,8 +275,11 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image:
-                                          provider.data!.data![index].icon.url,
+                                      image: provider.data!.data![index].icon
+                                              .url.isEmpty
+                                          ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
+                                          : provider
+                                              .data!.data![index].icon.url,
                                       title: provider.data!.data![index].name,
                                       description: provider
                                           .data!.data![index].description,
@@ -375,8 +378,11 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image:
-                                          provider.data!.data![index].icon.url,
+                                      image: provider.data!.data![index].icon
+                                              .url.isEmpty
+                                          ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
+                                          : provider
+                                              .data!.data![index].icon.url,
                                       title: provider.data!.data![index].name,
                                       description: provider
                                           .data!.data![index].description,
