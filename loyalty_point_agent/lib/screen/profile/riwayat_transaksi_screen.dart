@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/history_provider.dart';
+import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -28,6 +29,17 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const NavBarScreen(
+                    pageIndex: 2,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.arrow_back)),
         backgroundColor: navyColor,
         title: Text(
           'Riwayat ',
