@@ -40,6 +40,7 @@ class Data {
   String? status;
   String? type;
   TransactionDetail? transactionDetail;
+  String? createdDate;
 
   Data(
       {this.id,
@@ -50,7 +51,8 @@ class Data {
       this.method,
       this.status,
       this.type,
-      this.transactionDetail});
+      this.transactionDetail,
+      this.createdDate});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,6 +67,7 @@ class Data {
     transactionDetail = json['transaction_detail'] != null
         ? TransactionDetail.fromJson(json['transaction_detail'])
         : null;
+    createdDate = json['created_date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -82,6 +85,7 @@ class Data {
     if (transactionDetail != null) {
       data['transaction_detail'] = transactionDetail!.toJson();
     }
+    data['created_date'] = createdDate;
     return data;
   }
 }
@@ -89,7 +93,6 @@ class Data {
 class Product {
   String? id;
   String? name;
-  String? description;
   String? type;
   String? provider;
   int? price;
@@ -97,12 +100,13 @@ class Product {
   int? rewardPoints;
   int? stock;
   bool? recommended;
+  String? description;
   ProductPicture? productPicture;
+  ProductPicture? icon;
 
   Product(
       {this.id,
       this.name,
-      this.description,
       this.type,
       this.provider,
       this.price,
@@ -110,12 +114,13 @@ class Product {
       this.rewardPoints,
       this.stock,
       this.recommended,
-      this.productPicture});
+      this.description,
+      this.productPicture,
+      this.icon});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    description = json['description'];
     type = json['type'];
     provider = json['provider'];
     price = json['price'];
@@ -123,16 +128,17 @@ class Product {
     rewardPoints = json['reward_points'];
     stock = json['stock'];
     recommended = json['recommended'];
+    description = json['description'];
     productPicture = json['product_picture'] != null
         ? ProductPicture.fromJson(json['product_picture'])
         : null;
+    icon = json['icon'] != null ? ProductPicture.fromJson(json['icon']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    data['description'] = description;
     data['type'] = type;
     data['provider'] = provider;
     data['price'] = price;
@@ -140,8 +146,12 @@ class Product {
     data['reward_points'] = rewardPoints;
     data['stock'] = stock;
     data['recommended'] = recommended;
+    data['description'] = description;
     if (productPicture != null) {
       data['product_picture'] = productPicture!.toJson();
+    }
+    if (icon != null) {
+      data['icon'] = icon!.toJson();
     }
     return data;
   }
