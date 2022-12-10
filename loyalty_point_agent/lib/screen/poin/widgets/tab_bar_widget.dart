@@ -112,7 +112,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: 1,
+                              itemCount: provider.data!.data!.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
