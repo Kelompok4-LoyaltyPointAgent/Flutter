@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
@@ -171,8 +169,9 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         child: CircularProgressIndicator(),
                                       );
                                     case MyState.loaded:
-                                      if (provider.data == null) {
-                                        return const Text('Kosong');
+                                      if (provider.data!.data == null) {
+                                        return const Text(
+                                            'Maaf, Data Masih Kosong');
                                       } else {
                                         return ListView.builder(
                                             itemCount:
@@ -204,7 +203,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                     ],
                                                   ),
                                                   trailing: Text(
-                                                    'Rp. ${provider.data!.data![index].price}',
+                                                    FormatCurrency.convertToIdr(
+                                                        provider.data!
+                                                            .data![index].price,
+                                                        0),
                                                     style: yellowTextStyle
                                                         .copyWith(
                                                             fontWeight: bold,
@@ -248,9 +250,9 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         child: CircularProgressIndicator(),
                                       );
                                     case MyState.loaded:
-                                      if (provider.data == null) {
+                                      if (provider.data!.data == null) {
                                         return const Text(
-                                            'Sorry, your data still empty');
+                                            'Maaf, Data Masih Kosong');
                                       } else {
                                         return ListView.builder(
                                           itemCount:
@@ -295,7 +297,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                   ],
                                                 ),
                                                 trailing: Text(
-                                                  'Rp. ${provider.data!.data![index].price}',
+                                                  FormatCurrency.convertToIdr(
+                                                      provider.data!
+                                                          .data![index].price,
+                                                      0),
                                                   style:
                                                       yellowTextStyle.copyWith(
                                                           fontWeight: bold,
