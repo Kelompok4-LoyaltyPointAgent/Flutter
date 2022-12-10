@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +28,8 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.data == null) {
-              return const Text('Kosong');
+            if (provider.data!.data == null) {
+              return const Text('Maaf, Belum Ada Data');
             } else {
               return Scaffold(
                 appBar: AppBar(
@@ -127,7 +128,8 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          'Rp ${provider.data!.data![widget.id].price}',
+                          FormatCurrency.convertToIdr(
+                              provider.data!.data![widget.id].price, 0),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -168,7 +170,9 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                               ),
                             ),
                             Text(
-                              'Rp. ${provider.data!.data![widget.id].price + 1000}',
+                              FormatCurrency.convertToIdr(
+                                  provider.data!.data![widget.id].price + 1000,
+                                  0),
                               style: blackTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: semiBold,

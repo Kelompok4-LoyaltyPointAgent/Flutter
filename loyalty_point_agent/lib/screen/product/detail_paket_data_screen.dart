@@ -4,6 +4,7 @@ import 'package:loyalty_point_agent/screen/poin/widgets/syarat_ketentuan_poin.da
 import 'package:loyalty_point_agent/screen/product/detail_pemesanan_data.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/deskripsi_paket_item.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class ProductDetailPaketDataScreen extends StatefulWidget {
 }
 
 class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
-  String check = '-1';
+  int check = -1;
   @override
   Widget build(BuildContext context) {
     return Consumer<PaketDataProvider>(
@@ -212,8 +213,9 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                // ignore: unrelated_type_equality_checks
-                                check == true
+                                check !=
+                                        provider
+                                            .data!.data![widget.id].package.call
                                     ? provider
                                         .data!.data![widget.id].package.call
                                         .toString()
@@ -242,7 +244,13 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.sms}',
+                                check !=
+                                        provider
+                                            .data!.data![widget.id].package.sms
+                                    ? provider
+                                        .data!.data![widget.id].package.sms
+                                        .toString()
+                                    : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -336,7 +344,8 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                                 style: whiteTextStyle,
                               ),
                               Text(
-                                'Rp. ${provider.data!.data![widget.id].price}',
+                                FormatCurrency.convertToIdr(
+                                    provider.data!.data![widget.id].price, 0),
                                 style: whiteTextStyle.copyWith(
                                     fontWeight: semiBold),
                               ),

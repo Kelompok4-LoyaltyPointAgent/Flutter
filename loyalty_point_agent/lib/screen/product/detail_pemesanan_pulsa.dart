@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -130,7 +131,8 @@ class _DetailPemesananPulsaScreenState
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          'Rp ${provider.data!.data![widget.id].price}',
+                          FormatCurrency.convertToIdr(
+                              provider.data!.data![widget.id].price, 0),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -171,7 +173,9 @@ class _DetailPemesananPulsaScreenState
                               ),
                             ),
                             Text(
-                              'Rp. ${provider.data!.data![widget.id].price + 1000}',
+                              FormatCurrency.convertToIdr(
+                                  provider.data!.data![widget.id].price + 1000,
+                                  0),
                               style: blackTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: semiBold,
