@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -28,6 +29,8 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -72,7 +75,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                     padding: const EdgeInsets.only(left: 10, right: 5),
                     child: ListTile(
                       title: Text(
-                        'Nomer Telpon',
+                        'Nomer Telepon',
                         style: blackTextStyle,
                       ),
                       trailing: Text(
@@ -147,7 +150,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        'Belum dikerjain',
+                        userProvider.user!.poin.toString(),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),

@@ -269,7 +269,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: 2,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
@@ -295,6 +295,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 DetailPulsaScreen(
+                                              productId: provider
+                                                  .data!.data![index].id,
                                               id: index,
                                             ),
                                           ),
@@ -372,7 +374,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: 2,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
