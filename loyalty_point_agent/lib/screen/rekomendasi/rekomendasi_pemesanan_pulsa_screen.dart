@@ -218,7 +218,6 @@ class _RekomendasiPemesananPulsaScreenState
                                 type: 'Purchase',
                               ),
                             );
-                            //print(transactionProvider.pembelian);
                             Uri url = Uri.parse(
                               transactionProvider.pembelian!.data!.invoiceUrl!
                                   .toString(),
