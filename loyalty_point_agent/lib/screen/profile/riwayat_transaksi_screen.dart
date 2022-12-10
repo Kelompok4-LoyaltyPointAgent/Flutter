@@ -178,7 +178,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                               subtitle: Row(
                                                 children: [
                                                   Text(
-                                                    '25 November 2022',
+                                                    '${provider.purchase![index].createdDate}',
                                                     style: blackTextStyle
                                                         .copyWith(fontSize: 12),
                                                   ),
