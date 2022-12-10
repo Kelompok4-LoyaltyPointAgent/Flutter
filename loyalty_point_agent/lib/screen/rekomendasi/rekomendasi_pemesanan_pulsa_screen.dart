@@ -1,17 +1,23 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/providers/transaction_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RekomendasiPemesananPulsaScreen extends StatefulWidget {
+  final String productId;
   final int id;
   final String nomer;
   const RekomendasiPemesananPulsaScreen({
     super.key,
+    required this.productId,
     required this.id,
     required this.nomer,
   });
@@ -25,6 +31,10 @@ class _RekomendasiPemesananPulsaScreenState
     extends State<RekomendasiPemesananPulsaScreen> {
   @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -199,8 +209,25 @@ class _RekomendasiPemesananPulsaScreenState
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
-                          onTap: () {
-                            showDialog(
+                          onTap: () async {
+                            transactionProvider.transaction(
+                              TransactionModel(
+                                productId: widget.productId,
+                                number: widget.nomer,
+                                email: userProvider.user!.email,
+                                type: 'Purchase',
+                              ),
+                            );
+                            Uri url = Uri.parse(
+                              transactionProvider.pembelian!.data!.invoiceUrl!
+                                  .toString(),
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                            await showDialog(
                               barrierDismissible: false,
                               context: context,
                               builder: (context) => BackdropFilter(

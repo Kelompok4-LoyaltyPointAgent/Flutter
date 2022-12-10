@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -23,6 +24,8 @@ class PoinPenukaranPulsaScreen extends StatefulWidget {
 class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -142,7 +145,7 @@ class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        'Belum dikerjakan',
+                        userProvider.user!.poin.toString(),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),

@@ -33,35 +33,36 @@ class PoinScreen extends StatelessWidget {
                   return const Text('Sorry, your data still empty');
                 } else {
                   return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          provider.user!.name.toString(),
-                          style: navyTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: semiBold,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        provider.user!.name.toString(),
+                        style: navyTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: yellowColor,
+                            size: 24,
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: yellowColor,
-                              size: 24,
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            provider.user!.poin.toString(),
+                            style: yellowTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: medium,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              provider.user!.poin.toString(),
-                              style: yellowTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: medium,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]);
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
                 }
               case MyState.failed:
                 return const Text('Oops, something went wrong!');
@@ -220,7 +221,7 @@ class PoinScreen extends StatelessWidget {
                               height: 325,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 2,
+                                itemCount: 3,
                                 shrinkWrap: true,
                                 primary: false,
                                 itemBuilder: (BuildContext context, int index) {
@@ -306,7 +307,7 @@ class PoinScreen extends StatelessWidget {
                               height: 325,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 1,
+                                itemCount: 3,
                                 shrinkWrap: true,
                                 primary: false,
                                 itemBuilder: (BuildContext context, int index) {

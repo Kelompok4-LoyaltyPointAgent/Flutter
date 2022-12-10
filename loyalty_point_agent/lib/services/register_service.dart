@@ -13,6 +13,7 @@ class RegisterService {
         data: data,
       );
       final user = UserModel.fromJson(res.data);
+
       return user;
     } on DioError catch (_) {
       rethrow;

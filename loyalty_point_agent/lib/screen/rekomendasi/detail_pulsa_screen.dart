@@ -7,9 +7,11 @@ import 'package:provider/provider.dart';
 import '../../utils/finite_state.dart';
 
 class DetailPulsaScreen extends StatefulWidget {
+  final String productId;
   final int id;
   const DetailPulsaScreen({
     super.key,
+    required this.productId,
     required this.id,
   });
 
@@ -299,6 +301,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       RekomendasiPemesananPulsaScreen(
+                                    productId: widget.productId,
                                     id: widget.id,
                                     nomer: nomerController.text,
                                   ),

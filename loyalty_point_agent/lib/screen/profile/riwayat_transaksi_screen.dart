@@ -86,156 +86,157 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                   top: 10, left: 10, right: 10),
                               child: Center(
                                 child: ListView.builder(
-                                    itemCount: provider.purchase!.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Card(
-                                        elevation: 2,
-                                        color: whiteColor,
-                                        child: Column(
-                                          children: [
-                                            ListTile(
-                                              title: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      CircleAvatar(
-                                                        radius: 5,
-                                                        backgroundColor: berhasil !=
-                                                                provider
-                                                                    .purchase![
-                                                                        index]
-                                                                    .status
-                                                            ? dangerColor
-                                                            : succesColor,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      berhasil ==
-                                                              provider
-                                                                  .purchase![
-                                                                      index]
-                                                                  .status
-                                                          ? Text(
-                                                              provider
-                                                                  .purchase![
-                                                                      index]
-                                                                  .status
-                                                                  .toString(),
-                                                              style:
-                                                                  succsesTextStyle
-                                                                      .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    medium,
-                                                              ),
-                                                            )
-                                                          : Text(
-                                                              provider
-                                                                  .purchase![
-                                                                      index]
-                                                                  .status
-                                                                  .toString(),
-                                                              style:
-                                                                  dangerTextStyle
-                                                                      .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    medium,
-                                                              ),
+                                  itemCount: provider.purchase!.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Card(
+                                      elevation: 2,
+                                      color: whiteColor,
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            title: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 5,
+                                                      backgroundColor:
+                                                          berhasil !=
+                                                                  provider
+                                                                      .purchase![
+                                                                          index]
+                                                                      .status
+                                                              ? dangerColor
+                                                              : succesColor,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    berhasil ==
+                                                            provider
+                                                                .purchase![
+                                                                    index]
+                                                                .status
+                                                        ? Text(
+                                                            provider
+                                                                .purchase![
+                                                                    index]
+                                                                .status
+                                                                .toString(),
+                                                            style:
+                                                                succsesTextStyle
+                                                                    .copyWith(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  medium,
                                                             ),
-                                                      Text(
-                                                        ' | ',
-                                                        style: blackTextStyle
-                                                            .copyWith(
-                                                                fontSize: 13),
+                                                          )
+                                                        : Text(
+                                                            provider
+                                                                .purchase![
+                                                                    index]
+                                                                .status
+                                                                .toString(),
+                                                            style:
+                                                                dangerTextStyle
+                                                                    .copyWith(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  medium,
+                                                            ),
+                                                          ),
+                                                    Text(
+                                                      ' | ',
+                                                      style: blackTextStyle
+                                                          .copyWith(
+                                                              fontSize: 13),
+                                                    ),
+                                                    Text(
+                                                      provider
+                                                          .purchase![index].type
+                                                          .toString(),
+                                                      style:
+                                                          blackRegulerTextStyle
+                                                              .copyWith(
+                                                        fontSize: 12,
+                                                        fontWeight: medium,
                                                       ),
-                                                      Text(
-                                                        provider
-                                                            .purchase![index]
-                                                            .type
-                                                            .toString(),
-                                                        style:
-                                                            blackRegulerTextStyle
-                                                                .copyWith(
-                                                          fontSize: 12,
-                                                          fontWeight: medium,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Text(
-                                                    '${provider.purchase![index].product!.name}',
-                                                    style:
-                                                        navyTextStyle.copyWith(
-                                                            fontWeight: bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              subtitle: Row(
-                                                children: [
-                                                  Text(
-                                                    '${provider.purchase![index].createdDate}',
-                                                    style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
-                                                  ),
-                                                  Text(
-                                                    ' | ',
-                                                    style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
-                                                  ),
-                                                  Icon(
-                                                    Icons.add_circle_rounded,
-                                                    color: succesColor,
-                                                    size: 15,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    '${provider.purchase![index].product!.rewardPoints} Poin',
-                                                    style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
-                                                  ),
-                                                ],
-                                              ),
-                                              trailing: Text(
-                                                FormatCurrency.convertToIdr(
-                                                    provider.purchase![index]
-                                                        .product!.price,
-                                                    0),
-                                                style: yellowTextStyle.copyWith(
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  '${provider.purchase![index].product!.name}',
+                                                  style: navyTextStyle.copyWith(
                                                     fontWeight: bold,
-                                                    fontSize: 18),
-                                              ),
-                                              onTap: () {},
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                right: 20,
-                                                left: 20,
-                                                bottom: 10,
-                                              ),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: navyColor,
-                                                  minimumSize: const Size(
-                                                      double.infinity, 40),
+                                                  ),
                                                 ),
-                                                onPressed: () {},
-                                                child: Text(
-                                                  'Beli Lagi',
-                                                  style: whiteTextStyle,
+                                              ],
+                                            ),
+                                            subtitle: Row(
+                                              children: [
+                                                Text(
+                                                  '25 November 2022',
+                                                  style: blackTextStyle
+                                                      .copyWith(fontSize: 12),
                                                 ),
+                                                Text(
+                                                  ' | ',
+                                                  style: blackTextStyle
+                                                      .copyWith(fontSize: 12),
+                                                ),
+                                                Icon(
+                                                  Icons.add_circle_rounded,
+                                                  color: succesColor,
+                                                  size: 15,
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  '${provider.purchase![index].product!.rewardPoints} Poin',
+                                                  style: blackTextStyle
+                                                      .copyWith(fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                            trailing: Text(
+                                              FormatCurrency.convertToIdr(
+                                                  provider.purchase![index]
+                                                      .product!.price,
+                                                  0),
+                                              style: yellowTextStyle.copyWith(
+                                                  fontWeight: bold,
+                                                  fontSize: 18),
+                                            ),
+                                            onTap: () {},
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              right: 20,
+                                              left: 20,
+                                              bottom: 10,
+                                            ),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: navyColor,
+                                                minimumSize: const Size(
+                                                    double.infinity, 40),
+                                              ),
+                                              onPressed: () {},
+                                              child: Text(
+                                                'Beli Lagi',
+                                                style: whiteTextStyle,
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             );
                           }
@@ -265,7 +266,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                   children: [
                                     Expanded(
                                       child: ListView.builder(
-                                        itemCount: 2,
+                                        itemCount: provider.redeem.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return Card(

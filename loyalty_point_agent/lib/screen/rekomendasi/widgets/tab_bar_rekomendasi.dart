@@ -78,6 +78,8 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => DetailPulsaScreen(
+                                          productId:
+                                              provider.data!.data![index].id,
                                           id: index,
                                         ),
                                       ),

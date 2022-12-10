@@ -115,12 +115,6 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
                   ),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'nama tidak boleh kosong';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(
                   height: 25,
