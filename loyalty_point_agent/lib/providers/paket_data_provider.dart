@@ -8,6 +8,7 @@ class PaketDataProvider extends ChangeNotifier {
   final PaketDataService service = PaketDataService();
 
   PaketDataModel? data;
+
   MyState myState = MyState.loading;
 
   Future fetchPaketData() async {

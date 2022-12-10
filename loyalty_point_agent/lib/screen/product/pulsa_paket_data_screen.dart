@@ -23,6 +23,7 @@ class PulsaPaketDataScreen extends StatefulWidget {
 class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController numberController = TextEditingController();
+  final TextEditingController dropdownController = TextEditingController();
 
   final List<String> providerItems = [
     'Telkomsel',
@@ -131,12 +132,6 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                           ))
                       .toList(),
                   onChanged: (value) {},
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Silahkan Pilih Provider Kartu Anda';
-                  //   }
-                  //   return value;
-                  // },
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -229,7 +224,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                       if (formKey.currentState!
                                                           .validate()) {
                                                         Navigator.of(context)
-                                                            .pushReplacement(
+                                                            .push(
                                                           MaterialPageRoute(
                                                             builder: (context) =>
                                                                 DetailPemesananPulsaScreen(
