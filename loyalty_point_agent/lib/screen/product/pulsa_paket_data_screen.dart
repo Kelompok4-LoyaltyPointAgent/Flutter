@@ -88,9 +88,9 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                     String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
                     RegExp regExp = RegExp(patttern);
                     if (value!.isEmpty) {
-                      return 'Please enter mobile number';
+                      return 'Mohon Masukkan Nomor Telepon';
                     } else if (!regExp.hasMatch(value)) {
-                      return 'Please enter valid mobile number';
+                      return 'Mohon Masukkan Nomor Telepon Yang Benar';
                     }
                     return null;
                   },
@@ -131,6 +131,11 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                           ))
                       .toList(),
                   onChanged: (value) {},
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Silahkan Pilih Provider Kartu Anda';
+                    }
+                  },
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -223,7 +228,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                       if (formKey.currentState!
                                                           .validate()) {
                                                         Navigator.of(context)
-                                                            .push(
+                                                            .pushReplacement(
                                                           MaterialPageRoute(
                                                             builder: (context) =>
                                                                 DetailPemesananPulsaScreen(
