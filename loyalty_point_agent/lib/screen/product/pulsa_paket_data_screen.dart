@@ -131,11 +131,12 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                           ))
                       .toList(),
                   onChanged: (value) {},
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Silahkan Pilih Provider Kartu Anda';
-                    }
-                  },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'Silahkan Pilih Provider Kartu Anda';
+                  //   }
+                  //   return value;
+                  // },
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
