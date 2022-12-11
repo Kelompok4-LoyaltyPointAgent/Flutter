@@ -5,6 +5,7 @@ import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -53,26 +54,26 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                           child: CircularProgressIndicator(),
                         );
                       case MyState.loaded:
-                        if (provider.data == null) {
-                          return const Text('Sorry, your data still empty');
+                        if (provider.recommended.isEmpty) {
+                          return const Text('Maaf Belum Ada Rekomendasi');
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: provider.data!.data!.length,
+                              itemCount: provider.recommended.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: 'assets/provider_telkomsel.png',
-                                  title: provider.data!.data![index].name,
+                                  image: provider.recommended[index].icon.url,
+                                  title: provider.recommended[index].name,
                                   description:
-                                      'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                                  price:
-                                      'Rp. ${provider.data!.data![index].price.toString()}',
+                                      provider.recommended[index].description,
+                                  price: FormatCurrency.convertToIdr(
+                                      provider.recommended[index].price, 0),
                                   date:
-                                      '${provider.data!.data![index].credit.activePeriod} Hari',
+                                      '${provider.recommended[index].credit.activePeriod} Hari',
                                   poin:
-                                      '${provider.data!.data![index].pricePoints} Poin',
+                                      '${provider.recommended[index].rewardPoints} Poin',
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -105,26 +106,26 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                           child: CircularProgressIndicator(),
                         );
                       case MyState.loaded:
-                        if (provider.data == null) {
-                          return const Text('Sorry, your data still empty');
+                        if (provider.recommended.isEmpty) {
+                          return const Text('Maaf Belum Ada Rekomendasi');
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: 1,
+                              itemCount: provider.recommended.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: 'assets/provider_telkomsel.png',
-                                  title: provider.data!.data![index].name,
+                                  image: provider.recommended[index].icon.url,
+                                  title: provider.recommended[index].name,
                                   description:
-                                      provider.data!.data![index].description,
-                                  price:
-                                      'Rp. ${provider.data!.data![index].price.toString()}',
+                                      provider.recommended[index].description,
+                                  price: FormatCurrency.convertToIdr(
+                                      provider.recommended[index].price, 0),
                                   date:
-                                      '${provider.data!.data![index].package.activePeriod} Hari',
+                                      '${provider.recommended[index].package.activePeriod} Hari',
                                   poin:
-                                      '${provider.data!.data![index].pricePoints} Poin',
+                                      '${provider.recommended[index].rewardPoints} Poin',
                                   onPressed: () {
                                     Navigator.push(
                                       context,

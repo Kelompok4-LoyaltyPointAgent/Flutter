@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_paketdata_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class DetailPaketDataScreen extends StatefulWidget {
 
 class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
   final formKey = GlobalKey<FormState>();
-  String check = '-1';
+  int check = -1;
   TextEditingController nomerController = TextEditingController();
 
   @override
@@ -101,7 +102,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                         children: [
                           Center(
                             child: Text(
-                              provider.data!.data![widget.id].name,
+                              provider.recommended[widget.id].name,
                               style: navyTextStyle.copyWith(
                                 fontSize: 20,
                                 fontWeight: semiBold,
@@ -126,7 +127,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                provider.data!.data![widget.id].provider,
+                                provider.recommended[widget.id].provider,
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -151,7 +152,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.activePeriod} Hari',
+                                '${provider.recommended[widget.id].package.activePeriod} Hari',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -176,7 +177,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.mainInternet} GB',
+                                '${provider.recommended[widget.id].package.mainInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -201,7 +202,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.nightInternet} GB',
+                                '${provider.recommended[widget.id].package.nightInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -226,7 +227,7 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.socialMedia} GB',
+                                '${provider.recommended[widget.id].package.socialMedia} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -251,11 +252,10 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                // ignore: unrelated_type_equality_checks
-                                check == true
-                                    ? provider
-                                        .data!.data![widget.id].package.call
-                                        .toString()
+                                check !=
+                                        provider
+                                            .recommended[widget.id].package.call
+                                    ? '${provider.recommended[widget.id].package.call} Menit'
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
@@ -281,7 +281,11 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.sms} SMS',
+                                check !=
+                                        provider
+                                            .recommended[widget.id].package.sms
+                                    ? '${provider.recommended[widget.id].package.sms} SMS'
+                                    : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -405,7 +409,8 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                             style: whiteTextStyle,
                           ),
                           Text(
-                            'Rp. ${provider.data!.data![widget.id].price}',
+                            FormatCurrency.convertToIdr(
+                                provider.recommended[widget.id].price, 0),
                             style: whiteTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),

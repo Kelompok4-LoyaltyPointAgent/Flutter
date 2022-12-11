@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_pulsa_screen.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -102,7 +103,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                       children: [
                         Center(
                           child: Text(
-                            provider.data!.data![widget.id].name,
+                            provider.recommended[widget.id].name,
                             style: navyTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: semiBold,
@@ -127,7 +128,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.data!.data![widget.id].provider,
+                              provider.recommended[widget.id].provider,
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -152,7 +153,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              '${provider.data!.data![widget.id].credit.activePeriod} Hari',
+                              '${provider.recommended[widget.id].credit.activePeriod} Hari',
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -278,7 +279,8 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             style: whiteTextStyle,
                           ),
                           Text(
-                            'Rp. ${provider.data!.data![widget.id].price}',
+                            FormatCurrency.convertToIdr(
+                                provider.recommended[widget.id].price, 0),
                             style: whiteTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),
@@ -301,7 +303,6 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       RekomendasiPemesananPulsaScreen(
-                                    productId: widget.productId,
                                     id: widget.id,
                                     nomer: nomerController.text,
                                   ),

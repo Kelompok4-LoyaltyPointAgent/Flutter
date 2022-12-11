@@ -8,6 +8,9 @@ class PulsaProvider extends ChangeNotifier {
   final PulsaService dataPulsa = PulsaService();
 
   PulsaModel? data;
+
+  List<Datum> get recommended =>
+      data!.data!.where((element) => element.recommended == true).toList();
   MyState myState = MyState.loading;
 
   Future fetchPulsa() async {
