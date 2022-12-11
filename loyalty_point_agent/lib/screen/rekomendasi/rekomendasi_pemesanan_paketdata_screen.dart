@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
-import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../providers/user_provider.dart';
 
 class RekomendasiPemesananPaketDataScreen extends StatefulWidget {
   final String productId;
@@ -97,7 +98,7 @@ class _RekomendasiPemesananPaketDataScreenState
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].provider,
+                        provider.recommended[widget.id].provider,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -111,7 +112,7 @@ class _RekomendasiPemesananPaketDataScreenState
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].name,
+                        provider.recommended[widget.id].name,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -141,7 +142,7 @@ class _RekomendasiPemesananPaketDataScreenState
                       ),
                       trailing: Text(
                         FormatCurrency.convertToIdr(
-                            provider.data!.data![widget.id].price, 0),
+                            provider.recommended[widget.id].price, 0),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -198,7 +199,7 @@ class _RekomendasiPemesananPaketDataScreenState
                           ),
                           Text(
                             FormatCurrency.convertToIdr(
-                                provider.data!.data![widget.id].price + 1000,
+                                provider.recommended[widget.id].price + 1000,
                                 0),
                             style: blackTextStyle.copyWith(
                               fontSize: 16,
@@ -215,18 +216,14 @@ class _RekomendasiPemesananPaketDataScreenState
                           onTap: () async {
                             await transactionProvider.transaction(
                               TransactionModel(
-                                productId: widget.productId,
+                                productId: provider.recommended[widget.id].id,
                                 number: widget.nomer,
                                 email: userProvider.user!.email,
                                 type: 'Purchase',
                               ),
                             );
-                            // await launch(
-                            //   transactionProvider.pembelian!.data!.invoiceUrl
-                            //       .toString(),
-                            // );
                             Uri url = Uri.parse(
-                              transactionProvider.pembelian!.data!.invoiceUrl
+                              transactionProvider.pembelian!.data!.invoiceUrl!
                                   .toString(),
                             );
                             if (await canLaunchUrl(url)) {

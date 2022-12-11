@@ -103,7 +103,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                       children: [
                         Center(
                           child: Text(
-                            provider.data!.data![widget.id].name,
+                            provider.recommended[widget.id].name,
                             style: navyTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: semiBold,
@@ -128,7 +128,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.data!.data![widget.id].provider,
+                              provider.recommended[widget.id].provider,
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -153,7 +153,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              '${provider.data!.data![widget.id].credit.activePeriod} Hari',
+                              '${provider.recommended[widget.id].credit.activePeriod} Hari',
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -280,7 +280,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                           ),
                           Text(
                             FormatCurrency.convertToIdr(
-                                provider.data!.data![widget.id].price, 0),
+                                provider.recommended[widget.id].price, 0),
                             style: whiteTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),
@@ -303,7 +303,6 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       RekomendasiPemesananPulsaScreen(
-                                    productId: widget.productId,
                                     id: widget.id,
                                     nomer: nomerController.text,
                                   ),

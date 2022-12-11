@@ -8,7 +8,8 @@ class PaketDataProvider extends ChangeNotifier {
   final PaketDataService service = PaketDataService();
 
   PaketDataModel? data;
-
+  List<Datum> get recommended =>
+      data!.data!.where((element) => element.recommended == true).toList();
   MyState myState = MyState.loading;
 
   Future fetchPaketData() async {

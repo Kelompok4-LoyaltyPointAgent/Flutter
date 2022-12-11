@@ -24,6 +24,11 @@ class HistoryProvider extends ChangeNotifier {
     try {
       data = await service.getHistory();
 
+      // Sorting dari Backend katanya
+      // data!.data!.sort((a, b) =>
+      //     b.createdDate.toString().compareTo(a.createdDate.toString()));
+      // notifyListeners();
+
       myState = MyState.loaded;
       notifyListeners();
     } catch (e) {

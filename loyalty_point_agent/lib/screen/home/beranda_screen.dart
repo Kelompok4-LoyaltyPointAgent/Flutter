@@ -50,7 +50,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                 );
               case MyState.loaded:
                 if (provider.user == null) {
-                  return const Text('Sorry, your data still empty');
+                  return const Text('Tidak Ada Data');
                 } else {
                   return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,31 +264,31 @@ class _BerandaScreenState extends State<BerandaScreen> {
                               child: CircularProgressIndicator(),
                             );
                           case MyState.loaded:
-                            if (provider.data!.data == null) {
-                              return const Text('Sorry, your data still empty');
+                            if (provider.recommended.isEmpty) {
+                              return const Text('Maaf Belum Ada Rekomendasi');
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 2,
+                                  itemCount: 1,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: provider.data!.data![index].icon
+                                      image: provider.recommended[index].icon
                                               .url.isEmpty
                                           ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
                                           : provider
-                                              .data!.data![index].icon.url,
-                                      title: provider.data!.data![index].name,
+                                              .recommended[index].icon.url,
+                                      title: provider.recommended[index].name,
                                       description: provider
-                                          .data!.data![index].description,
+                                          .recommended[index].description,
                                       price: FormatCurrency.convertToIdr(
-                                          provider.data!.data![index].price, 0),
+                                          provider.recommended[index].price, 0),
                                       date:
-                                          '${provider.data!.data![index].credit.activePeriod} Hari',
+                                          '${provider.recommended[index].credit.activePeriod} Hari',
                                       poin:
-                                          '${provider.data!.data![index].pricePoints} Poin',
+                                          '${provider.recommended[index].pricePoints} Poin',
                                       onPressed: () {
                                         Navigator.push(
                                           context,
@@ -369,31 +369,31 @@ class _BerandaScreenState extends State<BerandaScreen> {
                               child: CircularProgressIndicator(),
                             );
                           case MyState.loaded:
-                            if (provider.data!.data == null) {
-                              return const Text('Sorry, your data still empty');
+                            if (provider.recommended.isEmpty) {
+                              return const Text('Maaf Belum Ada Rekomendasi');
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 2,
+                                  itemCount: 1,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: provider.data!.data![index].icon
+                                      image: provider.recommended[index].icon
                                               .url.isEmpty
                                           ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
                                           : provider
-                                              .data!.data![index].icon.url,
-                                      title: provider.data!.data![index].name,
+                                              .recommended[index].icon.url,
+                                      title: provider.recommended[index].name,
                                       description: provider
-                                          .data!.data![index].description,
+                                          .recommended[index].description,
                                       price: FormatCurrency.convertToIdr(
-                                          provider.data!.data![index].price, 0),
+                                          provider.recommended[index].price, 0),
                                       date:
-                                          '${provider.data!.data![index].package.activePeriod} Hari',
+                                          '${provider.recommended[index].package.activePeriod} Hari',
                                       poin:
-                                          '${provider.data!.data![index].pricePoints} Poin',
+                                          '${provider.recommended[index].pricePoints} Poin',
                                       onPressed: () {
                                         Navigator.push(
                                           context,

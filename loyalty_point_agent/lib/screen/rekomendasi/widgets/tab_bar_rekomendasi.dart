@@ -54,26 +54,26 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                           child: CircularProgressIndicator(),
                         );
                       case MyState.loaded:
-                        if (provider.data == null) {
-                          return const Text('Sorry, your data still empty');
+                        if (provider.recommended.isEmpty) {
+                          return const Text('Maaf Belum Ada Rekomendasi');
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: provider.data!.data!.length,
+                              itemCount: provider.recommended.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: provider.data!.data![index].icon.url,
-                                  title: provider.data!.data![index].name,
+                                  image: provider.recommended[index].icon.url,
+                                  title: provider.recommended[index].name,
                                   description:
-                                      provider.data!.data![index].description,
+                                      provider.recommended[index].description,
                                   price: FormatCurrency.convertToIdr(
-                                      provider.data!.data![index].price, 0),
+                                      provider.recommended[index].price, 0),
                                   date:
-                                      '${provider.data!.data![index].credit.activePeriod} Hari',
+                                      '${provider.recommended[index].credit.activePeriod} Hari',
                                   poin:
-                                      '${provider.data!.data![index].pricePoints} Poin',
+                                      '${provider.recommended[index].rewardPoints} Poin',
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -106,26 +106,26 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                           child: CircularProgressIndicator(),
                         );
                       case MyState.loaded:
-                        if (provider.data == null) {
-                          return const Text('Sorry, your data still empty');
+                        if (provider.recommended.isEmpty) {
+                          return const Text('Maaf Belum Ada Rekomendasi');
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: provider.data!.data!.length,
+                              itemCount: provider.recommended.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: provider.data!.data![index].icon.url,
-                                  title: provider.data!.data![index].name,
+                                  image: provider.recommended[index].icon.url,
+                                  title: provider.recommended[index].name,
                                   description:
-                                      provider.data!.data![index].description,
+                                      provider.recommended[index].description,
                                   price: FormatCurrency.convertToIdr(
-                                      provider.data!.data![index].price, 0),
+                                      provider.recommended[index].price, 0),
                                   date:
-                                      '${provider.data!.data![index].package.activePeriod} Hari',
+                                      '${provider.recommended[index].package.activePeriod} Hari',
                                   poin:
-                                      '${provider.data!.data![index].pricePoints} Poin',
+                                      '${provider.recommended[index].rewardPoints} Poin',
                                   onPressed: () {
                                     Navigator.push(
                                       context,
