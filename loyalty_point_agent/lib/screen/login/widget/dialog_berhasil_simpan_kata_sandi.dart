@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/login/login.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class BerhasilSimpanKataSandiBaru extends StatefulWidget {
