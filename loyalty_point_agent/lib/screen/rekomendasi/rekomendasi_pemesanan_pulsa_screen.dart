@@ -210,7 +210,7 @@ class _RekomendasiPemesananPulsaScreenState
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () async {
-                            transactionProvider.transaction(
+                            await transactionProvider.transaction(
                               TransactionModel(
                                 productId: widget.productId,
                                 number: widget.nomer,
@@ -218,6 +218,7 @@ class _RekomendasiPemesananPulsaScreenState
                                 type: 'Purchase',
                               ),
                             );
+
                             Uri url = Uri.parse(
                               transactionProvider.pembelian!.data!.invoiceUrl!
                                   .toString(),
