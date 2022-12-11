@@ -20,7 +20,7 @@ class PoinDetailPaketDataScreen extends StatefulWidget {
 class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
   final formKey = GlobalKey<FormState>();
   TextEditingController nomerController = TextEditingController();
-  String check = '-1';
+  int check = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -252,11 +252,10 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                // ignore: unrelated_type_equality_checks
-                                check == true
-                                    ? provider
-                                        .data!.data![widget.id].package.call
-                                        .toString()
+                                check !=
+                                        provider
+                                            .data!.data![widget.id].package.call
+                                    ? '${provider.data!.data![widget.id].package.call} Menit'
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
@@ -282,7 +281,11 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.sms} SMS',
+                                check !=
+                                        provider
+                                            .data!.data![widget.id].package.sms
+                                    ? '${provider.data!.data![widget.id].package.sms} SMS'
+                                    : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -405,7 +408,8 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                           style: whiteTextStyle,
                         ),
                         Text(
-                          provider.data!.data![widget.id].price.toString(),
+                          provider.data!.data![widget.id].pricePoints
+                              .toString(),
                           style: whiteTextStyle.copyWith(
                             fontWeight: semiBold,
                           ),
