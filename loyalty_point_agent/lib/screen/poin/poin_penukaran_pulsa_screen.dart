@@ -8,7 +8,6 @@ import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.d
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PoinPenukaranPulsaScreen extends StatefulWidget {
   final int id;

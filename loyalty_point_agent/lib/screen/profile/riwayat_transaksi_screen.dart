@@ -394,7 +394,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                 reedem ==
                                                         provider
                                                             .redeem[index].type
-                                                    ? '${provider.redeem[index].product!.price}'
+                                                    ? '${provider.redeem[index].product!.pricePoints}'
                                                     : FormatCurrency
                                                         .convertToIdr(
                                                             provider
