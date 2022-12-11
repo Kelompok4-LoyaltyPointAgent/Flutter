@@ -1,16 +1,12 @@
-// To parse this JSON data, do
-//
-//     final pembelianModel = pembelianModelFromJson(jsonString);
-
 import 'dart:convert';
 
-PembelianModel pembelianModelFromJson(String str) =>
-    PembelianModel.fromJson(json.decode(str));
+PaymentModel paymentModelFromJson(String str) =>
+    PaymentModel.fromJson(json.decode(str));
 
-String pembelianModelToJson(PembelianModel data) => json.encode(data.toJson());
+String paymentModelToJson(PaymentModel data) => json.encode(data.toJson());
 
-class PembelianModel {
-  PembelianModel({
+class PaymentModel {
+  PaymentModel({
     this.message,
     this.data,
     this.errors,
@@ -22,7 +18,7 @@ class PembelianModel {
   dynamic errors;
   int? status;
 
-  factory PembelianModel.fromJson(Map<String, dynamic> json) => PembelianModel(
+  factory PaymentModel.fromJson(Map<String, dynamic> json) => PaymentModel(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         errors: json["errors"],
