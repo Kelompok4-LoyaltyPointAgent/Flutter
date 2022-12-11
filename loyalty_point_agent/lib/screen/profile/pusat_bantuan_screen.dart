@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
@@ -6,6 +8,7 @@ import 'package:loyalty_point_agent/screen/profile/hola/hola_layanan_screen.dart
 import 'package:loyalty_point_agent/screen/profile/hola/hola_poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_pulsa_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:sizer/sizer.dart';
 
 class PusatBantuanScreen extends StatefulWidget {
   const PusatBantuanScreen({super.key});
@@ -75,7 +78,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                       ),
                     ),
                     child: Wrap(
-                      spacing: 85,
+                      spacing: max(40, 80),
                       runSpacing: 20,
                       children: [
                         InkWell(

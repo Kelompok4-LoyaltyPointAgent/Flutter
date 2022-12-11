@@ -90,7 +90,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data!.data == null) {
+                          if (provider.purchase == null) {
                             return const Text('Belum Ada Data');
                           } else {
                             return Padding(
@@ -183,7 +183,8 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     '${provider.purchase![index].product!.name}',
                                                     style:
                                                         navyTextStyle.copyWith(
-                                                            fontWeight: bold),
+                                                      fontWeight: bold,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -192,25 +193,25 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                   Text(
                                                     '${provider.purchase![index].createdDate}',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
+                                                        .copyWith(fontSize: 10),
                                                   ),
                                                   Text(
                                                     ' | ',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
+                                                        .copyWith(fontSize: 10),
                                                   ),
                                                   Icon(
                                                     Icons.add_circle_rounded,
                                                     color: succesColor,
-                                                    size: 15,
+                                                    size: 12,
                                                   ),
                                                   const SizedBox(
-                                                    width: 5,
+                                                    width: 3,
                                                   ),
                                                   Text(
                                                     '${provider.purchase![index].product!.rewardPoints} Poin',
                                                     style: blackTextStyle
-                                                        .copyWith(fontSize: 12),
+                                                        .copyWith(fontSize: 10),
                                                   ),
                                                 ],
                                               ),
@@ -221,7 +222,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     0),
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
-                                                    fontSize: 18),
+                                                    fontSize: 16),
                                               ),
                                               onTap: () {},
                                             ),
@@ -403,7 +404,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                             0),
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
-                                                    fontSize: 18),
+                                                    fontSize: 16),
                                               ),
                                             ),
                                           );

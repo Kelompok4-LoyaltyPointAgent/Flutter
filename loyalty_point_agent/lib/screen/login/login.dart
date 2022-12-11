@@ -66,12 +66,13 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
-      body: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: MediaQuery.fromWindow(
         child: Column(
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 100, bottom: 10),
+                padding: const EdgeInsets.only(top: 80, bottom: 10),
                 child: Column(
                   children: [
                     const Image(
@@ -126,8 +127,7 @@ class _LoginState extends State<Login> {
             Form(
               key: formKey,
               child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 20, right: 20, bottom: 130),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
