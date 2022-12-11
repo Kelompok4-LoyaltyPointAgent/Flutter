@@ -17,7 +17,7 @@ class TransactionProvider extends ChangeNotifier {
       // myState = MyState.loading;
       // notifyListeners();
 
-      result = await service.postTransaction(data);
+      pembelian = await service.postTransaction(data);
 
       // myState = MyState.loaded;
       // notifyListeners();

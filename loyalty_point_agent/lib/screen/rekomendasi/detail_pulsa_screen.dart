@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_pulsa_screen.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -278,7 +279,8 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             style: whiteTextStyle,
                           ),
                           Text(
-                            'Rp. ${provider.data!.data![widget.id].price}',
+                            FormatCurrency.convertToIdr(
+                                provider.data!.data![widget.id].price, 0),
                             style: whiteTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),

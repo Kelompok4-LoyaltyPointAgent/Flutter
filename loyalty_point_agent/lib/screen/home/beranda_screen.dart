@@ -400,6 +400,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 DetailPaketDataScreen(
+                                              productId: provider
+                                                  .data!.data![index].id,
                                               id: index,
                                             ),
                                           ),

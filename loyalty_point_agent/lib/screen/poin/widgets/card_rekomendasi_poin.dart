@@ -65,9 +65,14 @@ class CardRekomedasiPoin extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Image.asset(
+                        Image.network(
                           imageProvider,
+                          height: 20,
+                          width: 20,
                           fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         Text(
                           provider,
