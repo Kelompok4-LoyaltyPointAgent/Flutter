@@ -23,6 +23,7 @@ class PulsaPaketDataScreen extends StatefulWidget {
 class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController numberController = TextEditingController();
+  final TextEditingController dropdownController = TextEditingController();
 
   final List<String> providerItems = [
     'Telkomsel',
@@ -88,9 +89,9 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                     String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
                     RegExp regExp = RegExp(patttern);
                     if (value!.isEmpty) {
-                      return 'Please enter mobile number';
+                      return 'Mohon Masukkan Nomor Telepon';
                     } else if (!regExp.hasMatch(value)) {
-                      return 'Please enter valid mobile number';
+                      return 'Mohon Masukkan Nomor Telepon Yang Benar';
                     }
                     return null;
                   },
