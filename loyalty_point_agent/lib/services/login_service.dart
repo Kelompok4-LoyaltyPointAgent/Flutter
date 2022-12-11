@@ -23,4 +23,21 @@ class LoginService {
       rethrow;
     }
   }
+
+  // Future<UserModel> otp(LoginModel data) async {
+  //   // SharedPreferences? prefs = await SharedPreferences.getInstance();
+  //   try {
+  //     final response = await _dio.post(
+  //       Urls.baseUrl + Urls.login,
+  //       data: data,
+  //     );
+
+  //     UserModel user = UserModel.fromJson(response.data);
+  //     // await prefs.setString("token", response.data['data']["token"]);
+
+  //     return user;
+  //   } on DioError catch (_) {
+  //     rethrow;
+  //   }
+  // }
 }
