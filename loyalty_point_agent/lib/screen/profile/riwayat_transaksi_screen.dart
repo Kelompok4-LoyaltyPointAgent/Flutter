@@ -277,7 +277,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                   children: [
                                     Expanded(
                                       child: ListView.builder(
-                                        itemCount: 2,
+                                        itemCount: provider.redeem.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return Card(

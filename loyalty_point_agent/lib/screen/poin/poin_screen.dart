@@ -214,8 +214,8 @@ class PoinScreen extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data == null) {
-                            return const Text('Sorry, your data still empty');
+                          if (provider.data!.data == null) {
+                            return const Text('Maaf Data Kosong');
                           } else {
                             return SizedBox(
                               height: 325,
@@ -300,8 +300,8 @@ class PoinScreen extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.data == null) {
-                            return const Text('Sorry, your data still empty');
+                          if (provider.data!.data == null) {
+                            return const Text('Maaf Belum Ada Data');
                           } else {
                             return SizedBox(
                               height: 325,

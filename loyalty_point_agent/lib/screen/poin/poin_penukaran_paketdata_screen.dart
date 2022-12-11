@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/providers/transaction_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
@@ -29,6 +31,8 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
@@ -192,7 +196,8 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                             ),
                           ),
                           Text(
-                            'Belum Dikerjakan',
+                            provider.data!.data![widget.id].pricePoints
+                                .toString(),
                             style: blackTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
@@ -205,20 +210,45 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
-                          onTap: () {
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) => BackdropFilter(
-                                filter:
-                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: const AlertDialog(
-                                  content: SingleChildScrollView(
-                                    child: PoinTransaksiSuksess(),
+                          onTap: () async {
+                            int limit =
+                                int.parse(userProvider.user!.poin.toString());
+                            if (limit >=
+                                provider.data!.data![widget.id].pricePoints) {
+                              await transactionProvider.transaction(
+                                TransactionModel(
+                                  productId: provider.data!.data![widget.id].id,
+                                  number: widget.nomer,
+                                  email: userProvider.user!.email,
+                                  type: 'Redeem',
+                                ),
+                              );
+
+                              await showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) => BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: WillPopScope(
+                                    onWillPop: () async => false,
+                                    child: const AlertDialog(
+                                      content: SingleChildScrollView(
+                                        child: PoinTransaksiSuksess(),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Poin Tidak Cukup',
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           child: Container(
                             color: navyColor,
