@@ -64,7 +64,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                               itemBuilder: (BuildContext context, int index) {
                                 return CardRekomedasiPoin(
                                   imageProvider:
-                                      'assets/provider_telkomsel.png',
+                                      provider.data!.data![index].icon.url,
                                   image: provider
                                       .data!.data![index].productPicture.url,
                                   voucher: provider.data!.data![index].price
@@ -118,7 +118,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                               itemBuilder: (BuildContext context, int index) {
                                 return CardRekomedasiPoin(
                                   imageProvider:
-                                      'assets/provider_telkomsel.png',
+                                      provider.data!.data![index].icon.url,
                                   image: provider
                                       .data!.data![index].productPicture.url,
                                   voucher:

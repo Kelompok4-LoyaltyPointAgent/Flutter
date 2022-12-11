@@ -7,6 +7,7 @@ import 'package:loyalty_point_agent/providers/transaction_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -140,7 +141,8 @@ class _RekomendasiPemesananPulsaScreenState
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        'Rp. ${provider.data!.data![widget.id].price}',
+                        FormatCurrency.convertToIdr(
+                            provider.data!.data![widget.id].price, 0),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -196,7 +198,9 @@ class _RekomendasiPemesananPulsaScreenState
                             ),
                           ),
                           Text(
-                            'Rp. ${provider.data!.data![widget.id].price + 1000}',
+                            FormatCurrency.convertToIdr(
+                                provider.data!.data![widget.id].price + 1000,
+                                0),
                             style: blackTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
@@ -218,8 +222,12 @@ class _RekomendasiPemesananPulsaScreenState
                                 type: 'Purchase',
                               ),
                             );
+                            // await launch(
+                            //   transactionProvider.pembelian!.data!.invoiceUrl
+                            //       .toString(),
+                            // );
                             Uri url = Uri.parse(
-                              transactionProvider.pembelian!.data!.invoiceUrl!
+                              transactionProvider.pembelian!.data!.invoiceUrl
                                   .toString(),
                             );
                             if (await canLaunchUrl(url)) {
@@ -233,9 +241,12 @@ class _RekomendasiPemesananPulsaScreenState
                               builder: (context) => BackdropFilter(
                                 filter:
                                     ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: const AlertDialog(
-                                  content: SingleChildScrollView(
-                                    child: RekomendasiTransaksiSuksess(),
+                                child: WillPopScope(
+                                  onWillPop: () async => false,
+                                  child: const AlertDialog(
+                                    content: SingleChildScrollView(
+                                      child: RekomendasiTransaksiSuksess(),
+                                    ),
                                   ),
                                 ),
                               ),

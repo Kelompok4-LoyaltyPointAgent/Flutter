@@ -5,6 +5,7 @@ import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -63,12 +64,12 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: 'assets/provider_telkomsel.png',
+                                  image: provider.data!.data![index].icon.url,
                                   title: provider.data!.data![index].name,
                                   description:
-                                      'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                                  price:
-                                      'Rp. ${provider.data!.data![index].price.toString()}',
+                                      provider.data!.data![index].description,
+                                  price: FormatCurrency.convertToIdr(
+                                      provider.data!.data![index].price, 0),
                                   date:
                                       '${provider.data!.data![index].credit.activePeriod} Hari',
                                   poin:
@@ -110,17 +111,17 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                         } else {
                           return SizedBox(
                             child: ListView.builder(
-                              itemCount: 1,
+                              itemCount: provider.data!.data!.length,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: 'assets/provider_telkomsel.png',
+                                  image: provider.data!.data![index].icon.url,
                                   title: provider.data!.data![index].name,
                                   description:
                                       provider.data!.data![index].description,
-                                  price:
-                                      'Rp. ${provider.data!.data![index].price.toString()}',
+                                  price: FormatCurrency.convertToIdr(
+                                      provider.data!.data![index].price, 0),
                                   date:
                                       '${provider.data!.data![index].package.activePeriod} Hari',
                                   poin:
@@ -131,6 +132,8 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             DetailPaketDataScreen(
+                                          productId:
+                                              provider.data!.data![index].id,
                                           id: index,
                                         ),
                                       ),
