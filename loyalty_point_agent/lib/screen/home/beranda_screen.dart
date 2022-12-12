@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
+import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
@@ -53,35 +55,36 @@ class _BerandaScreenState extends State<BerandaScreen> {
                   return const Text('Tidak Ada Data');
                 } else {
                   return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          provider.user!.name.toString(),
-                          style: navyTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: semiBold,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hai, ${provider.user!.name.toString()}!',
+                        style: navyTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: yellowColor,
+                            size: 24,
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: yellowColor,
-                              size: 24,
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '${provider.user!.poin.toString()} poin',
+                            style: yellowTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: medium,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              provider.user!.poin.toString(),
-                              style: yellowTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: medium,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]);
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
                 }
               case MyState.failed:
                 return const Text('Ada Masalah');
@@ -98,17 +101,31 @@ class _BerandaScreenState extends State<BerandaScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RiwayatTransaksiScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.notifications_none,
+              Icons.notifications_rounded,
               size: 30,
               color: yellowColor,
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PusatBantuanScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.info_outline,
+              Icons.info_rounded,
               size: 30,
               color: yellowColor,
             ),
