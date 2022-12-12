@@ -37,6 +37,15 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
   String? selectedValue;
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<PaketDataProvider>(context, listen: false)
+          .fetchFilterPaketData('');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -131,7 +140,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                             ),
                           ))
                       .toList(),
-                  onChanged: (value) {},
+                  onChanged: (value) async {
+                    await Provider.of<PaketDataProvider>(context, listen: false)
+                        .fetchFilterPaketData(value.toString());
+                  },
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -252,27 +264,27 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                               Center(
                                 child: Consumer<PaketDataProvider>(
                                   builder: (context, provider, index) {
-                                    switch (provider.myState) {
+                                    switch (provider.myState2) {
                                       case MyState.loading:
                                         return const Center(
                                           child: CircularProgressIndicator(),
                                         );
                                       case MyState.loaded:
-                                        if (provider.data!.data == null) {
+                                        if (provider.filterData!.data == null) {
                                           return const Text(
                                               'Maaf, Data Masih Kosong');
                                         } else {
                                           return ListView.builder(
-                                            itemCount:
-                                                provider.data!.data!.length,
+                                            itemCount: provider
+                                                .filterData!.data!.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return Card(
                                                 color: grayishColor,
                                                 child: ListTile(
                                                   title: Text(
-                                                    provider.data!.data![index]
-                                                        .name,
+                                                    provider.filterData!
+                                                        .data![index].name,
                                                     style:
                                                         navyTextStyle.copyWith(
                                                             fontWeight: bold),
@@ -283,7 +295,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        '${provider.data!.data![index].package.totalInternet} GB',
+                                                        '${provider.filterData!.data![index].package.totalInternet} GB',
                                                         style: gbTextStyle
                                                             .copyWith(
                                                                 fontWeight:
@@ -293,7 +305,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                              '${provider.data!.data![index].package.activePeriod} Hari'),
+                                                              '${provider.filterData!.data![index].package.activePeriod} Hari'),
                                                           const Text(' | '),
                                                           Icon(
                                                             Icons.star,
@@ -301,14 +313,14 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             size: 15,
                                                           ),
                                                           Text(
-                                                              '${provider.data!.data![index].rewardPoints} Poin'),
+                                                              '${provider.filterData!.data![index].rewardPoints} Poin'),
                                                         ],
                                                       ),
                                                     ],
                                                   ),
                                                   trailing: Text(
                                                     FormatCurrency.convertToIdr(
-                                                        provider.data!
+                                                        provider.filterData!
                                                             .data![index].price,
                                                         0),
                                                     style: yellowTextStyle
@@ -339,7 +351,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                           );
                                         }
                                       case MyState.failed:
-                                        return const Text('Ada Masalah');
+                                        return const Text('Belum Ada Data');
                                       default:
                                         return const SizedBox();
                                     }

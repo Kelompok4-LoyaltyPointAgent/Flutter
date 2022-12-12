@@ -38,7 +38,7 @@ dependencies:
   provider: ^6.0.4
   google_fonts: ^3.0.1
   dropdown_button2: ^1.9.1
-  url_launcher: ^6.1.7
+  url_launcher: ^6.1.6
   carousel_slider: ^4.1.1
   sizer: ^2.0.15
   dio: ^4.0.6

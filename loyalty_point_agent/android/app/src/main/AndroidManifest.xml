@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.loyalty_point_agent">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="loyalty_point_agent"
         android:name="${applicationName}"
@@ -34,6 +35,7 @@
     <queries>
     <intent>
         <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="https" />
     </intent>
     <intent>
