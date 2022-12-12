@@ -228,8 +228,8 @@ class _DetailPemesananPulsaScreenState
                                     onWillPop: () async => false,
                                     child: AlertDialog(
                                       shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
                                       backgroundColor: backgroundColor,
                                       content: const SingleChildScrollView(
                                         child: ProductTransaksiBerhasil(),

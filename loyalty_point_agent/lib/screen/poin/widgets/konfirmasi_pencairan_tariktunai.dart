@@ -20,7 +20,7 @@ class KonfirmasiPencairanTarikTunai extends StatelessWidget {
         ),
         Text(
           'Konfirmasi Pencairan',
-          style: navyTextStyle.copyWith(
+          style: yellowTextStyle.copyWith(
             fontSize: 16,
             fontWeight: semiBold,
           ),
@@ -30,7 +30,7 @@ class KonfirmasiPencairanTarikTunai extends StatelessWidget {
         ),
         Text(
           'Apakah anda yakin ingin melakukan pencairan dana ?',
-          style: blackTextStyle.copyWith(
+          style: whiteTextStyle.copyWith(
             fontSize: 12,
           ),
           textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class KonfirmasiPencairanTarikTunai extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: yellowColor,
+                  backgroundColor: whiteColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
