@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_ewallet.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class PoinDetailEwalletScreen extends StatelessWidget {
@@ -191,7 +191,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                           onWillPop: () async => false,
                           child: const AlertDialog(
                             content: SingleChildScrollView(
-                              child: KonfirmasiPencairan(),
+                              child: KonfirmasiPencairanEwallet(),
                             ),
                           ),
                         ),

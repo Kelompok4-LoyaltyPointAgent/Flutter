@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_tariktunai.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class PoinDetailTarikTunaiScreen extends StatelessWidget {
@@ -193,22 +196,21 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                     //     ),
                     //   );
 
-                    //   await showDialog(
-                    //     barrierDismissible: false,
-                    //     context: context,
-                    //     builder: (context) => BackdropFilter(
-                    //       filter:
-                    //           ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    //       child: WillPopScope(
-                    //         onWillPop: () async => false,
-                    //         child: const AlertDialog(
-                    //           content: SingleChildScrollView(
-                    //             child: PoinTransaksiSuksess(),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   );
+                    await showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: WillPopScope(
+                          onWillPop: () async => false,
+                          child: const AlertDialog(
+                            content: SingleChildScrollView(
+                              child: KonfirmasiPencairanTarikTunai(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                     // } else {
                     //   ScaffoldMessenger.of(context).showSnackBar(
                     //     const SnackBar(

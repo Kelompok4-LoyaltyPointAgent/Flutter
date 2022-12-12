@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/poin/status_pencairan_ewallet_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class KonfirmasiPencairan extends StatelessWidget {
-  const KonfirmasiPencairan({super.key});
+class KonfirmasiPencairanEwallet extends StatelessWidget {
+  const KonfirmasiPencairanEwallet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +46,13 @@ class KonfirmasiPencairan extends StatelessWidget {
               height: 42,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const NavBarScreen(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const StatusPencairanEwalletScreen(),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: yellowColor,

@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/tab_tarik_tunai.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
-import 'package:sizer/sizer.dart';
 
 class TransferScreen extends StatelessWidget {
   const TransferScreen({super.key});
@@ -49,7 +46,7 @@ class TransferScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.trending_up_outlined,
                         size: 24,
                       ),
@@ -96,7 +93,7 @@ class TransferScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(left: 10),
                         height: 70,
                         width: 3,
-                        child: VerticalDivider(
+                        child: const VerticalDivider(
                           thickness: 1,
                           color: Colors.black,
                         ),
@@ -127,10 +124,7 @@ class TransferScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              //padding: const EdgeInsets.only(top: 20),
-              child: TabTarikTunai(),
-            ),
+            const TabTarikTunai(),
           ],
         ),
       ),
