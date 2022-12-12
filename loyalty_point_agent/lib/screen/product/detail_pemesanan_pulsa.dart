@@ -41,7 +41,7 @@ class _DetailPemesananPulsaScreenState
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.data == null) {
+            if (provider.data!.data == null) {
               return const Text('Kosong');
             } else {
               return Scaffold(
@@ -212,8 +212,13 @@ class _DetailPemesananPulsaScreenState
                                 transactionProvider.pembelian!.data!.invoiceUrl
                                     .toString(),
                               );
+
                               if (await canLaunchUrl(url)) {
-                                await launchUrl(url);
+                                await launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                                closeInAppWebView();
                               } else {
                                 throw 'Could not launch $url';
                               }

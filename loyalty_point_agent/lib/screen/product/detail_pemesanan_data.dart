@@ -32,13 +32,13 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
         Provider.of<UserProvider>(context, listen: false);
     return Consumer<PaketDataProvider>(
       builder: (context, provider, _) {
-        switch (provider.myState) {
+        switch (provider.myState2) {
           case MyState.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.data!.data == null) {
+            if (provider.filterData!.data == null) {
               return const Text('Maaf, Belum Ada Data');
             } else {
               return Scaffold(
@@ -95,7 +95,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.data!.data![widget.id].provider,
+                          provider.filterData!.data![widget.id].provider,
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -109,7 +109,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.data!.data![widget.id].name,
+                          provider.filterData!.data![widget.id].name,
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -139,7 +139,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                         ),
                         trailing: Text(
                           FormatCurrency.convertToIdr(
-                              provider.data!.data![widget.id].price, 0),
+                              provider.filterData!.data![widget.id].price, 0),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -198,7 +198,8 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                             onTap: () async {
                               await transactionProvider.transaction(
                                 TransactionModel(
-                                  productId: provider.data!.data![widget.id].id,
+                                  productId:
+                                      provider.filterData!.data![widget.id].id,
                                   number: widget.number,
                                   email: userProvider.user!.email,
                                   type: 'Purchase',
@@ -210,7 +211,8 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                                     .toString(),
                               );
                               if (await canLaunchUrl(url)) {
-                                await launchUrl(url);
+                                await launchUrl(url,
+                                    mode: LaunchMode.externalApplication);
                               } else {
                                 throw 'Could not launch $url';
                               }

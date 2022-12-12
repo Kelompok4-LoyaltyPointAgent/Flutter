@@ -25,13 +25,13 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
   Widget build(BuildContext context) {
     return Consumer<PaketDataProvider>(
       builder: (context, provider, _) {
-        switch (provider.myState) {
+        switch (provider.myState2) {
           case MyState.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.data == null) {
+            if (provider.filterData!.data == null) {
               return const Text('Sorry, your data still empty');
             } else {
               return Scaffold(
@@ -63,7 +63,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                         children: [
                           Center(
                             child: Text(
-                              provider.data!.data![widget.id].name,
+                              provider.filterData!.data![widget.id].name,
                               style: navyTextStyle.copyWith(
                                 fontSize: 20,
                                 fontWeight: semiBold,
@@ -88,7 +88,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                provider.data!.data![widget.id].provider,
+                                provider.filterData!.data![widget.id].provider,
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -113,7 +113,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.activePeriod} Hari',
+                                '${provider.filterData!.data![widget.id].package.activePeriod} Hari',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -138,7 +138,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.mainInternet} GB',
+                                '${provider.filterData!.data![widget.id].package.mainInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -163,7 +163,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.nightInternet} GB',
+                                '${provider.filterData!.data![widget.id].package.nightInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -188,7 +188,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.socialMedia} GB',
+                                '${provider.filterData!.data![widget.id].package.socialMedia} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -214,10 +214,10 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               const Spacer(),
                               Text(
                                 check !=
-                                        provider
-                                            .data!.data![widget.id].package.call
-                                    ? provider
-                                        .data!.data![widget.id].package.call
+                                        provider.filterData!.data![widget.id]
+                                            .package.call
+                                    ? provider.filterData!.data![widget.id]
+                                        .package.call
                                         .toString()
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
@@ -245,10 +245,10 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               const Spacer(),
                               Text(
                                 check !=
-                                        provider
-                                            .data!.data![widget.id].package.sms
-                                    ? provider
-                                        .data!.data![widget.id].package.sms
+                                        provider.filterData!.data![widget.id]
+                                            .package.sms
+                                    ? provider.filterData!.data![widget.id]
+                                        .package.sms
                                         .toString()
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
@@ -345,7 +345,8 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                               ),
                               Text(
                                 FormatCurrency.convertToIdr(
-                                    provider.data!.data![widget.id].price, 0),
+                                    provider.filterData!.data![widget.id].price,
+                                    0),
                                 style: whiteTextStyle.copyWith(
                                     fontWeight: semiBold),
                               ),

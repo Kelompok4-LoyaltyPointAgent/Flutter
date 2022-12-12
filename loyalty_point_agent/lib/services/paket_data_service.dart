@@ -27,4 +27,32 @@ class PaketDataService {
       rethrow;
     }
   }
+
+  Future<PaketDataModel> getFilterPaketData(String filter) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.request(
+        Urls.baseUrl + Urls.paketData,
+        queryParameters: {'provider': filter},
+        options: Options(
+          method: 'GET',
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+
+      // final response = await _dio.get(
+      //   Urls.baseUrl + Urls.paketData,
+      //   queryParameters: {'provider': 'Telkomsel'},
+      //   options: Options(
+      //     headers: {"Authorization": "Bearer $token"},
+      //   ),
+      // );
+
+      return PaketDataModel.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

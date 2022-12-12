@@ -212,10 +212,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               onTap: () async {
-                Uri url = Uri.parse('https://wa.me/628139122779');
+                Uri url = Uri.parse('https://wa.me/081391227795');
                 // Uri url = Uri.parse('https://youtube.com');
                 if (await canLaunchUrl(url)) {
-                  await launchUrl(url);
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
                 } else {
                   throw 'Could not launch $url';
                 }
