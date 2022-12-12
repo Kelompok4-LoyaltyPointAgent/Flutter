@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
@@ -8,7 +6,6 @@ import 'package:loyalty_point_agent/screen/profile/hola/hola_layanan_screen.dart
 import 'package:loyalty_point_agent/screen/profile/hola/hola_poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_pulsa_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
-import 'package:sizer/sizer.dart';
 
 class PusatBantuanScreen extends StatefulWidget {
   const PusatBantuanScreen({super.key});
@@ -63,7 +60,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                   child: Container(
                     margin: const EdgeInsets.only(top: 10),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 47,
+                      horizontal: 55,
                       vertical: 10,
                     ),
                     // height: 124,
@@ -77,62 +74,77 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                         ),
                       ),
                     ),
-                    child: Wrap(
-                      spacing: max(40, 80),
-                      runSpacing: 20,
+                    child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const HolaPulsaScreen(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HolaPulsaScreen(),
+                                  ),
+                                );
+                              },
+                              child: const CardMenu(
+                                image: 'assets/pulsa.png',
+                                title: 'Pulsa',
                               ),
-                            );
-                          },
-                          child: const CardMenu(
-                            image: 'assets/pulsa.png',
-                            title: 'Pulsa',
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const HolaKuotaScreen(),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HolaKuotaScreen(),
+                                  ),
+                                );
+                              },
+                              child: const CardMenu(
+                                image: 'assets/paket_data.png',
+                                title: 'Paket Data',
                               ),
-                            );
-                          },
-                          child: const CardMenu(
-                            image: 'assets/paket_data.png',
-                            title: 'Paket Data',
-                          ),
+                            ),
+                          ],
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const HolaPoinScreen(),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HolaPoinScreen(),
+                                  ),
+                                );
+                              },
+                              child: const CardMenu(
+                                image: 'assets/hola_poin.png',
+                                title: 'Hola Poin',
                               ),
-                            );
-                          },
-                          child: const CardMenu(
-                            image: 'assets/hola_poin.png',
-                            title: 'Hola Poin',
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const HolaLayananScreen(),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HolaLayananScreen(),
+                                  ),
+                                );
+                              },
+                              child: const CardMenu(
+                                image: 'assets/layanan.png',
+                                title: 'Layanan',
                               ),
-                            );
-                          },
-                          child: const CardMenu(
-                            image: 'assets/layanan.png',
-                            title: 'Layanan',
-                          ),
-                        ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
