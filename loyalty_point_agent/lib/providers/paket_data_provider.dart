@@ -8,6 +8,7 @@ class PaketDataProvider extends ChangeNotifier {
   final PaketDataService service = PaketDataService();
 
   PaketDataModel? data;
+  PaketDataModel? filterData;
   List<Datum> get recommended =>
       data!.data!.where((element) => element.recommended == true).toList();
   MyState myState = MyState.loading;
@@ -25,6 +26,25 @@ class PaketDataProvider extends ChangeNotifier {
         e.response!.statusCode;
       }
       myState = MyState.failed;
+      notifyListeners();
+    }
+  }
+
+  MyState myState2 = MyState.loading;
+
+  Future fetchFilterPaketData(String filter) async {
+    myState2 = MyState.loading;
+    notifyListeners();
+    try {
+      filterData = await service.getFilterPaketData(filter);
+
+      myState2 = MyState.loaded;
+      notifyListeners();
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      myState2 = MyState.failed;
       notifyListeners();
     }
   }
