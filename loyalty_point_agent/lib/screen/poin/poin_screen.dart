@@ -5,6 +5,7 @@ import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
+import 'package:loyalty_point_agent/screen/poin/tarik_tunai_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
@@ -149,13 +150,29 @@ class PoinScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    const CardMenu(
+                    CardMenu(
                       image: 'assets/tarik_tunai.png',
                       title: 'Tarik Tunai',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TransferScreen(),
+                          ),
+                        );
+                      },
                     ),
-                    const CardMenu(
+                    CardMenu(
                       image: 'assets/dompet_elektronik.png',
                       title: 'E-Wallet',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TransferScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
