@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_detail_ewallet_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_tariktunai_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
@@ -278,7 +279,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      PoinDetailTarikTunaiScreen(),
+                                      const PoinDetailTarikTunaiScreen(),
                                 ),
                               );
                             },
@@ -529,7 +530,15 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                           width: MediaQuery.of(context).size.width,
                           height: 42,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PoinDetailEwalletScreen(),
+                                ),
+                              );
+                            },
                             style: TextButton.styleFrom(
                               backgroundColor: yellowColor,
                               shape: RoundedRectangleBorder(

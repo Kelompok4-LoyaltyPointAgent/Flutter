@@ -5,9 +5,11 @@ import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_rekomendasi.dart';
-import 'package:loyalty_point_agent/screen/poin/tarik_tunai_screen.dart';
+import 'package:loyalty_point_agent/screen/poin/poin_tarik_tunai_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.dart';
+import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +39,7 @@ class PoinScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        provider.user!.name.toString(),
+                        'Hai, ${provider.user!.name.toString()}!',
                         style: navyTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: semiBold,
@@ -54,7 +56,7 @@ class PoinScreen extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            provider.user!.poin.toString(),
+                            '${provider.user!.poin.toString()} poin',
                             style: yellowTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: medium,
@@ -80,17 +82,31 @@ class PoinScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RiwayatTransaksiScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.notifications_none,
+              Icons.notifications_rounded,
               size: 30,
               color: yellowColor,
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PusatBantuanScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.info_outline,
+              Icons.info_rounded,
               size: 30,
               color: yellowColor,
             ),
@@ -108,7 +124,7 @@ class PoinScreen extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.only(top: 17),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 47,
+                  horizontal: 55,
                   vertical: 10,
                 ),
                 // height: 124,
@@ -122,57 +138,70 @@ class PoinScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: Wrap(
-                  spacing: 80,
-                  runSpacing: 20,
+                child: Column(
                   children: [
-                    CardMenu(
-                      image: 'assets/pulsa.png',
-                      title: 'Pulsa',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PoinRekomendasiScreen(),
-                          ),
-                        );
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CardMenu(
+                          image: 'assets/pulsa.png',
+                          title: 'Pulsa',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PoinRekomendasiScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        CardMenu(
+                          image: 'assets/paket_data.png',
+                          title: 'Paket Data',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PoinRekomendasiScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    CardMenu(
-                      image: 'assets/paket_data.png',
-                      title: 'Paket Data',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PoinRekomendasiScreen(),
-                          ),
-                        );
-                      },
+                    const SizedBox(
+                      height: 10,
                     ),
-                    CardMenu(
-                      image: 'assets/tarik_tunai.png',
-                      title: 'Tarik Tunai',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const TransferScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    CardMenu(
-                      image: 'assets/dompet_elektronik.png',
-                      title: 'E-Wallet',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const TransferScreen(),
-                          ),
-                        );
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CardMenu(
+                          image: 'assets/tarik_tunai.png',
+                          title: 'Tarik Tunai',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TransferScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        CardMenu(
+                          image: 'assets/dompet_elektronik.png',
+                          title: 'E-Wallet',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TransferScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),

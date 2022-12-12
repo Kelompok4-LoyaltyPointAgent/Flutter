@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/login/lupa_password/kata_sandi_baru.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class LoginBerhasil extends StatelessWidget {
-  const LoginBerhasil({super.key});
+class DialogBerhsilVerifikasi extends StatefulWidget {
+  const DialogBerhsilVerifikasi({super.key});
 
+  @override
+  State<DialogBerhsilVerifikasi> createState() =>
+      _DialogBerhsilVerifikasiState();
+}
+
+class _DialogBerhsilVerifikasiState extends State<DialogBerhsilVerifikasi> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,11 +21,11 @@ class LoginBerhasil extends StatelessWidget {
         color: backgroundColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
         child: Column(
           children: [
             Image.asset(
-              'assets/login_berhasil.png',
+              'assets/verfikasi berhasil.png',
               height: 180,
               width: 180,
               fit: BoxFit.cover,
@@ -28,7 +34,7 @@ class LoginBerhasil extends StatelessWidget {
               height: 30,
             ),
             Text(
-              'Selamat Datang Sobat Hola !',
+              'Selamat, Anda berhasil masuk ',
               style:
                   yellowTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
@@ -36,7 +42,7 @@ class LoginBerhasil extends StatelessWidget {
               height: 15,
             ),
             Text(
-              'Nikmati berbagai voucher dan promo\nmenarik untuk dukung internetan tanpa batas',
+              'Silahkan Lakukan perubahan kata sandi\nbaru untuk masuk dan bertransaksi ',
               textAlign: TextAlign.center,
               style: whiteTextStyle,
             ),
@@ -49,16 +55,15 @@ class LoginBerhasil extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NavBarScreen(),
+                    builder: (context) => const KataSandiBaru(),
                   ),
-                  (route) => false,
                 );
               },
               child: Text(
-                'Beranda',
+                'Ubah Kata Sandi',
                 style: blackRegulerTextStyle.copyWith(
                   fontWeight: semiBold,
                   fontSize: 16,

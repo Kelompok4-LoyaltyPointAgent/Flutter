@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class PoinDetailTarikTunaiScreen extends StatelessWidget {
-  const PoinDetailTarikTunaiScreen({super.key});
+class PoinDetailEwalletScreen extends StatelessWidget {
+  const PoinDetailEwalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 20, bottom: 5),
             child: Text(
-              'Informasi Prabayar',
+              'Identitas Penerima',
               style: navyTextStyle.copyWith(
                 fontWeight: semiBold,
                 fontSize: 16,
@@ -41,7 +44,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Nomer Rekening',
+                'Nomer Telepon',
                 style: blackTextStyle,
               ),
               trailing: Text(
@@ -55,25 +58,11 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Bank',
+                'Dompet Virtual',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'BNI',
-                style: blackTextStyle.copyWith(fontWeight: semiBold),
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Atas Nama',
-                style: blackTextStyle,
-              ),
-              trailing: Text(
-                'Kartika',
+                'Dana',
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -193,22 +182,21 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                     //     ),
                     //   );
 
-                    //   await showDialog(
-                    //     barrierDismissible: false,
-                    //     context: context,
-                    //     builder: (context) => BackdropFilter(
-                    //       filter:
-                    //           ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    //       child: WillPopScope(
-                    //         onWillPop: () async => false,
-                    //         child: const AlertDialog(
-                    //           content: SingleChildScrollView(
-                    //             child: PoinTransaksiSuksess(),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   );
+                    await showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: WillPopScope(
+                          onWillPop: () async => false,
+                          child: const AlertDialog(
+                            content: SingleChildScrollView(
+                              child: KonfirmasiPencairan(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                     // } else {
                     //   ScaffoldMessenger.of(context).showSnackBar(
                     //     const SnackBar(

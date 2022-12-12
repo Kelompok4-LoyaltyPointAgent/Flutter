@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_lupa_password.dart';
 import 'package:loyalty_point_agent/screen/register/register.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -18,6 +19,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -36,14 +38,6 @@ class _LoginState extends State<Login> {
           ),
         );
       } else if (loginProvider.myState == MyState.loaded) {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content: Text(
-        //       'Berhasil Masuk',
-        //     ),
-        //   ),
-        // );
-
         showModalBottomSheet(
           isDismissible: false,
           enableDrag: false,
@@ -55,7 +49,10 @@ class _LoginState extends State<Login> {
           ),
           builder: (context) => BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: const LoginBerhasil(),
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: const LoginBerhasil(),
+            ),
           ),
         );
       }
@@ -69,12 +66,13 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
-      body: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: MediaQuery.fromWindow(
         child: Column(
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 100, bottom: 10),
+                padding: const EdgeInsets.only(top: 80, bottom: 10),
                 child: Column(
                   children: [
                     const Image(
@@ -129,8 +127,7 @@ class _LoginState extends State<Login> {
             Form(
               key: formKey,
               child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 20, right: 20, bottom: 130),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -139,6 +136,7 @@ class _LoginState extends State<Login> {
                       style: navyTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     TextFormField(
+                      // key: emailKey,
                       controller: emailController,
                       validator: (String? value) {
                         const String expression = "[a-zA-Z0-9+._%-+]{1,256}"
@@ -246,14 +244,41 @@ class _LoginState extends State<Login> {
                       height: 20,
                     ),
                     Center(
-                      child: InkWell(
-                        onTap: () {},
+                      child: TextButton(
+                        onPressed: () async {
+                          // if (emailKey.currentState!.validate()) {
+                          //   formKey.currentState!.save();
+
+                          //   // await loginProvider.login(
+                          //   //   LoginModel(
+                          //   //     email: emailController.text,
+                          //   //   ),
+                          //   // );
+
+                          // }
+                          showModalBottomSheet(
+                            isDismissible: false,
+                            enableDrag: false,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
+                            ),
+                            builder: (context) => BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: WillPopScope(
+                                  onWillPop: () async => false,
+                                  child: const LupaPasswordScreen()),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Lupa Sata Sandi ?',
                           style: yellowTextStyle.copyWith(fontWeight: semiBold),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

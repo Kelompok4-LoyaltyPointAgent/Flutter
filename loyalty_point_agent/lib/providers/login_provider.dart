@@ -36,4 +36,23 @@ class LoginProvider extends ChangeNotifier {
     _prefs = await SharedPreferences.getInstance();
     _prefs!.remove('token');
   }
+
+  // Future forgotPassword(LoginModel data) async {
+  //   try {
+  //     myState = MyState.loading;
+  //     notifyListeners();
+
+  //     final result = await loginService.login(data);
+
+  //     myState = MyState.loaded;
+  //     notifyListeners();
+  //     return result;
+  //   } catch (e) {
+  //     if (e is DioError) {
+  //       e.response!.statusCode;
+  //     }
+  //     myState = MyState.failed;
+  //     notifyListeners();
+  //   }
+  // }
 }

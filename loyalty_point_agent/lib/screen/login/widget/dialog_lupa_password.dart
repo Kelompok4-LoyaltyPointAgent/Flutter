@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/login/lupa_password/validasi_otp_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class LoginBerhasil extends StatelessWidget {
-  const LoginBerhasil({super.key});
+class LupaPasswordScreen extends StatefulWidget {
+  const LupaPasswordScreen({super.key});
 
+  @override
+  State<LupaPasswordScreen> createState() => _LupaPasswordScreenState();
+}
+
+class _LupaPasswordScreenState extends State<LupaPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,11 +20,11 @@ class LoginBerhasil extends StatelessWidget {
         color: backgroundColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
         child: Column(
           children: [
             Image.asset(
-              'assets/login_berhasil.png',
+              'assets/kode verifikasi.png',
               height: 180,
               width: 180,
               fit: BoxFit.cover,
@@ -28,7 +33,7 @@ class LoginBerhasil extends StatelessWidget {
               height: 30,
             ),
             Text(
-              'Selamat Datang Sobat Hola !',
+              'Kode Verifikasi sudah Dikirim',
               style:
                   yellowTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
@@ -36,7 +41,7 @@ class LoginBerhasil extends StatelessWidget {
               height: 15,
             ),
             Text(
-              'Nikmati berbagai voucher dan promo\nmenarik untuk dukung internetan tanpa batas',
+              'Cek kode verifikasi yang sudah dikirim via\nemail ke ka***********@gmail.com ',
               textAlign: TextAlign.center,
               style: whiteTextStyle,
             ),
@@ -49,16 +54,15 @@ class LoginBerhasil extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NavBarScreen(),
+                    builder: (context) => const ValidasiOTP(),
                   ),
-                  (route) => false,
                 );
               },
               child: Text(
-                'Beranda',
+                'Lanjutkan',
                 style: blackRegulerTextStyle.copyWith(
                   fontWeight: semiBold,
                   fontSize: 16,

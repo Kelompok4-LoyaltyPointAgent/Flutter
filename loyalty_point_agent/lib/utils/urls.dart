@@ -9,4 +9,6 @@ class Urls {
   static const String pulsa = 'api/v1/products/credits';
   static const String paketData = 'api/v1/products/packages';
   static const String transaction = 'api/v1/transactions';
+  static const String requestOTP = 'api/v1/otp/request';
+  static const String verifyOTP = 'api/v1/otp/verify';
 }
