@@ -10,6 +10,8 @@ class CardRekomedasiPoin extends StatelessWidget {
   final String poin;
   final String? voucher;
   final Function()? onPressed;
+  final Function()? onTap;
+  final bool? nyala;
 
   const CardRekomedasiPoin({
     super.key,
@@ -21,30 +23,32 @@ class CardRekomedasiPoin extends StatelessWidget {
     required this.imageProvider,
     this.voucher,
     this.onPressed,
+    this.onTap,
+    this.nyala,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        width: 235,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), //color of shadow
-              spreadRadius: 3, //spread radius
-              blurRadius: 4, // blur radius
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Stack(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      width: 235,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), //color of shadow
+            spreadRadius: 3, //spread radius
+            blurRadius: 4, // blur radius
+            offset: const Offset(0, 2), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Stack(
               children: [
                 Image.network(
                   image,
@@ -86,49 +90,56 @@ class CardRekomedasiPoin extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        title,
-                        style: navyTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        voucher!,
-                        style: navyTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          deskripsi,
-                          style: blackTextStyle.copyWith(
-                            fontSize: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          title,
+                          style: navyTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: semiBold,
                           ),
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          voucher!,
+                          style: navyTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: semiBold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        deskripsi,
+                        style: blackTextStyle.copyWith(
+                          fontSize: 10,
+                        ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: onPressed,
+                      child: Container(
                         padding: const EdgeInsets.all(5),
                         // width: 34,
                         decoration: BoxDecoration(
@@ -145,40 +156,46 @@ class CardRekomedasiPoin extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Icon(
-                          Icons.favorite_outline,
-                          color: Colors.red,
-                          size: 30,
-                        ),
+                        child: nyala != true
+                            ? const Icon(
+                                Icons.favorite_outline,
+                                color: Colors.red,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.favorite_sharp,
+                                color: Colors.red,
+                                size: 30,
+                              ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: yellowColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: yellowColor,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      poin,
+                      style: yellowTextStyle.copyWith(
+                        fontSize: 12,
+                        fontWeight: semiBold,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        poin,
-                        style: yellowTextStyle.copyWith(
-                          fontSize: 12,
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
