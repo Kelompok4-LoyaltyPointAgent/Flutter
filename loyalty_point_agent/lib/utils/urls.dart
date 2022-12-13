@@ -11,4 +11,5 @@ class Urls {
   static const String transaction = 'api/v1/transactions';
   static const String requestOTP = 'api/v1/otp/request';
   static const String verifyOTP = 'api/v1/otp/verify';
+  static const String favorit = 'api/v1/users/favorites';
 }

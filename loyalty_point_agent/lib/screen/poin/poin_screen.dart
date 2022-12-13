@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/favorite_provider.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
@@ -19,6 +20,7 @@ class PoinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fav = Provider.of<FavoritProvider>(context).data;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -285,17 +287,49 @@ class PoinScreen extends StatelessWidget {
                                         'Tukarkan poin Anda untuk mendapatkan pulsa ${provider.data!.data![index].price}',
                                     poin:
                                         '${provider.data!.data![index].pricePoints} Poin',
-                                    onPressed: () {
+                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              PoinDetailPulsaScreen(
-                                            id: index,
-                                          ),
+                                              PoinDetailPulsaScreen(id: index),
                                         ),
                                       );
                                     },
+                                    onPressed: () async {
+                                      if (fav.data == null) {
+                                        Provider.of<FavoritProvider>(context,
+                                                listen: false)
+                                            .sendFavorite(
+                                                provider.data!.data![index].id);
+                                      } else {
+                                        fav.data!.every((element) =>
+                                                element.product!.id !=
+                                                provider.data!.data![index].id)
+                                            ? Provider.of<FavoritProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .sendFavorite(provider
+                                                    .data!.data![index].id)
+                                            : Provider.of<FavoritProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .removeFavorite(provider
+                                                    .data!.data![index].id);
+                                      }
+
+                                      await Provider.of<FavoritProvider>(
+                                              context,
+                                              listen: false)
+                                          .fetchFavorite();
+                                    },
+                                    nyala: fav!.data == null
+                                        ? false
+                                        : fav.data!.every((element) =>
+                                                element.product!.id !=
+                                                provider.data!.data![index].id)
+                                            ? false
+                                            : true,
                                   );
                                 },
                               ),
@@ -371,7 +405,7 @@ class PoinScreen extends StatelessWidget {
                                         provider.data!.data![index].description,
                                     poin:
                                         '${provider.data!.data![index].pricePoints} Poin',
-                                    onPressed: () {
+                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -382,6 +416,38 @@ class PoinScreen extends StatelessWidget {
                                         ),
                                       );
                                     },
+                                    onPressed: () {
+                                      if (fav.data == null) {
+                                        Provider.of<FavoritProvider>(context,
+                                                listen: false)
+                                            .sendFavorite(
+                                                provider.data!.data![index].id);
+                                      } else {
+                                        fav.data!.every((element) =>
+                                                element.product!.id !=
+                                                provider.data!.data![index].id)
+                                            ? Provider.of<FavoritProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .sendFavorite(provider
+                                                    .data!.data![index].id)
+                                            : Provider.of<FavoritProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .removeFavorite(provider
+                                                    .data!.data![index].id);
+                                      }
+                                      Provider.of<FavoritProvider>(context,
+                                              listen: false)
+                                          .fetchFavorite();
+                                    },
+                                    nyala: fav!.data == null
+                                        ? false
+                                        : fav.data!.every((element) =>
+                                                element.product!.id !=
+                                                provider.data!.data![index].id)
+                                            ? false
+                                            : true,
                                   );
                                 },
                               ),

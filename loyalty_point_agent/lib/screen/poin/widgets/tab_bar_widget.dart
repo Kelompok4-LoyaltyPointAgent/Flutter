@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/favorite_provider.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_paketdata_screen.dart';
@@ -17,7 +18,16 @@ class TabBarWidget extends StatefulWidget {
 
 class _TabBarWidgetState extends State<TabBarWidget> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final fav = Provider.of<FavoritProvider>(context).data;
     return DefaultTabController(
       length: 2, // length of tabs
       initialIndex: 0,
@@ -76,7 +86,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       'Tukarkan poin Anda untuk mendapatkan pulsa ${provider.data!.data![index].price}',
                                   poin:
                                       '${provider.data!.data![index].pricePoints} Poin',
-                                  onPressed: () {
+                                  onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -87,6 +97,38 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       ),
                                     );
                                   },
+                                  onPressed: () {
+                                    if (fav.data == null) {
+                                      Provider.of<FavoritProvider>(context,
+                                              listen: false)
+                                          .sendFavorite(
+                                              provider.data!.data![index].id);
+                                    } else {
+                                      fav.data!.every((element) =>
+                                              element.product!.id !=
+                                              provider.data!.data![index].id)
+                                          ? Provider.of<FavoritProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .sendFavorite(provider
+                                                  .data!.data![index].id)
+                                          : Provider.of<FavoritProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .removeFavorite(provider
+                                                  .data!.data![index].id);
+                                    }
+                                    Provider.of<FavoritProvider>(context,
+                                            listen: false)
+                                        .fetchFavorite();
+                                  },
+                                  nyala: fav!.data == null
+                                      ? false
+                                      : fav.data!.every((element) =>
+                                              element.product!.id !=
+                                              provider.data!.data![index].id)
+                                          ? false
+                                          : true,
                                 );
                               },
                             ),
@@ -130,7 +172,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       provider.data!.data![index].description,
                                   poin:
                                       '${provider.data!.data![index].pricePoints} Poin',
-                                  onPressed: () {
+                                  onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -141,6 +183,38 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       ),
                                     );
                                   },
+                                  onPressed: () {
+                                    if (fav.data == null) {
+                                      Provider.of<FavoritProvider>(context,
+                                              listen: false)
+                                          .sendFavorite(
+                                              provider.data!.data![index].id);
+                                    } else {
+                                      fav.data!.every((element) =>
+                                              element.product!.id !=
+                                              provider.data!.data![index].id)
+                                          ? Provider.of<FavoritProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .sendFavorite(provider
+                                                  .data!.data![index].id)
+                                          : Provider.of<FavoritProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .removeFavorite(provider
+                                                  .data!.data![index].id);
+                                    }
+                                    Provider.of<FavoritProvider>(context,
+                                            listen: false)
+                                        .fetchFavorite();
+                                  },
+                                  nyala: fav!.data == null
+                                      ? false
+                                      : fav.data!.every((element) =>
+                                              element.product!.id !=
+                                              provider.data!.data![index].id)
+                                          ? false
+                                          : true,
                                 );
                               },
                             ),
