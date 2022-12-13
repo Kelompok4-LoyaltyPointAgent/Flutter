@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
+import 'package:loyalty_point_agent/screen/login/login.dart';
 import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
@@ -13,6 +14,7 @@ import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BerandaScreen extends StatefulWidget {
   const BerandaScreen({Key? key}) : super(key: key);
@@ -34,6 +36,19 @@ class _BerandaScreenState extends State<BerandaScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
     });
+  }
+
+  void logout() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const Login()),
+      (route) => false,
+    );
+  }
+
+  void clearStorage() async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 
   @override
@@ -87,6 +102,9 @@ class _BerandaScreenState extends State<BerandaScreen> {
                   );
                 }
               case MyState.failed:
+                clearStorage();
+                logout();
+
                 return const Text('Ada Masalah');
               default:
                 return const SizedBox();
