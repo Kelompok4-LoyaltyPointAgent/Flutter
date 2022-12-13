@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/user_model.dart';
 import 'package:loyalty_point_agent/utils/urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   final Dio _dio = Dio();
+  late ValueNotifier<bool> isTrue;
 
   Future<UserModel> fetchUser() async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
@@ -19,6 +21,19 @@ class UserService {
           },
         ),
       );
+      // if (response.data.contains('invalid or expired jwt')) {
+      //   ValueListenableBuilder<bool>(
+      //     valueListenable: isTrue,
+      //     builder: (context, value, _) {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => const Login(),
+      //         ),
+      //       );
+      //     },
+      //   );
+      // }
 
       return UserModel.fromJson(response.data['data']);
     } on DioError catch (_) {
