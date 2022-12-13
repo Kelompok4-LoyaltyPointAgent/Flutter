@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/favorite_provider.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
@@ -14,7 +16,6 @@ import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BerandaScreen extends StatefulWidget {
   const BerandaScreen({Key? key}) : super(key: key);
@@ -36,6 +37,9 @@ class _BerandaScreenState extends State<BerandaScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
     });
+    Future.delayed(Duration.zero, () {
+      Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
+    });
   }
 
   void logout() {
@@ -44,11 +48,6 @@ class _BerandaScreenState extends State<BerandaScreen> {
       MaterialPageRoute(builder: (context) => const Login()),
       (route) => false,
     );
-  }
-
-  void clearStorage() async {
-    SharedPreferences? prefs = await SharedPreferences.getInstance();
-    prefs.clear();
   }
 
   @override
@@ -102,7 +101,10 @@ class _BerandaScreenState extends State<BerandaScreen> {
                   );
                 }
               case MyState.failed:
-                clearStorage();
+                final deleteToken =
+                    Provider.of<LoginProvider>(context, listen: false);
+
+                deleteToken.deleteToken();
                 logout();
 
                 return const Text('Ada Masalah');
@@ -304,7 +306,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: 2,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
@@ -409,7 +411,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                             } else {
                               return SizedBox(
                                 child: ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: 2,
                                   shrinkWrap: true,
                                   primary: false,
                                   itemBuilder:
