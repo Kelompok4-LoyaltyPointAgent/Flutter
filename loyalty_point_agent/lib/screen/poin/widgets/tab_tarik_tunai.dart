@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/selected_method_provider.dart';
+import 'package:loyalty_point_agent/screen/poin/data/method.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_ewallet_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_tariktunai_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class TabTarikTunai extends StatefulWidget {
   const TabTarikTunai({super.key});
@@ -155,78 +158,54 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/BNI.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'BNI',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
+                      Consumer<SelectedMethodProvider>(
+                          builder: (context, provider, _) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: SizedBox(
+                            height: 75,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: bank.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    provider.changeStatus(index);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 23,
+                                      vertical: 5,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: provider.selectedIndex == index
+                                          ? grayishColor
+                                          : whiteColor,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          bank[index]['gambar']!,
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          bank[index]['nama']!,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
+                                );
+                              },
                             ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/BCA.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'BCA',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/mandiri.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Mandiri',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/BRI1.webp',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'BRI',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      }),
                       const SizedBox(
                         height: 25,
                       ),
@@ -411,78 +390,54 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/ovo.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'OVO',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
+                      Consumer<SelectedMethodProvider>(
+                          builder: (context, provider, _) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: SizedBox(
+                            height: 75,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: eWallet.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    provider.changeStatus(index);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 23,
+                                      vertical: 5,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: provider.selectedIndex == index
+                                          ? grayishColor
+                                          : whiteColor,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          eWallet[index]['gambar']!,
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          eWallet[index]['nama']!,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
+                                );
+                              },
                             ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/linkaja.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Link Aja',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/gopay.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Gopay',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'assets/dana.png',
-                                  height: 40,
-                                  width: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Dana',
-                                  style: blackTextStyle.copyWith(
-                                    fontWeight: medium,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      }),
                       const SizedBox(
                         height: 25,
                       ),

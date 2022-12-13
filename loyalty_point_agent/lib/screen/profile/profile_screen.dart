@@ -108,168 +108,170 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Data Pengguna',
-              style: navyTextStyle.copyWith(fontWeight: bold, fontSize: 20),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const FavoritScreen(),
-                  ),
-                );
-              },
-              leading: Icon(
-                Icons.favorite,
-                color: yellowColor,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Data Pengguna',
+                style: navyTextStyle.copyWith(fontWeight: bold, fontSize: 20),
               ),
-              title: Text(
-                'Favorit',
-                style: navyTextStyle,
+              const SizedBox(
+                height: 10,
               ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const FavoritScreen(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.favorite,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Favorit',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RiwayatTransaksiScreen(),
-                  ),
-                );
-              },
-              leading: Icon(
-                Icons.shopping_bag_sharp,
-                color: yellowColor,
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RiwayatTransaksiScreen(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.shopping_bag_sharp,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Riwayat Transaksi',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-              title: Text(
-                'Riwayat Transaksi',
-                style: navyTextStyle,
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const KeamananScreen(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.lock_sharp,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Keamanan',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
+              const SizedBox(
+                height: 30,
               ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const KeamananScreen(),
-                  ),
-                );
-              },
-              leading: Icon(
-                Icons.lock_sharp,
-                color: yellowColor,
+              Text(
+                'Bantuan dan Informasi',
+                style: navyTextStyle.copyWith(fontWeight: bold, fontSize: 20),
               ),
-              title: Text(
-                'Keamanan',
-                style: navyTextStyle,
+              const SizedBox(
+                height: 10,
               ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PusatBantuanScreen(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.favorite,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Pusat Bantuan',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              'Bantuan dan Informasi',
-              style: navyTextStyle.copyWith(fontWeight: bold, fontSize: 20),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PusatBantuanScreen(),
-                  ),
-                );
-              },
-              leading: Icon(
-                Icons.favorite,
-                color: yellowColor,
+              ListTile(
+                onTap: () async {
+                  Uri url = Uri.parse('https://wa.me/081391227795');
+                  // Uri url = Uri.parse('https://youtube.com');
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                leading: Icon(
+                  Icons.headphones,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Hubungi Kami',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-              title: Text(
-                'Pusat Bantuan',
-                style: navyTextStyle,
-              ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
-              ),
-            ),
-            ListTile(
-              onTap: () async {
-                Uri url = Uri.parse('https://wa.me/081391227795');
-                // Uri url = Uri.parse('https://youtube.com');
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-              leading: Icon(
-                Icons.headphones,
-                color: yellowColor,
-              ),
-              title: Text(
-                'Hubungi Kami',
-                style: navyTextStyle,
-              ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) => BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: AlertDialog(
-                      insetPadding: EdgeInsets.zero,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 24, horizontal: 16),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                          bottom: Radius.circular(20),
+              ListTile(
+                onTap: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: AlertDialog(
+                        insetPadding: EdgeInsets.zero,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 24, horizontal: 16),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                            bottom: Radius.circular(20),
+                          ),
+                        ),
+                        backgroundColor: navyColor,
+                        content: const SingleChildScrollView(
+                          child: LogoutDialog(),
                         ),
                       ),
-                      backgroundColor: navyColor,
-                      content: const SingleChildScrollView(
-                        child: LogoutDialog(),
-                      ),
                     ),
-                  ),
-                );
-              },
-              leading: Icon(
-                Icons.logout,
-                color: yellowColor,
+                  );
+                },
+                leading: Icon(
+                  Icons.logout,
+                  color: yellowColor,
+                ),
+                title: Text(
+                  'Keluar',
+                  style: navyTextStyle,
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: navyColor, width: 0.5),
+                ),
               ),
-              title: Text(
-                'Keluar',
-                style: navyTextStyle,
-              ),
-              shape: Border(
-                bottom: BorderSide(color: navyColor, width: 0.5),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

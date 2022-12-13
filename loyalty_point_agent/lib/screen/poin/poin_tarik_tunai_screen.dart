@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/tab_tarik_tunai.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class TransferScreen extends StatelessWidget {
   const TransferScreen({super.key});
@@ -65,62 +68,64 @@ class TransferScreen extends StatelessWidget {
                   const SizedBox(
                     height: 25,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Poin Saat ini',
-                            style: yellowTextStyle.copyWith(
-                              fontSize: 12,
-                              fontWeight: semiBold,
+                  Consumer<UserProvider>(builder: (context, provider, _) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Poin Saat ini',
+                              style: yellowTextStyle.copyWith(
+                                fontSize: 12,
+                                fontWeight: semiBold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            '50000',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 20,
-                              fontWeight: semiBold,
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 10),
-                        height: 70,
-                        width: 3,
-                        child: const VerticalDivider(
-                          thickness: 1,
-                          color: Colors.black,
+                            Text(
+                              provider.user!.poin.toString(),
+                              style: navyTextStyle.copyWith(
+                                fontSize: 20,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Saldo Bisa Ditarik',
-                            style: yellowTextStyle.copyWith(
-                              fontSize: 12,
-                              fontWeight: semiBold,
+                        Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          height: 70,
+                          width: 3,
+                          child: const VerticalDivider(
+                            thickness: 1,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Saldo Bisa Ditarik',
+                              style: yellowTextStyle.copyWith(
+                                fontSize: 12,
+                                fontWeight: semiBold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            '50000',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 20,
-                              fontWeight: semiBold,
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                            Text(
+                              provider.user!.poin.toString(),
+                              style: navyTextStyle.copyWith(
+                                fontSize: 20,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }),
                 ],
               ),
             ),
