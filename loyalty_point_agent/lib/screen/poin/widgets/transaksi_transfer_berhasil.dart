@@ -16,11 +16,11 @@ class TransaksiTransferBerhasil extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         Text(
           'Transfer Berhasil !',
-          style: navyTextStyle.copyWith(
+          style: yellowTextStyle.copyWith(
             fontSize: 16,
             fontWeight: semiBold,
           ),
@@ -30,7 +30,7 @@ class TransaksiTransferBerhasil extends StatelessWidget {
         ),
         Text(
           'Dana pencairan telah berhasil dilakukan.',
-          style: blackTextStyle.copyWith(
+          style: whiteTextStyle.copyWith(
             fontSize: 12,
           ),
           textAlign: TextAlign.center,
@@ -72,6 +72,7 @@ class TransaksiTransferBerhasil extends StatelessWidget {
           child: Text(
             'Butuh Bantuan kami ?',
             style: whiteTextStyle.copyWith(
+              fontSize: 12,
               fontWeight: semiBold,
             ),
           ),

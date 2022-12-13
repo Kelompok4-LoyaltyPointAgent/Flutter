@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class RekomendasiTransaksiSuksess extends StatelessWidget {
@@ -9,18 +10,21 @@ class RekomendasiTransaksiSuksess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(
+          height: 10,
+        ),
         Image.asset(
-          'assets/transaksi_suksess.png',
+          'assets/transaksi_berhasil.png',
           height: 100,
           width: 100,
           fit: BoxFit.cover,
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         Text(
           'Transaksi Berhasil',
-          style: navyTextStyle.copyWith(
+          style: yellowTextStyle.copyWith(
             fontSize: 16,
             fontWeight: semiBold,
           ),
@@ -29,8 +33,8 @@ class RekomendasiTransaksiSuksess extends StatelessWidget {
           height: 20,
         ),
         Text(
-          'Terima kasih sudah melakukan transaksi. Nikmati promo menarik lainnya dan jangan terlewatkan',
-          style: blackTextStyle.copyWith(
+          'Terima kasih sudah mempercayai kami.\nApakah anda ingin melihat produk lainnya ?',
+          style: whiteTextStyle.copyWith(
             fontSize: 12,
           ),
           textAlign: TextAlign.center,
@@ -38,69 +42,43 @@ class RekomendasiTransaksiSuksess extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              width: 107,
-              height: 34,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NavBarScreen(),
-                    ),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  side: BorderSide(color: navyColor),
-                  backgroundColor: whiteColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+        SizedBox(
+          width: 200,
+          height: 34,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NavBarScreen(),
                 ),
-                child: Text(
-                  'Selesai',
-                  style: navyTextStyle.copyWith(
-                    fontWeight: semiBold,
-                  ),
-                ),
+              );
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: yellowColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
-            SizedBox(
-              width: 107,
-              height: 34,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const NavBarScreen(),
-                  //   ),
-                  // );
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: navyColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'Beli Lagi',
-                  style: whiteTextStyle.copyWith(
-                    fontWeight: semiBold,
-                  ),
-                ),
+            child: Text(
+              'Beranda',
+              style: navyTextStyle.copyWith(
+                fontWeight: semiBold,
               ),
             ),
-          ],
+          ),
         ),
         const SizedBox(
           height: 5,
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const RiwayatTransaksiScreen(),
+              ),
+            );
+          },
           child: Text(
             'Lihat riwayat pembelian ?',
             style: yellowTextStyle.copyWith(

@@ -201,12 +201,13 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                       context: context,
                       builder: (context) => BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: WillPopScope(
-                          onWillPop: () async => false,
-                          child: const AlertDialog(
-                            content: SingleChildScrollView(
-                              child: KonfirmasiPencairanTarikTunai(),
-                            ),
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          backgroundColor: backgroundColor,
+                          content: const SingleChildScrollView(
+                            child: KonfirmasiPencairanTarikTunai(),
                           ),
                         ),
                       ),
