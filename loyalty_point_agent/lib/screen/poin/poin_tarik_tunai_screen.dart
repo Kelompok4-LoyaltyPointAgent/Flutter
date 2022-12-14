@@ -115,7 +115,8 @@ class TransferScreen extends StatelessWidget {
                               height: 20,
                             ),
                             Text(
-                              provider.user!.poin.toString(),
+                              FormatCurrency.convertToIdr(
+                                  int.parse(provider.user!.poin.toString()), 0),
                               style: navyTextStyle.copyWith(
                                 fontSize: 20,
                                 fontWeight: semiBold,

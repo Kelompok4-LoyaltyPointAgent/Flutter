@@ -2,8 +2,13 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:loyalty_point_agent/providers/transaction_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/transaksi_transfer_berhasil.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class StatusPencairanTarikTunaiScreen extends StatefulWidget {
   const StatusPencairanTarikTunaiScreen({super.key});
@@ -46,6 +51,9 @@ class _StatusPencairanTarikTunaiScreenState
 
   @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
+    UserProvider user = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -85,7 +93,7 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '3123123131',
+                transactionProvider.pembelian!.data!.transactionDetail!.number!,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -99,7 +107,7 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'BNI',
+                transactionProvider.pembelian!.data!.method!,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -113,7 +121,7 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Kartika',
+                user.user!.name.toString(),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -141,7 +149,8 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '5000',
+                FormatCurrency.convertToIdr(
+                    transactionProvider.pembelian!.data!.amount, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -155,7 +164,7 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '0',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -169,7 +178,8 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '1 Desember 2022',
+                transactionProvider.pembelian!.data!.createdDate!,
+                //DateFormat("EEEE, d MMMM yyyy", "id_ID").format(DateTime.now()),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -183,7 +193,7 @@ class _StatusPencairanTarikTunaiScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '15 : 05',
+                DateFormat.Hm().format(DateTime.now()),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),

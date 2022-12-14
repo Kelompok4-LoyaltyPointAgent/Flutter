@@ -2,8 +2,13 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/transaksi_transfer_berhasil.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/transaction_provider.dart';
 
 class StatusPencairanEwalletScreen extends StatefulWidget {
   const StatusPencairanEwalletScreen({super.key});
@@ -46,6 +51,8 @@ class _StatusPencairanEwalletScreenState
 
   @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -85,7 +92,7 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '3123123131',
+                transactionProvider.pembelian!.data!.transactionDetail!.number!,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -99,7 +106,7 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Dana',
+                transactionProvider.pembelian!.data!.method!,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -127,7 +134,8 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '5000',
+                FormatCurrency.convertToIdr(
+                    transactionProvider.pembelian!.data!.amount, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -141,7 +149,7 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '0',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -155,7 +163,7 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '1 Desember 2022',
+                transactionProvider.pembelian!.data!.createdDate!,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -169,7 +177,7 @@ class _StatusPencairanEwalletScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '15 : 05',
+                DateFormat.Hm().format(DateTime.now()),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
