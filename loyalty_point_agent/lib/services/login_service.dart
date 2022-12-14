@@ -24,20 +24,60 @@ class LoginService {
     }
   }
 
-  // Future<UserModel> otp(LoginModel data) async {
-  //   // SharedPreferences? prefs = await SharedPreferences.getInstance();
-  //   try {
-  //     final response = await _dio.post(
-  //       Urls.baseUrl + Urls.login,
-  //       data: data,
-  //     );
+  Future<UserModel> reqOtp(LoginModel data) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.requestOTP,
+        data: data,
+      );
 
-  //     UserModel user = UserModel.fromJson(response.data);
-  //     // await prefs.setString("token", response.data['data']["token"]);
+      return response.data;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 
-  //     return user;
-  //   } on DioError catch (_) {
-  //     rethrow;
-  //   }
-  // }
+  Future<UserModel> verifyOtp(LoginModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.verifyOTP,
+        data: data,
+      );
+      UserModel user = UserModel.fromJson(response.data);
+      await prefs.setString("token", response.data['data']["token"]);
+      print(response.data);
+
+      return user;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  Future changePassword(UserModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.put(
+        Urls.baseUrl + Urls.resetPassword,
+        data: data,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        prefs.clear();
+
+        return response.data;
+      }
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

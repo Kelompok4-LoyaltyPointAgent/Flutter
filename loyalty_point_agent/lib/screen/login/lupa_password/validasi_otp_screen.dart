@@ -1,12 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/login_model.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil_verifikasi.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 
 class ValidasiOTP extends StatefulWidget {
-  const ValidasiOTP({super.key});
+  const ValidasiOTP({super.key, required this.mail});
+  final String mail;
 
   @override
   State<ValidasiOTP> createState() => _ValidasiOTPState();
@@ -16,6 +21,39 @@ class _ValidasiOTPState extends State<ValidasiOTP> {
   TextEditingController textEditingController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    loginProvider.addListener(() {
+      if (loginProvider.validasi == MyState.failed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'OTP Salah',
+            ),
+          ),
+        );
+      } else if (loginProvider.validasi == MyState.loaded) {
+        showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
+          ),
+          builder: (context) => BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: const DialogBerhsilVerifikasi(),
+          ),
+        );
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +86,7 @@ class _ValidasiOTPState extends State<ValidasiOTP> {
               Container(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
-                  'Anda mendapatkan kode Verifikasi yang \ndikirimkan baru saja ke gmail\nkartikanovi28@gmail.com',
+                  'Anda mendapatkan kode Verifikasi yang \ndikirimkan baru saja ke gmail\n${widget.mail}',
                   style: navyTextStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -126,25 +164,25 @@ class _ValidasiOTPState extends State<ValidasiOTP> {
                   minimumSize: const Size(double.infinity, 50),
                 ),
                 onPressed: () async {
-                  showModalBottomSheet(
-                    isDismissible: false,
-                    enableDrag: false,
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
-                    ),
-                    builder: (context) => BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: const DialogBerhsilVerifikasi(),
-                    ),
-                  );
+                  Provider.of<LoginProvider>(context, listen: false)
+                      .verOTP(LoginModel(
+                    email: widget.mail,
+                    pin: textEditingController.text,
+                  ));
                 },
-                child: Text(
-                  'Verifikasi',
-                  style: blackRegulerTextStyle.copyWith(
-                      fontWeight: semiBold, fontSize: 16),
+                child: Consumer<LoginProvider>(
+                  builder: (context, valid, circular) {
+                    if (valid.validasi == MyState.loading) {
+                      return circular!;
+                    } else {
+                      return Text(
+                        'Verifikasi',
+                        style: blackRegulerTextStyle.copyWith(
+                            fontWeight: semiBold, fontSize: 16),
+                      );
+                    }
+                  },
+                  child: const CircularProgressIndicator(),
                 ),
               ),
             ],

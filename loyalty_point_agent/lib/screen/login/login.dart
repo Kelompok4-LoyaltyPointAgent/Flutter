@@ -18,13 +18,20 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> passKey = GlobalKey<FormState>();
   final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   late ValueNotifier<bool> isObscure;
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
@@ -59,12 +66,12 @@ class _LoginState extends State<Login> {
     });
 
     isObscure = ValueNotifier(true);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: MediaQuery.fromWindow(
@@ -124,19 +131,18 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            Form(
-              key: formKey,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email',
-                      style: navyTextStyle.copyWith(fontWeight: semiBold),
-                    ),
-                    TextFormField(
-                      // key: emailKey,
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Email',
+                    style: navyTextStyle.copyWith(fontWeight: semiBold),
+                  ),
+                  Form(
+                    key: emailKey,
+                    child: TextFormField(
                       controller: emailController,
                       validator: (String? value) {
                         const String expression = "[a-zA-Z0-9+._%-+]{1,256}"
@@ -163,17 +169,20 @@ class _LoginState extends State<Login> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Kata Sandi',
-                      style: navyTextStyle.copyWith(fontWeight: semiBold),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: isObscure,
-                      builder: ((context, value, _) {
-                        return TextFormField(
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Kata Sandi',
+                    style: navyTextStyle.copyWith(fontWeight: semiBold),
+                  ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: isObscure,
+                    builder: ((context, value, _) {
+                      return Form(
+                        key: passKey,
+                        child: TextFormField(
                           controller: passwordController,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -202,60 +211,65 @@ class _LoginState extends State<Login> {
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.text,
                           obscureText: value,
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: yellowColor,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    onPressed: () async {
+                      if (emailKey.currentState!.validate() ||
+                          passKey.currentState!.validate()) {
+                        emailKey.currentState!.save();
+                        passKey.currentState!.save();
+                        Provider.of<LoginProvider>(context, listen: false)
+                            .login(
+                          LoginModel(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          ),
                         );
-                      }),
-                    ),
-                    const SizedBox(
-                      height: 70,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: yellowColor,
-                        minimumSize: const Size(double.infinity, 50),
-                      ),
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-
-                          await loginProvider.login(
-                            LoginModel(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            ),
+                      }
+                    },
+                    child: Consumer<LoginProvider>(
+                      builder: (context, login, circular) {
+                        if (login.myState == MyState.loading) {
+                          return circular!;
+                        } else {
+                          return Text(
+                            'Masuk',
+                            style: blackRegulerTextStyle.copyWith(
+                                fontWeight: semiBold, fontSize: 16),
                           );
                         }
                       },
-                      child: Consumer<LoginProvider>(
-                        builder: (context, login, circular) {
-                          if (login.myState == MyState.loading) {
-                            return circular!;
-                          } else {
-                            return Text(
-                              'Masuk',
-                              style: blackRegulerTextStyle.copyWith(
-                                  fontWeight: semiBold, fontSize: 16),
-                            );
-                          }
-                        },
-                        child: const CircularProgressIndicator(),
-                      ),
+                      child: const CircularProgressIndicator(),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: TextButton(
-                        onPressed: () async {
-                          // if (emailKey.currentState!.validate()) {
-                          //   formKey.currentState!.save();
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: TextButton(
+                      onPressed: () async {
+                        if (emailKey.currentState!.validate()) {
+                          emailKey.currentState!.save();
 
-                          //   // await loginProvider.login(
-                          //   //   LoginModel(
-                          //   //     email: emailController.text,
-                          //   //   ),
-                          //   // );
+                          // loginProvider.forgotPassword(
+                          //   LoginModel(
+                          //     email: emailController.text,
+                          //   ),
+                          // );
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .forgotPassword(
+                                  LoginModel(email: emailController.text));
 
-                          // }
                           showModalBottomSheet(
                             isDismissible: false,
                             enableDrag: false,
@@ -269,18 +283,20 @@ class _LoginState extends State<Login> {
                               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                               child: WillPopScope(
                                   onWillPop: () async => false,
-                                  child: const LupaPasswordScreen()),
+                                  child: LupaPasswordScreen(
+                                    mail: emailController.text,
+                                  )),
                             ),
                           );
-                        },
-                        child: Text(
-                          'Lupa Sata Sandi ?',
-                          style: yellowTextStyle.copyWith(fontWeight: semiBold),
-                        ),
+                        }
+                      },
+                      child: Text(
+                        'Lupa Sata Sandi ?',
+                        style: yellowTextStyle.copyWith(fontWeight: semiBold),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

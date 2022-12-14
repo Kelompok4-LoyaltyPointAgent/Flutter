@@ -12,4 +12,5 @@ class Urls {
   static const String requestOTP = 'api/v1/otp/request';
   static const String verifyOTP = 'api/v1/otp/verify';
   static const String favorit = 'api/v1/users/favorites';
+  static const String resetPassword = 'api/v1/users/reset-password';
 }
