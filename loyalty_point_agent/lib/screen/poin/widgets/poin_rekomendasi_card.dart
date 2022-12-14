@@ -49,7 +49,7 @@ class PoinRekomendasiCard extends StatelessWidget {
                   image,
                   width: double.infinity,
                   height: 175,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
                 Positioned(
                   top: 10,
