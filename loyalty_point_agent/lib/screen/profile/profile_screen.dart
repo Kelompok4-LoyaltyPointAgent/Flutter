@@ -51,12 +51,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundColor: yellowColor,
                         radius: 42,
                         child: CircleAvatar(
+                          backgroundColor: yellowColor,
                           radius: 40,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(45),
-                            child: const Image(
-                              image: NetworkImage(
-                                  "https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2022/08/27/4195828089.jpg"),
+                            child: Icon(
+                              Icons.person,
+                              size: 70,
+                              color: navyColor,
                             ),
                           ),
                         ),
