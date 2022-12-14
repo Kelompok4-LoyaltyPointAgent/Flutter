@@ -2,11 +2,26 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_ewallet.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class PoinDetailEwalletScreen extends StatelessWidget {
-  const PoinDetailEwalletScreen({super.key});
+class PoinDetailEwalletScreen extends StatefulWidget {
+  final String noTelepon;
+  final String eWallet;
+  final String nominal;
+  const PoinDetailEwalletScreen({
+    super.key,
+    required this.noTelepon,
+    required this.eWallet,
+    required this.nominal,
+  });
 
+  @override
+  State<PoinDetailEwalletScreen> createState() =>
+      _PoinDetailEwalletScreenState();
+}
+
+class _PoinDetailEwalletScreenState extends State<PoinDetailEwalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +63,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '3123123131',
+                widget.noTelepon,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -62,7 +77,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Dana',
+                widget.eWallet,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -114,7 +129,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '5000',
+                FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -128,7 +143,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '0',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -155,7 +170,7 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '50000',
+                    FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                     style: blackTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -169,19 +184,6 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: () async {
-                    // int limit =
-                    //     int.parse(userProvider.user!.poin.toString());
-                    // if (limit >=
-                    //     provider.data!.data![widget.id].pricePoints) {
-                    //   await transactionProvider.transaction(
-                    //     TransactionModel(
-                    //       productId: provider.data!.data![widget.id].id,
-                    //       number: widget.nomer,
-                    //       email: userProvider.user!.email,
-                    //       type: 'Redeem',
-                    //     ),
-                    //   );
-
                     await showDialog(
                       barrierDismissible: false,
                       context: context,
@@ -192,21 +194,16 @@ class PoinDetailEwalletScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           backgroundColor: backgroundColor,
-                          content: const SingleChildScrollView(
-                            child: KonfirmasiPencairanEwallet(),
+                          content: SingleChildScrollView(
+                            child: KonfirmasiPencairanEwallet(
+                              noTelepon: widget.noTelepon,
+                              eWallet: widget.eWallet,
+                              nominal: widget.nominal,
+                            ),
                           ),
                         ),
                       ),
                     );
-                    // } else {
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     const SnackBar(
-                    //       content: Text(
-                    //         'Poin Tidak Cukup',
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
                   },
                   child: Container(
                     color: navyColor,

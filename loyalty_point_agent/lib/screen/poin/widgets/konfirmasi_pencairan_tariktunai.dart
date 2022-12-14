@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/transaction_model.dart';
+import 'package:loyalty_point_agent/providers/transaction_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/status_pencairan_tariktunai_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
-class KonfirmasiPencairanTarikTunai extends StatelessWidget {
-  const KonfirmasiPencairanTarikTunai({super.key});
+class KonfirmasiPencairanTarikTunai extends StatefulWidget {
+  final String norek;
+  final String bank;
+  final String nominal;
+  final String nama;
+  const KonfirmasiPencairanTarikTunai({
+    super.key,
+    required this.norek,
+    required this.bank,
+    required this.nominal,
+    required this.nama,
+  });
 
   @override
+  State<KonfirmasiPencairanTarikTunai> createState() =>
+      _KonfirmasiPencairanTarikTunaiState();
+}
+
+class _KonfirmasiPencairanTarikTunaiState
+    extends State<KonfirmasiPencairanTarikTunai> {
+  @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
+
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Column(
       children: [
         Image.asset(
@@ -45,13 +71,24 @@ class KonfirmasiPencairanTarikTunai extends StatelessWidget {
               width: 110,
               height: 42,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  await transactionProvider.transaction(
+                    TransactionModel(
+                      amount: int.parse(widget.nominal),
+                      number: widget.norek,
+                      email: userProvider.user!.email,
+                      method: widget.bank,
+                      type: 'Cashout',
+                    ),
+                  );
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
                           const StatusPencairanTarikTunaiScreen(),
                     ),
+                    (route) => false,
                   );
                 },
                 style: TextButton.styleFrom(

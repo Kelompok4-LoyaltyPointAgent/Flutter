@@ -2,13 +2,33 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_tariktunai.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
-class PoinDetailTarikTunaiScreen extends StatelessWidget {
-  const PoinDetailTarikTunaiScreen({super.key});
+import '../../providers/user_provider.dart';
+
+class PoinDetailTarikTunaiScreen extends StatefulWidget {
+  final String norek;
+  final String bank;
+  final String nominal;
+  const PoinDetailTarikTunaiScreen({
+    super.key,
+    required this.norek,
+    required this.bank,
+    required this.nominal,
+  });
 
   @override
+  State<PoinDetailTarikTunaiScreen> createState() =>
+      _PoinDetailTarikTunaiScreenState();
+}
+
+class _PoinDetailTarikTunaiScreenState
+    extends State<PoinDetailTarikTunaiScreen> {
+  @override
   Widget build(BuildContext context) {
+    UserProvider user = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -48,7 +68,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '3123123131',
+                widget.norek,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -62,7 +82,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'BNI',
+                widget.bank,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -76,7 +96,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Kartika',
+                user.user!.name.toString(),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -128,7 +148,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '5000',
+                FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -142,7 +162,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '0',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -169,7 +189,7 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '50000',
+                    FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                     style: blackTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -183,19 +203,6 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: () async {
-                    // int limit =
-                    //     int.parse(userProvider.user!.poin.toString());
-                    // if (limit >=
-                    //     provider.data!.data![widget.id].pricePoints) {
-                    //   await transactionProvider.transaction(
-                    //     TransactionModel(
-                    //       productId: provider.data!.data![widget.id].id,
-                    //       number: widget.nomer,
-                    //       email: userProvider.user!.email,
-                    //       type: 'Redeem',
-                    //     ),
-                    //   );
-
                     await showDialog(
                       barrierDismissible: false,
                       context: context,
@@ -206,21 +213,17 @@ class PoinDetailTarikTunaiScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           backgroundColor: backgroundColor,
-                          content: const SingleChildScrollView(
-                            child: KonfirmasiPencairanTarikTunai(),
+                          content: SingleChildScrollView(
+                            child: KonfirmasiPencairanTarikTunai(
+                              norek: widget.norek,
+                              bank: widget.bank,
+                              nama: user.user!.name.toString(),
+                              nominal: widget.nominal,
+                            ),
                           ),
                         ),
                       ),
                     );
-                    // } else {
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     const SnackBar(
-                    //       content: Text(
-                    //         'Poin Tidak Cukup',
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
                   },
                   child: Container(
                     color: navyColor,
