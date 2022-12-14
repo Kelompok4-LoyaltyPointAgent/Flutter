@@ -18,7 +18,8 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
   TextEditingController nominal2Controller = TextEditingController();
   TextEditingController nomerRekeningController = TextEditingController();
   TextEditingController nomerTeleponController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   String? bankPilihan;
   String? eWalletPilihan;
   @override
@@ -63,7 +64,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                     color: whiteColor,
                   ),
                   child: Form(
-                    key: _formKey,
+                    key: _formKey1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -265,7 +266,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                             child: ElevatedButton(
                               onPressed: () {
                                 final isValidForm =
-                                    _formKey.currentState!.validate();
+                                    _formKey1.currentState!.validate();
                                 int limit = 50000;
                                 if (isValidForm) {
                                   if (bankPilihan == null) {
@@ -338,7 +339,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                     color: whiteColor,
                   ),
                   child: Form(
-                    key: _formKey,
+                    key: _formKey2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -540,7 +541,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                             child: ElevatedButton(
                               onPressed: () {
                                 final isValidForm =
-                                    _formKey.currentState!.validate();
+                                    _formKey2.currentState!.validate();
                                 int limit = 50000;
                                 if (isValidForm) {
                                   if (eWalletPilihan == null) {
