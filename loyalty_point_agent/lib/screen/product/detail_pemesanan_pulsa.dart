@@ -17,7 +17,7 @@ class DetailPemesananPulsaScreen extends StatefulWidget {
   const DetailPemesananPulsaScreen(
       {super.key, required this.id, required this.number});
 
-  final int id;
+  final String id;
   final String number;
 
   @override
@@ -28,20 +28,28 @@ class DetailPemesananPulsaScreen extends StatefulWidget {
 class _DetailPemesananPulsaScreenState
     extends State<DetailPemesananPulsaScreen> {
   @override
+  void initState() {
+    Provider.of<PulsaProvider>(context, listen: false)
+        .fetchPulsaByID(widget.id);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TransactionProvider transactionProvider =
         Provider.of<TransactionProvider>(context, listen: false);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
+
     return Consumer<PulsaProvider>(
       builder: (context, provider, _) {
-        switch (provider.myState) {
+        switch (provider.myState2) {
           case MyState.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.data!.data == null) {
+            if (provider.dataById == null) {
               return const Text('Kosong');
             } else {
               return Scaffold(
@@ -98,7 +106,7 @@ class _DetailPemesananPulsaScreenState
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.data!.data![widget.id].provider,
+                          provider.dataById!.provider.toString(),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -112,7 +120,7 @@ class _DetailPemesananPulsaScreenState
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.data!.data![widget.id].name,
+                          provider.dataById!.name.toString(),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -142,7 +150,7 @@ class _DetailPemesananPulsaScreenState
                         ),
                         trailing: Text(
                           FormatCurrency.convertToIdr(
-                              provider.data!.data![widget.id].price, 0),
+                              provider.dataById!.price, 0),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -184,8 +192,7 @@ class _DetailPemesananPulsaScreenState
                             ),
                             Text(
                               FormatCurrency.convertToIdr(
-                                  provider.data!.data![widget.id].price + 1000,
-                                  0),
+                                  provider.dataById!.price! + 1000, 0),
                               style: blackTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: semiBold,
@@ -201,7 +208,7 @@ class _DetailPemesananPulsaScreenState
                             onTap: () async {
                               await transactionProvider.transaction(
                                 TransactionModel(
-                                  productId: provider.data!.data![widget.id].id,
+                                  productId: provider.dataById!.id,
                                   number: widget.number,
                                   email: userProvider.user!.email,
                                   type: 'Purchase',

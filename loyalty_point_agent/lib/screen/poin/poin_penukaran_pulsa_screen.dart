@@ -93,7 +93,7 @@ class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].provider,
+                        provider.data!.data![widget.id].provider!,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -107,7 +107,7 @@ class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].name,
+                        provider.data!.data![widget.id].name!,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -210,7 +210,7 @@ class _PoinPenukaranPulsaScreenState extends State<PoinPenukaranPulsaScreen> {
                             int limit =
                                 int.parse(userProvider.user!.poin.toString());
                             if (limit >=
-                                provider.data!.data![widget.id].pricePoints) {
+                                provider.data!.data![widget.id].pricePoints!) {
                               await transactionProvider.transaction(
                                 TransactionModel(
                                   productId: provider.data!.data![widget.id].id,
