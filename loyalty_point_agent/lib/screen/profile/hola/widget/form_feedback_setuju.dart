@@ -30,8 +30,6 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
     },
   ];
 
-  List<String> selectedCheckbox = [];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<CheckboxProvider>(
@@ -83,14 +81,8 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
                             onChanged: (value) {
                               provider.changeStatus(value);
                               data[index]['value'] = value;
-
-                              if (data[index]['value'] == true) {
-                                selectedCheckbox
-                                    .add(data[index]['id'].toString());
-                              } else {
-                                selectedCheckbox
-                                    .remove(data[index]['id'].toString());
-                              }
+                              print(data[0]['value']);
+                              //print(data[1]['value'] = !data[1]['value']);
                             },
                           );
                         },
@@ -124,6 +116,9 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
                   height: 42,
                   child: ElevatedButton(
                     onPressed: () {
+                      //print(data[0]['value']);
+                      //print(data[1]['value']);
+
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(

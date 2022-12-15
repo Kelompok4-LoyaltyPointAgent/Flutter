@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 class CheckboxProvider extends ChangeNotifier {
-  bool status = false;
+  bool? status;
 
-  void changeStatus(check) {
+  changeStatus(check) {
     status = check;
     notifyListeners();
   }

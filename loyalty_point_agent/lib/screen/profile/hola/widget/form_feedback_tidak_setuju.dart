@@ -86,10 +86,10 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
 
                               if (data[index]['value'] == true) {
                                 selectedCheckbox
-                                    .add(data[index]['id'].toString());
+                                    .add(data[index]['value'].toString());
                               } else {
                                 selectedCheckbox
-                                    .remove(data[index]['id'].toString());
+                                    .remove(data[index]['value'].toString());
                               }
                             },
                           );
@@ -130,6 +130,8 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                   height: 42,
                   child: ElevatedButton(
                     onPressed: () {
+                      print(selectedCheckbox[0]);
+                      print(selectedCheckbox[1]);
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
