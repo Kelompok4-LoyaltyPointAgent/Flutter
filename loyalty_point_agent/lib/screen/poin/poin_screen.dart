@@ -275,14 +275,14 @@ class PoinScreen extends StatelessWidget {
                                 itemBuilder: (BuildContext context, int index) {
                                   return CardRekomedasiPoin(
                                     imageProvider:
-                                        provider.data!.data![index].icon.url,
+                                        provider.data!.data![index].icon!.url,
                                     image: provider
-                                        .data!.data![index].productPicture.url,
+                                        .data!.data![index].productPicture!.url,
                                     voucher: provider.data!.data![index].price
                                         .toString(),
                                     provider:
-                                        provider.data!.data![index].provider,
-                                    title: provider.data!.data![index].name,
+                                        provider.data!.data![index].provider!,
+                                    title: provider.data!.data![index].name!,
                                     deskripsi:
                                         'Tukarkan poin Anda untuk mendapatkan pulsa ${provider.data!.data![index].price}',
                                     poin:
@@ -300,8 +300,8 @@ class PoinScreen extends StatelessWidget {
                                       if (fav.data == null) {
                                         Provider.of<FavoritProvider>(context,
                                                 listen: false)
-                                            .sendFavorite(
-                                                provider.data!.data![index].id);
+                                            .sendFavorite(provider
+                                                .data!.data![index].id!);
                                       } else {
                                         fav.data!.every((element) =>
                                                 element.product!.id !=
@@ -310,12 +310,12 @@ class PoinScreen extends StatelessWidget {
                                                     context,
                                                     listen: false)
                                                 .sendFavorite(provider
-                                                    .data!.data![index].id)
+                                                    .data!.data![index].id!)
                                             : Provider.of<FavoritProvider>(
                                                     context,
                                                     listen: false)
                                                 .removeFavorite(provider
-                                                    .data!.data![index].id);
+                                                    .data!.data![index].id!);
                                       }
 
                                       await Provider.of<FavoritProvider>(

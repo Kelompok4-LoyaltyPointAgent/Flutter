@@ -25,4 +25,25 @@ class PulsaService {
       rethrow;
     }
   }
+
+  Future<Datum> getPulsaByID(String id) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.get(
+        '${Urls.baseUrl}${Urls.pulsa}/$id',
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      // return PulsaModel.fromJson(response.data);
+      return Datum.fromJson(response.data['data']);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

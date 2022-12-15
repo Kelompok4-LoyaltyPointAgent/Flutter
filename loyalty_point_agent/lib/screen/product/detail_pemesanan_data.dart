@@ -16,7 +16,7 @@ class DetailPemesananDataScreen extends StatefulWidget {
   const DetailPemesananDataScreen(
       {super.key, required this.id, required this.number});
   final String number;
-  final int id;
+  final String id;
 
   @override
   State<DetailPemesananDataScreen> createState() =>
@@ -32,13 +32,13 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
         Provider.of<UserProvider>(context, listen: false);
     return Consumer<PaketDataProvider>(
       builder: (context, provider, _) {
-        switch (provider.myState2) {
+        switch (provider.myState3) {
           case MyState.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
           case MyState.loaded:
-            if (provider.filterData!.data == null) {
+            if (provider.dataById == null) {
               return const Text('Maaf, Belum Ada Data');
             } else {
               return Scaffold(
@@ -95,7 +95,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.filterData!.data![widget.id].provider,
+                          provider.dataById!.provider,
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -109,7 +109,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           style: blackTextStyle,
                         ),
                         trailing: Text(
-                          provider.filterData!.data![widget.id].name,
+                          provider.dataById!.name,
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -139,7 +139,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                         ),
                         trailing: Text(
                           FormatCurrency.convertToIdr(
-                              provider.filterData!.data![widget.id].price, 0),
+                              provider.dataById!.price, 0),
                           style: blackTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         visualDensity: const VisualDensity(vertical: -4),
@@ -181,8 +181,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                             ),
                             Text(
                               FormatCurrency.convertToIdr(
-                                  provider.data!.data![widget.id].price + 1000,
-                                  0),
+                                  provider.dataById!.price + 1000, 0),
                               style: blackTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: semiBold,
@@ -198,8 +197,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                             onTap: () async {
                               await transactionProvider.transaction(
                                 TransactionModel(
-                                  productId:
-                                      provider.filterData!.data![widget.id].id,
+                                  productId: provider.dataById!.id,
                                   number: widget.number,
                                   email: userProvider.user!.email,
                                   type: 'Purchase',

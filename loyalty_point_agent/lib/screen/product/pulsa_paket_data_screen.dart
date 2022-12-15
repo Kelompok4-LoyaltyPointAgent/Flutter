@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
@@ -34,8 +33,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
     'XL',
   ];
 
-  String? selectedValue;
-
+  List<bool> isSelected = [true, false];
+  late bool onTap = false;
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -172,6 +171,83 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                             ),
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ToggleButtons(
+                              isSelected: isSelected,
+                              selectedColor: navyColor,
+                              color: navyColor,
+                              fillColor: Colors.transparent,
+                              textStyle:
+                                  navyTextStyle.copyWith(fontWeight: semiBold),
+                              borderColor: Colors.transparent,
+                              selectedBorderColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              children: <Widget>[
+                                Container(
+                                  width: 150,
+                                  height: 40,
+                                  margin: const EdgeInsets.only(right: 20),
+                                  decoration: BoxDecoration(
+                                    color: isSelected[0]
+                                        ? yellowColor
+                                        : whiteColor,
+                                    border: Border.all(
+                                      color: yellowColor,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text('Semua'),
+                                  ),
+                                ),
+                                Container(
+                                  width: 150,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: isSelected[1]
+                                        ? yellowColor
+                                        : whiteColor,
+                                    border: Border.all(
+                                      color: yellowColor,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text('Harga'),
+                                      isSelected[1]
+                                          ? Icon(onTap == false
+                                              ? Icons.trending_down
+                                              : Icons.trending_up)
+                                          : const Icon(Icons.unfold_more),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              onPressed: (int newIndex) {
+                                setState(() {
+                                  for (int index = 0;
+                                      index < isSelected.length;
+                                      index++) {
+                                    if (index == newIndex) {
+                                      isSelected[index] = true;
+                                    } else {
+                                      isSelected[index] = false;
+                                    }
+                                  }
+                                  onTap = onTap == true ? false : true;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: min(52.h, 60.h),
                           child: TabBarView(
@@ -188,7 +264,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         if (provider.data!.data == null) {
                                           return const Text(
                                               'Maaf, Data Masih Kosong');
-                                        } else {
+                                        } else if (isSelected[0]) {
                                           return ListView.builder(
                                               itemCount:
                                                   provider.data!.data!.length,
@@ -200,7 +276,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                   child: ListTile(
                                                     title: Text(
                                                       provider.data!
-                                                          .data![index].name,
+                                                          .data![index].name
+                                                          .toString(),
                                                       style: navyTextStyle
                                                           .copyWith(
                                                               fontWeight: bold),
@@ -208,7 +285,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                     subtitle: Row(
                                                       children: [
                                                         Text(
-                                                            '${provider.data!.data![index].credit.activePeriod} Hari'),
+                                                            '${provider.data!.data![index].credit!.activePeriod} Hari'),
                                                         const Text(' | '),
                                                         Icon(
                                                           Icons.star,
@@ -240,7 +317,11 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                           MaterialPageRoute(
                                                             builder: (context) =>
                                                                 DetailPemesananPulsaScreen(
-                                                              id: index,
+                                                              id: provider
+                                                                  .data!
+                                                                  .data![index]
+                                                                  .id
+                                                                  .toString(),
                                                               number:
                                                                   numberController
                                                                       .text,
@@ -252,6 +333,148 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                   ),
                                                 );
                                               });
+                                        } else if (isSelected[1] &&
+                                            onTap == false) {
+                                          return ListView.builder(
+                                              itemCount:
+                                                  provider.besar!.data!.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Card(
+                                                  color: grayishColor,
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      provider.besar!
+                                                          .data![index].name
+                                                          .toString(),
+                                                      style: navyTextStyle
+                                                          .copyWith(
+                                                              fontWeight: bold),
+                                                    ),
+                                                    subtitle: Row(
+                                                      children: [
+                                                        Text(
+                                                            '${provider.besar!.data![index].credit!.activePeriod} Hari'),
+                                                        const Text(' | '),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: yellowColor,
+                                                          size: 15,
+                                                        ),
+                                                        Text(
+                                                            '${provider.besar!.data![index].rewardPoints} Poin'),
+                                                      ],
+                                                    ),
+                                                    trailing: Text(
+                                                      FormatCurrency
+                                                          .convertToIdr(
+                                                              provider
+                                                                  .besar!
+                                                                  .data![index]
+                                                                  .price,
+                                                              0),
+                                                      style: yellowTextStyle
+                                                          .copyWith(
+                                                              fontWeight: bold,
+                                                              fontSize: 18),
+                                                    ),
+                                                    onTap: () {
+                                                      if (formKey.currentState!
+                                                          .validate()) {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetailPemesananPulsaScreen(
+                                                              id: provider
+                                                                  .besar!
+                                                                  .data![index]
+                                                                  .id
+                                                                  .toString(),
+                                                              number:
+                                                                  numberController
+                                                                      .text,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              });
+                                        } else if (isSelected[1] &&
+                                            onTap == true) {
+                                          return ListView.builder(
+                                              itemCount:
+                                                  provider.kecil!.data!.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Card(
+                                                  color: grayishColor,
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      provider.kecil!
+                                                          .data![index].name
+                                                          .toString(),
+                                                      style: navyTextStyle
+                                                          .copyWith(
+                                                              fontWeight: bold),
+                                                    ),
+                                                    subtitle: Row(
+                                                      children: [
+                                                        Text(
+                                                            '${provider.kecil!.data![index].credit!.activePeriod} Hari'),
+                                                        const Text(' | '),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: yellowColor,
+                                                          size: 15,
+                                                        ),
+                                                        Text(
+                                                            '${provider.kecil!.data![index].rewardPoints} Poin'),
+                                                      ],
+                                                    ),
+                                                    trailing: Text(
+                                                      FormatCurrency
+                                                          .convertToIdr(
+                                                              provider
+                                                                  .kecil!
+                                                                  .data![index]
+                                                                  .price,
+                                                              0),
+                                                      style: yellowTextStyle
+                                                          .copyWith(
+                                                              fontWeight: bold,
+                                                              fontSize: 18),
+                                                    ),
+                                                    onTap: () {
+                                                      if (formKey.currentState!
+                                                          .validate()) {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetailPemesananPulsaScreen(
+                                                              id: provider
+                                                                  .kecil!
+                                                                  .data![index]
+                                                                  .id
+                                                                  .toString(),
+                                                              number:
+                                                                  numberController
+                                                                      .text,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              });
+                                        } else {
+                                          return const Text('Ada yang salah');
                                         }
                                       case MyState.failed:
                                         return const Text('Ada Masalah');
@@ -273,7 +496,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                         if (provider.filterData!.data == null) {
                                           return const Text(
                                               'Maaf, Data Masih Kosong');
-                                        } else {
+                                        } else if (isSelected[0]) {
                                           return ListView.builder(
                                             itemCount: provider
                                                 .filterData!.data!.length,
@@ -336,7 +559,10 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               ProductDetailPaketDataScreen(
-                                                            id: index,
+                                                            id: provider
+                                                                .filterData!
+                                                                .data![index]
+                                                                .id,
                                                             number:
                                                                 numberController
                                                                     .text,
@@ -349,6 +575,168 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                               );
                                             },
                                           );
+                                        } else if (isSelected[1] &&
+                                            onTap == false) {
+                                          return ListView.builder(
+                                            itemCount:
+                                                provider.besar!.data!.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Card(
+                                                color: grayishColor,
+                                                child: ListTile(
+                                                  title: Text(
+                                                    provider.besar!.data![index]
+                                                        .name,
+                                                    style:
+                                                        navyTextStyle.copyWith(
+                                                            fontWeight: bold),
+                                                  ),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        '${provider.besar!.data![index].package.totalInternet} GB',
+                                                        style: gbTextStyle
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    semiBold,
+                                                                fontSize: 12),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              '${provider.besar!.data![index].package.activePeriod} Hari'),
+                                                          const Text(' | '),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: yellowColor,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                              '${provider.besar!.data![index].rewardPoints} Poin'),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  trailing: Text(
+                                                    FormatCurrency.convertToIdr(
+                                                        provider.besar!
+                                                            .data![index].price,
+                                                        0),
+                                                    style: yellowTextStyle
+                                                        .copyWith(
+                                                            fontWeight: bold,
+                                                            fontSize: 16),
+                                                  ),
+                                                  onTap: () {
+                                                    if (formKey.currentState!
+                                                        .validate()) {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ProductDetailPaketDataScreen(
+                                                            id: provider
+                                                                .besar!
+                                                                .data![index]
+                                                                .id,
+                                                            number:
+                                                                numberController
+                                                                    .text,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        } else if (isSelected[1] &&
+                                            onTap == true) {
+                                          return ListView.builder(
+                                            itemCount:
+                                                provider.kecil!.data!.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Card(
+                                                color: grayishColor,
+                                                child: ListTile(
+                                                  title: Text(
+                                                    provider.kecil!.data![index]
+                                                        .name,
+                                                    style:
+                                                        navyTextStyle.copyWith(
+                                                            fontWeight: bold),
+                                                  ),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        '${provider.kecil!.data![index].package.totalInternet} GB',
+                                                        style: gbTextStyle
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    semiBold,
+                                                                fontSize: 12),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              '${provider.kecil!.data![index].package.activePeriod} Hari'),
+                                                          const Text(' | '),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: yellowColor,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                              '${provider.kecil!.data![index].rewardPoints} Poin'),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  trailing: Text(
+                                                    FormatCurrency.convertToIdr(
+                                                        provider.kecil!
+                                                            .data![index].price,
+                                                        0),
+                                                    style: yellowTextStyle
+                                                        .copyWith(
+                                                            fontWeight: bold,
+                                                            fontSize: 16),
+                                                  ),
+                                                  onTap: () {
+                                                    if (formKey.currentState!
+                                                        .validate()) {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ProductDetailPaketDataScreen(
+                                                            id: provider
+                                                                .kecil!
+                                                                .data![index]
+                                                                .id,
+                                                            number:
+                                                                numberController
+                                                                    .text,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          return const Text('salah');
                                         }
                                       case MyState.failed:
                                         return const Text('Belum Ada Data');
