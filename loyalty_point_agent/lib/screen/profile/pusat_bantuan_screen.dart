@@ -194,9 +194,8 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      final FaqProvider test =
-                          Provider.of<FaqProvider>(context, listen: false);
-                      print(test.layanan.length);
+                      final FaqService service = FaqService();
+                      service.getFaq();
                     },
                     child: Text('test')),
                 Consumer<FaqProvider>(builder: (context, provider, _) {
@@ -205,6 +204,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                     child: ListView.builder(
                       itemCount: 2,
                       itemBuilder: (context, index) {
+                        print(provider.data);
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -212,7 +212,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                           color: yellowColor,
                           child: ExpansionTile(
                             title: Text(
-                              'provider.layanan[index].answer',
+                              provider.layanan[index].answer,
                               style: navyTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: semiBold,

@@ -10,16 +10,16 @@ String faqModelToJson(FaqModel data) => json.encode(data.toJson());
 
 class FaqModel {
   FaqModel({
-    this.message,
+    required this.message,
     required this.data,
     this.errors,
-    this.status,
+    required this.status,
   });
 
-  String? message;
+  String message;
   List<Datum> data;
   dynamic errors;
-  int? status;
+  int status;
 
   factory FaqModel.fromJson(Map<String, dynamic> json) => FaqModel(
         message: json["message"],

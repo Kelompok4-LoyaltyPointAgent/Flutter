@@ -23,7 +23,7 @@ class FaqProvider extends ChangeNotifier {
       data!.data.where((element) => element.category == 'Lah').toList();
 
   List<Datum> get layanan =>
-      data!.data.where((element) => element.answer == "gue nanya").toList();
+      data!.data.where((element) => element.answer == "test").toList();
 
   MyState myState = MyState.loading;
 
