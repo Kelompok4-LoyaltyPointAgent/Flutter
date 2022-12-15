@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/post_feedback_model.dart';
 import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
+import 'package:loyalty_point_agent/providers/feedbacks_provider.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -30,12 +32,12 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
     },
   ];
 
-  List<String> selectedCheckbox = [];
+  TextEditingController saranController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CheckboxProvider>(
-      builder: (context, provider, _) {
+    return Consumer2<CheckboxProvider, FeedbacksProvider>(
+      builder: (context, provider, feedback, _) {
         return Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.vertical(
@@ -83,14 +85,6 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                             onChanged: (value) {
                               provider.changeStatus(value);
                               data[index]['value'] = value;
-
-                              if (data[index]['value'] == true) {
-                                selectedCheckbox
-                                    .add(data[index]['id'].toString());
-                              } else {
-                                selectedCheckbox
-                                    .remove(data[index]['id'].toString());
-                              }
                             },
                           );
                         },
@@ -102,7 +96,7 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                   height: 15,
                 ),
                 TextFormField(
-                  //controller: nameController,
+                  controller: saranController,
                   maxLines: 3,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -115,12 +109,6 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                   ),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'nama tidak boleh kosong';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(
                   height: 25,
@@ -129,13 +117,27 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                   width: double.infinity,
                   height: 42,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const NavBarScreen(),
-                      //   ),
-                      // );
+                    onPressed: () async {
+                      bool? pilihan1;
+                      bool? pilihan2;
+                      bool? pilihan3;
+                      bool? pilihan4;
+                      pilihan1 = data[0]['value'] == true ? false : null;
+                      pilihan2 = data[1]['value'] == true ? false : null;
+                      pilihan3 = data[2]['value'] == true ? false : null;
+                      pilihan4 = data[3]['value'] == true ? false : null;
+
+                      await feedback.feedback(
+                        PostFeedbackModel(
+                          isInformationHelpful: pilihan1,
+                          isArticleHelpful: pilihan2,
+                          isArticleEasyToFind: pilihan3,
+                          isDesignGood: pilihan4,
+                          review: saranController.text,
+                        ),
+                      );
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: yellowColor,
