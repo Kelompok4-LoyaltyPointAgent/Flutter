@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/user_model.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil_simpan_kata_sandi.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class KataSandiBaru extends StatefulWidget {
   const KataSandiBaru({super.key});
@@ -19,14 +22,24 @@ class _KataSandiBaruState extends State<KataSandiBaru> {
       TextEditingController();
 
   late ValueNotifier<bool> isObscure;
+  late ValueNotifier<bool> isObscuree;
   @override
   void initState() {
     isObscure = ValueNotifier(true);
+    isObscuree = ValueNotifier(true);
     super.initState();
   }
 
   @override
+  void dispose() {
+    passwordController.dispose();
+    repeatPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final reset = Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -101,7 +114,7 @@ class _KataSandiBaruState extends State<KataSandiBaru> {
                               ),
                             ),
                           ),
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.text,
                           obscureText: value,
                         );
@@ -115,10 +128,10 @@ class _KataSandiBaruState extends State<KataSandiBaru> {
                       style: navyTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     ValueListenableBuilder<bool>(
-                      valueListenable: isObscure,
+                      valueListenable: isObscuree,
                       builder: ((context, value, _) {
                         return TextFormField(
-                          controller: passwordController,
+                          controller: repeatPasswordController,
                           validator: (String? value) {
                             if (value!.isEmpty || value.characters.length < 8) {
                               return 'Mohon masukkan password yang benar';
@@ -137,7 +150,7 @@ class _KataSandiBaruState extends State<KataSandiBaru> {
                             suffixIcon: IconButton(
                               splashRadius: 20,
                               onPressed: () =>
-                                  isObscure.value = !isObscure.value,
+                                  isObscuree.value = !isObscuree.value,
                               icon: Icon(
                                 value ? Icons.visibility_off : Icons.visibility,
                               ),
@@ -157,21 +170,27 @@ class _KataSandiBaruState extends State<KataSandiBaru> {
                         backgroundColor: yellowColor,
                         minimumSize: const Size(double.infinity, 50),
                       ),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          isDismissible: false,
-                          enableDrag: false,
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          await reset.changePassword(UserModel(
+                            newPassword: passwordController.text,
+                            confirmPassword: repeatPasswordController.text,
+                          ));
+                          showModalBottomSheet(
+                            isDismissible: false,
+                            enableDrag: false,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
                             ),
-                          ),
-                          builder: (context) => BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: const BerhasilSimpanKataSandiBaru(),
-                          ),
-                        );
+                            builder: (context) => BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: const BerhasilSimpanKataSandiBaru(),
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         'Konfirmasi',

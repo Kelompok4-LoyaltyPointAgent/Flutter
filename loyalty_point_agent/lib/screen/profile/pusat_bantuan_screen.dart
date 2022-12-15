@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/faq_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_kuota_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_layanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_pulsa_screen.dart';
+import 'package:loyalty_point_agent/services/faq_service.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class PusatBantuanScreen extends StatefulWidget {
   const PusatBantuanScreen({super.key});
@@ -189,141 +192,65 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: yellowColor,
-                  child: ExpansionTile(
-                    title: Text(
-                      'Kenalan tentang kami yuk !',
-                      style: navyTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: semiBold,
-                      ),
-                    ),
-                    children: [
-                      ListTile(
-                        tileColor: whiteColor,
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Tentang Hola Pulsa',
-                                style: navyTextStyle.copyWith(
-                                  fontWeight: semiBold,
+                ElevatedButton(
+                    onPressed: () {
+                      final FaqProvider test =
+                          Provider.of<FaqProvider>(context, listen: false);
+                      print(test.layanan.length);
+                    },
+                    child: Text('test')),
+                Consumer<FaqProvider>(builder: (context, provider, _) {
+                  return SizedBox(
+                    height: 500,
+                    child: ListView.builder(
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: yellowColor,
+                          child: ExpansionTile(
+                            title: Text(
+                              'provider.layanan[index].answer',
+                              style: navyTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                            children: [
+                              ListTile(
+                                tileColor: whiteColor,
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'lalal',
+                                        style: navyTextStyle.copyWith(
+                                          fontWeight: semiBold,
+                                        ),
+                                      ),
+                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(left: 10),
+                                    //   child: Text(
+                                    //     DataHola.dataUtama1,
+                                    //     style: blackRegulerTextStyle,
+                                    //     textAlign: TextAlign.justify,
+                                    //   ),
+                                    // ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                DataHola.dataUtama1,
-                                style: blackRegulerTextStyle,
-                                textAlign: TextAlign.justify,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: yellowColor,
-                  child: ExpansionTile(
-                    title: Text(
-                      'Keunggulan Aplikasi Hola Pulsa',
-                      style: navyTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: semiBold,
-                      ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                    children: [
-                      ListTile(
-                        tileColor: whiteColor,
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Keuntungan Hola Pulsa',
-                                style: navyTextStyle.copyWith(
-                                  fontWeight: semiBold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                DataHola.dataUtama2,
-                                style: blackRegulerTextStyle,
-                                textAlign: TextAlign.justify,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: yellowColor,
-                  child: ExpansionTile(
-                    title: Text(
-                      'Dapat apa saja di Hola Pulsa ?',
-                      style: navyTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: semiBold,
-                      ),
-                    ),
-                    children: [
-                      ListTile(
-                        tileColor: whiteColor,
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Fasilitas terbaik hadir Untukmu',
-                                style: navyTextStyle.copyWith(
-                                  fontWeight: semiBold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                DataHola.dataUtama3,
-                                style: blackRegulerTextStyle,
-                                textAlign: TextAlign.justify,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                  );
+                }),
               ],
             ),
           ),

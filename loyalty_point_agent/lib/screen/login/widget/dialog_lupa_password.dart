@@ -3,7 +3,8 @@ import 'package:loyalty_point_agent/screen/login/lupa_password/validasi_otp_scre
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class LupaPasswordScreen extends StatefulWidget {
-  const LupaPasswordScreen({super.key});
+  const LupaPasswordScreen({super.key, required this.mail});
+  final String mail;
 
   @override
   State<LupaPasswordScreen> createState() => _LupaPasswordScreenState();
@@ -41,7 +42,7 @@ class _LupaPasswordScreenState extends State<LupaPasswordScreen> {
               height: 15,
             ),
             Text(
-              'Cek kode verifikasi yang sudah dikirim via\nemail ke ka***********@gmail.com ',
+              'Cek kode verifikasi yang sudah dikirim via\nemail ke ${widget.mail}',
               textAlign: TextAlign.center,
               style: whiteTextStyle,
             ),
@@ -54,12 +55,14 @@ class _LupaPasswordScreenState extends State<LupaPasswordScreen> {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ValidasiOTP(),
-                  ),
-                );
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ValidasiOTP(
+                        mail: widget.mail,
+                      ),
+                    ),
+                    (route) => false);
               },
               child: Text(
                 'Lanjutkan',

@@ -30,14 +30,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
     super.initState();
     Future.delayed(Duration.zero, () {
       Provider.of<UserProvider>(context, listen: false).fetchUsersData();
-    });
-    Future.delayed(Duration.zero, () {
       Provider.of<PulsaProvider>(context, listen: false).fetchPulsa();
-    });
-    Future.delayed(Duration.zero, () {
       Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
-    });
-    Future.delayed(Duration.zero, () {
       Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
     });
   }

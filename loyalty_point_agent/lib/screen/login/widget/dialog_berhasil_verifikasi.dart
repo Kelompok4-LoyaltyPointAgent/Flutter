@@ -55,12 +55,11 @@ class _DialogBerhsilVerifikasiState extends State<DialogBerhsilVerifikasi> {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const KataSandiBaru(),
-                  ),
-                );
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const KataSandiBaru()),
+                    (route) => false);
               },
               child: Text(
                 'Ubah Kata Sandi',

@@ -63,8 +63,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                         provider: provider.data!.data![index].product!.provider
                             .toString(),
                         image: provider.data!.data![index].product!
-                                    .productPicture!.url ==
-                                null
+                                .productPicture!.url!.isNotEmpty
                             ? provider
                                 .data!.data![index].product!.productPicture!.url
                                 .toString()
@@ -76,16 +75,11 @@ class _FavoritScreenState extends State<FavoritScreen> {
                             .toString(),
                         poin: provider.data!.data![index].product!.pricePoints
                             .toString(),
-                        imageProvider: provider
-                                    .data!.data![index].product!.icon!.url ==
-                                null
+                        imageProvider: provider.data!.data![index].product!
+                                .icon!.url!.isNotEmpty
                             ? provider.data!.data![index].product!.icon!.url
                                 .toString()
                             : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg',
-
-                        // provider
-                        //     .data!.data![index].product!.icon!.url
-                        //     .toString(),
                         onTap: () {
                           provider.data!.data![index].product!.type == 'Credit'
                               ? Navigator.push(

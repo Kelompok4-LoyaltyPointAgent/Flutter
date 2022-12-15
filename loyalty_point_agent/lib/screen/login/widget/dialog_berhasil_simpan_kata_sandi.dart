@@ -43,17 +43,18 @@ class _BerhasilSimpanKataSandiBaruState
           children: [
             Image.asset(
               'assets/verfikasi berhasil.png',
-              height: 180,
-              width: 180,
+              height: 150,
+              width: 150,
               fit: BoxFit.cover,
             ),
             const SizedBox(
               height: 30,
             ),
             Text(
-              'Selamat, Anda berhasil masuk ',
+              'Berhasil\nSilahkan login kembali.',
               style:
                   yellowTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

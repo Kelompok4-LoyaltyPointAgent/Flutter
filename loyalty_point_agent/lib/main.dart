@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
+import 'package:loyalty_point_agent/providers/faq_provider.dart';
 import 'package:loyalty_point_agent/providers/favorite_provider.dart';
+import 'package:loyalty_point_agent/providers/feedbacks_provider.dart';
 import 'package:loyalty_point_agent/providers/history_provider.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/navbar_provider.dart';
@@ -62,6 +64,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SelectedMethodProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FeedbacksProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FaqProvider(),
         ),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {
