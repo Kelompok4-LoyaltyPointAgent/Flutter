@@ -306,18 +306,20 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: provider.recommended[index].icon
+                                      image: provider.recommended[index].icon!
                                               .url.isEmpty
                                           ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
                                           : provider
-                                              .recommended[index].icon.url,
-                                      title: provider.recommended[index].name,
+                                              .recommended[index].icon!.url,
+                                      title: provider.recommended[index].name
+                                          .toString(),
                                       description: provider
-                                          .recommended[index].description,
+                                          .recommended[index].description
+                                          .toString(),
                                       price: FormatCurrency.convertToIdr(
                                           provider.recommended[index].price, 0),
                                       date:
-                                          '${provider.recommended[index].credit.activePeriod} Hari',
+                                          '${provider.recommended[index].credit!.activePeriod.toString()} Hari',
                                       poin:
                                           '${provider.recommended[index].pricePoints} Poin',
                                       onPressed: () {
@@ -327,7 +329,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                             builder: (context) =>
                                                 DetailPulsaScreen(
                                               productId: provider
-                                                  .data!.data![index].id,
+                                                  .data!.data![index].id
+                                                  .toString(),
                                               id: index,
                                             ),
                                           ),

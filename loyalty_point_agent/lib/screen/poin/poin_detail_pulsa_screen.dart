@@ -125,7 +125,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.data!.data![widget.id].provider,
+                              provider.data!.data![widget.id].provider!,
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -150,7 +150,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              '${provider.data!.data![widget.id].credit.activePeriod} Hari',
+                              '${provider.data!.data![widget.id].credit!.activePeriod} Hari',
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),

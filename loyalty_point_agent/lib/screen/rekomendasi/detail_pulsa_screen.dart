@@ -103,7 +103,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                       children: [
                         Center(
                           child: Text(
-                            provider.recommended[widget.id].name,
+                            provider.recommended[widget.id].name!,
                             style: navyTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: semiBold,
@@ -128,7 +128,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.recommended[widget.id].provider,
+                              provider.recommended[widget.id].provider!,
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -153,7 +153,7 @@ class _DetailPulsaScreenState extends State<DetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              '${provider.recommended[widget.id].credit.activePeriod} Hari',
+                              '${provider.recommended[widget.id].credit!.activePeriod} Hari',
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),

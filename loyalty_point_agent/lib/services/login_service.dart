@@ -46,7 +46,6 @@ class LoginService {
       );
       UserModel user = UserModel.fromJson(response.data);
       await prefs.setString("token", response.data['data']["token"]);
-      print(response.data);
 
       return user;
     } on DioError catch (_) {
@@ -68,8 +67,6 @@ class LoginService {
           },
         ),
       );
-
-      print(response.data);
 
       if (response.statusCode == 200) {
         prefs.clear();

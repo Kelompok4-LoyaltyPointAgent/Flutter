@@ -96,7 +96,7 @@ class _RekomendasiPemesananPulsaScreenState
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.recommended[widget.id].provider,
+                        provider.recommended[widget.id].provider!,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -110,7 +110,7 @@ class _RekomendasiPemesananPulsaScreenState
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.recommended[widget.id].name,
+                        provider.recommended[widget.id].name!,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -197,7 +197,7 @@ class _RekomendasiPemesananPulsaScreenState
                           ),
                           Text(
                             FormatCurrency.convertToIdr(
-                                provider.recommended[widget.id].price + 1000,
+                                provider.recommended[widget.id].price! + 1000,
                                 0),
                             style: blackTextStyle.copyWith(
                               fontSize: 16,

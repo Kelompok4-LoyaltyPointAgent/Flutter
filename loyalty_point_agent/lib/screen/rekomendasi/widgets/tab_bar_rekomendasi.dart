@@ -64,14 +64,14 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                               primary: false,
                               itemBuilder: (BuildContext context, int index) {
                                 return RekomendasiCard(
-                                  image: provider.recommended[index].icon.url,
-                                  title: provider.recommended[index].name,
+                                  image: provider.recommended[index].icon!.url,
+                                  title: provider.recommended[index].name!,
                                   description:
-                                      provider.recommended[index].description,
+                                      provider.recommended[index].description!,
                                   price: FormatCurrency.convertToIdr(
                                       provider.recommended[index].price, 0),
                                   date:
-                                      '${provider.recommended[index].credit.activePeriod} Hari',
+                                      '${provider.recommended[index].credit!.activePeriod} Hari',
                                   poin:
                                       '${provider.recommended[index].rewardPoints} Poin',
                                   onPressed: () {
@@ -80,7 +80,7 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                       MaterialPageRoute(
                                         builder: (context) => DetailPulsaScreen(
                                           productId:
-                                              provider.data!.data![index].id,
+                                              provider.data!.data![index].id!,
                                           id: index,
                                         ),
                                       ),

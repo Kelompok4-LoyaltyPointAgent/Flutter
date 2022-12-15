@@ -39,34 +39,34 @@ class PulsaModel {
 
 class Datum {
   Datum({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.provider,
-    required this.price,
-    required this.pricePoints,
-    required this.rewardPoints,
-    required this.stock,
-    required this.recommended,
-    required this.description,
-    required this.productPicture,
-    required this.icon,
-    required this.credit,
+    this.id,
+    this.name,
+    this.type,
+    this.provider,
+    this.price,
+    this.pricePoints,
+    this.rewardPoints,
+    this.stock,
+    this.recommended,
+    this.description,
+    this.productPicture,
+    this.icon,
+    this.credit,
   });
 
-  String id;
-  String name;
-  String type;
-  String provider;
-  int price;
-  int pricePoints;
-  int rewardPoints;
-  int stock;
-  bool recommended;
-  String description;
-  Icon productPicture;
-  Icon icon;
-  Credit credit;
+  String? id;
+  String? name;
+  String? type;
+  String? provider;
+  int? price;
+  int? pricePoints;
+  int? rewardPoints;
+  int? stock;
+  bool? recommended;
+  String? description;
+  Icon? productPicture;
+  Icon? icon;
+  Credit? credit;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -95,9 +95,9 @@ class Datum {
         "stock": stock,
         "recommended": recommended,
         "description": description,
-        "product_picture": productPicture.toJson(),
-        "icon": icon.toJson(),
-        "credit": credit.toJson(),
+        "product_picture": productPicture?.toJson(),
+        "icon": icon?.toJson(),
+        "credit": credit?.toJson(),
       };
 }
 

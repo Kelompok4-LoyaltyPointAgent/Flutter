@@ -20,7 +20,6 @@ class FavoriteService {
           },
         ),
       );
-      print(response.data);
       return response.data;
     } on DioError catch (_) {
       rethrow;
@@ -62,8 +61,6 @@ class FavoriteService {
           },
         ),
       );
-
-      print(response.data);
 
       return response.data;
     } on DioError catch (_) {
