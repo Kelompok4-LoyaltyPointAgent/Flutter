@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/product/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
@@ -46,6 +47,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
@@ -325,6 +328,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                               number:
                                                                   numberController
                                                                       .text,
+                                                              mail: userProvider
+                                                                  .user!.email!,
                                                             ),
                                                           ),
                                                         );
@@ -385,17 +390,20 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                         Navigator.of(context)
                                                             .push(
                                                           MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetailPemesananPulsaScreen(
-                                                              id: provider
-                                                                  .besar!
-                                                                  .data![index]
-                                                                  .id
-                                                                  .toString(),
-                                                              number:
-                                                                  numberController
-                                                                      .text,
-                                                            ),
+                                                            builder: (context) => DetailPemesananPulsaScreen(
+                                                                id: provider
+                                                                    .besar!
+                                                                    .data![
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                number:
+                                                                    numberController
+                                                                        .text,
+                                                                mail:
+                                                                    userProvider
+                                                                        .user!
+                                                                        .email!),
                                                           ),
                                                         );
                                                       }
@@ -455,17 +463,20 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                         Navigator.of(context)
                                                             .push(
                                                           MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetailPemesananPulsaScreen(
-                                                              id: provider
-                                                                  .kecil!
-                                                                  .data![index]
-                                                                  .id
-                                                                  .toString(),
-                                                              number:
-                                                                  numberController
-                                                                      .text,
-                                                            ),
+                                                            builder: (context) => DetailPemesananPulsaScreen(
+                                                                id: provider
+                                                                    .kecil!
+                                                                    .data![
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                number:
+                                                                    numberController
+                                                                        .text,
+                                                                mail:
+                                                                    userProvider
+                                                                        .user!
+                                                                        .email!),
                                                           ),
                                                         );
                                                       }
@@ -566,6 +577,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             number:
                                                                 numberController
                                                                     .text,
+                                                            mail: userProvider
+                                                                .user!.email!,
                                                           ),
                                                         ),
                                                       );
@@ -646,6 +659,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             number:
                                                                 numberController
                                                                     .text,
+                                                            mail: userProvider
+                                                                .user!.email!,
                                                           ),
                                                         ),
                                                       );
@@ -726,6 +741,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             number:
                                                                 numberController
                                                                     .text,
+                                                            mail: userProvider
+                                                                .user!.email!,
                                                           ),
                                                         ),
                                                       );
