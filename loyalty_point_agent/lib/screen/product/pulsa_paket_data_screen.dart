@@ -7,6 +7,7 @@ import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/product/detail_paket_data_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
+import 'package:loyalty_point_agent/utils/provider_number.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -43,6 +44,13 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
           .fetchFilterPaketData('');
     });
     super.initState();
+  }
+
+  String? pro;
+
+  void selectedProvider(val) async {
+    await Provider.of<PaketDataProvider>(context, listen: false)
+        .fetchFilterPaketData(val.toString());
   }
 
   @override
@@ -103,6 +111,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                       return 'Mohon Masukkan Nomor Telepon';
                     } else if (!regExp.hasMatch(value)) {
                       return 'Mohon Masukkan Nomor Telepon Yang Benar';
+                    } else if (checkprovider(value) != pro) {
+                      return 'Mohon Masukkan Nomor Telpon Sesuai Provider';
                     }
                     return null;
                   },
@@ -142,9 +152,16 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                             ),
                           ))
                       .toList(),
-                  onChanged: (value) async {
-                    await Provider.of<PaketDataProvider>(context, listen: false)
-                        .fetchFilterPaketData(value.toString());
+                  onChanged: (value) {
+                    pro = value!;
+                    selectedProvider(value);
+                    print(pro);
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Silahkan Pilih Provider Kartu Anda';
+                    }
+                    return null;
                   },
                 ),
                 Container(

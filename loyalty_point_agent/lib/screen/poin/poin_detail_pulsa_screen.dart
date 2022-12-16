@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_penukaran_pulsa_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/provider_number.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -8,9 +9,11 @@ import '../../providers/pulsa_provider.dart';
 
 class PoinDetailPulsaScreen extends StatefulWidget {
   final int id;
+  final String pro;
   const PoinDetailPulsaScreen({
     super.key,
     required this.id,
+    required this.pro,
   });
 
   @override
@@ -78,6 +81,8 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                         return 'Mohon Masukkan Nomor Telepon';
                       } else if (!regExp.hasMatch(value)) {
                         return 'Mohon Masukkan Nomor Telepon Yang Benar';
+                      } else if (checkprovider(value) != widget.pro) {
+                        return 'Mohon Masukkan Nomor Telpon Sesuai Provider';
                       }
                       return null;
                     },
