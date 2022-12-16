@@ -157,7 +157,7 @@ class FeedBack extends StatelessWidget {
               horizontal: 8,
               vertical: 10,
             ),
-            width: 170,
+            width: 190,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(

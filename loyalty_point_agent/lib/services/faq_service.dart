@@ -19,8 +19,10 @@ class FaqService {
           },
         ),
       );
-      print(response.data);
-      return FaqModel.fromJson(response.data);
+      //print(response.data);
+      final data = FaqModel.fromJson(response.data);
+      return data;
+      //return FaqModel.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }
