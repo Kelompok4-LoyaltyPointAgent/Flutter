@@ -39,14 +39,14 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     product =
-        json['Product'] != null ? Product.fromJson(json['Product']) : null;
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     if (product != null) {
-      data['Product'] = product!.toJson();
+      data['product'] = product!.toJson();
     }
     return data;
   }

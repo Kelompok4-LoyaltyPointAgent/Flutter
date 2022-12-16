@@ -10,9 +10,10 @@ import 'package:provider/provider.dart';
 
 class ProductDetailPaketDataScreen extends StatefulWidget {
   const ProductDetailPaketDataScreen(
-      {required this.id, super.key, required this.number});
+      {required this.id, super.key, required this.number, required this.mail});
   final String number;
   final String id;
+  final String mail;
 
   @override
   State<ProductDetailPaketDataScreen> createState() =>
@@ -359,6 +360,7 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
                                       DetailPemesananDataScreen(
                                     id: widget.id,
                                     number: widget.number,
+                                    mail: widget.mail,
                                   ),
                                 ),
                               );

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/faq_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/widgets/card_menu.dart';
-import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_kuota_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_layanan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_poin_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/hola_pulsa_screen.dart';
-import 'package:loyalty_point_agent/services/faq_service.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +16,14 @@ class PusatBantuanScreen extends StatefulWidget {
 }
 
 class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<FaqProvider>(context, listen: false).fetchData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,65 +198,51 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      final FaqService service = FaqService();
-                      service.getFaq();
-                    },
-                    child: Text('test')),
-                Consumer<FaqProvider>(builder: (context, provider, _) {
-                  return SizedBox(
-                    height: 500,
-                    child: ListView.builder(
-                      itemCount: 2,
-                      itemBuilder: (context, index) {
-                        print(provider.data);
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          color: yellowColor,
-                          child: ExpansionTile(
-                            title: Text(
-                              provider.layanan[index].answer,
-                              style: navyTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: semiBold,
-                              ),
+                Consumer<FaqProvider>(
+                  builder: (context, provider, _) {
+                    return SizedBox(
+                      height: 260,
+                      child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            children: [
-                              ListTile(
-                                tileColor: whiteColor,
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'lalal',
-                                        style: navyTextStyle.copyWith(
-                                          fontWeight: semiBold,
-                                        ),
-                                      ),
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.only(left: 10),
-                                    //   child: Text(
-                                    //     DataHola.dataUtama1,
-                                    //     style: blackRegulerTextStyle,
-                                    //     textAlign: TextAlign.justify,
-                                    //   ),
-                                    // ),
-                                  ],
+                            color: yellowColor,
+                            child: ExpansionTile(
+                              title: Text(
+                                provider.pusatBantuan[index].question,
+                                style: navyTextStyle.copyWith(
+                                  fontWeight: semiBold,
                                 ),
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }),
+                              children: [
+                                ListTile(
+                                  tileColor: whiteColor,
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          provider.pusatBantuan[index].answer,
+                                          style: blackRegulerTextStyle,
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

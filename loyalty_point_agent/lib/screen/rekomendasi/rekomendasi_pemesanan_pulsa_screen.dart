@@ -229,7 +229,11 @@ class _RekomendasiPemesananPulsaScreenState
                                   .toString(),
                             );
                             if (await canLaunchUrl(url)) {
-                              await launchUrl(url);
+                              await launchUrl(
+                                url,
+                                mode: LaunchMode.externalApplication,
+                              );
+                              closeInAppWebView();
                             } else {
                               throw 'Could not launch $url';
                             }

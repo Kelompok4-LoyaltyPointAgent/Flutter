@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/profile/hola/data/data_hola.dart';
+import 'package:loyalty_point_agent/providers/faq_provider.dart';
 import 'package:loyalty_point_agent/screen/profile/hola/widget/feedback.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class HolaLayananScreen extends StatefulWidget {
@@ -12,6 +13,14 @@ class HolaLayananScreen extends StatefulWidget {
 }
 
 class _HolaLayananScreenState extends State<HolaLayananScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<FaqProvider>(context, listen: false).fetchData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +62,7 @@ class _HolaLayananScreenState extends State<HolaLayananScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                    horizontal: 16,
                     vertical: 10,
                   ),
                   width: MediaQuery.of(context).size.width,
@@ -82,69 +91,57 @@ class _HolaLayananScreenState extends State<HolaLayananScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ExpansionTile(
-                          title: Text(
-                            DataHola.data2,
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          children: [
-                            ListTile(
-                              tileColor: whiteColor,
-                              subtitle: Column(
-                                children: [
-                                  Text(
-                                    DataHola.data2_2,
-                                    style: blackRegulerTextStyle,
-                                    textAlign: TextAlign.justify,
+                      Consumer<FaqProvider>(
+                        builder: (context, provider, _) {
+                          return SizedBox(
+                            // height: 230,
+                            child: ListView.builder(
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: provider.layanan.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ],
-                              ),
+                                  color: yellowColor,
+                                  child: ExpansionTile(
+                                    title: Text(
+                                      provider.layanan[index].question,
+                                      style: navyTextStyle.copyWith(
+                                        fontWeight: semiBold,
+                                      ),
+                                    ),
+                                    children: [
+                                      ListTile(
+                                        tileColor: whiteColor,
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                provider.layanan[index].answer,
+                                                style: blackRegulerTextStyle,
+                                                textAlign: TextAlign.justify,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ExpansionTile(
-                          title: Text(
-                            DataHola.data2,
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          children: [
-                            ListTile(
-                              tileColor: whiteColor,
-                              subtitle: Column(
-                                children: [
-                                  Text(
-                                    DataHola.data2_2,
-                                    style: blackRegulerTextStyle,
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
                       ),
                       const FeedBack(),
                       const SizedBox(

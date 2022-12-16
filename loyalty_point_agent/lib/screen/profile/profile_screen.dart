@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/faq_provider.dart';
 import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/profile/favorit_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/keamanan_screen.dart';
@@ -20,13 +21,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.delayed(Duration.zero, () {
-  //     Provider.of<UserProvider>(context, listen: false).fetchUsersData();
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<FaqProvider>(context, listen: false).fetchData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

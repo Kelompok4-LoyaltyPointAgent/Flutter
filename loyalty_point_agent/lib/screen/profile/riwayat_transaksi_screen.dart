@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/history_provider.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/product/detail_paket_data_screen.dart';
+import 'package:loyalty_point_agent/screen/product/detail_pemesanan_data.dart';
+import 'package:loyalty_point_agent/screen/product/detail_pemesanan_pulsa.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -90,8 +93,8 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             child: CircularProgressIndicator(),
                           );
                         case MyState.loaded:
-                          if (provider.purchase == null) {
-                            return const Text('Belum Ada Data');
+                          if (provider.data!.data == null) {
+                            return const Center(child: Text('Belum Ada Data'));
                           } else {
                             return Padding(
                               padding: const EdgeInsets.only(
@@ -218,13 +221,58 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                               trailing: Text(
                                                 FormatCurrency.convertToIdr(
                                                     provider.purchase![index]
-                                                        .product!.price,
+                                                        .amount,
                                                     0),
                                                 style: yellowTextStyle.copyWith(
                                                     fontWeight: bold,
                                                     fontSize: 16),
                                               ),
-                                              onTap: () {},
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) => provider
+                                                                .purchase![
+                                                                    index]
+                                                                .product!
+                                                                .type ==
+                                                            'Credit'
+                                                        ? DetailPemesananPulsaScreen(
+                                                            id: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .productId
+                                                                .toString(),
+                                                            number: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .transactionDetail!
+                                                                .number!,
+                                                            mail: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .transactionDetail!
+                                                                .email!,
+                                                          )
+                                                        : ProductDetailPaketDataScreen(
+                                                            id: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .productId
+                                                                .toString(),
+                                                            number: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .transactionDetail!
+                                                                .number!,
+                                                            mail: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .transactionDetail!
+                                                                .email!,
+                                                          ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -232,18 +280,86 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                 left: 20,
                                                 bottom: 10,
                                               ),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: navyColor,
-                                                  minimumSize: const Size(
-                                                      double.infinity, 40),
-                                                ),
-                                                onPressed: () {},
-                                                child: Text(
-                                                  'Beli Lagi',
-                                                  style: whiteTextStyle,
-                                                ),
-                                              ),
+                                              child:
+                                                  provider.purchase![index]
+                                                              .status ==
+                                                          berhasil
+                                                      ? ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                navyColor,
+                                                            minimumSize:
+                                                                const Size(
+                                                                    double
+                                                                        .infinity,
+                                                                    40),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                              MaterialPageRoute(
+                                                                builder: (context) => provider
+                                                                            .purchase![index]
+                                                                            .product!
+                                                                            .type ==
+                                                                        'Credit'
+                                                                    ? DetailPemesananPulsaScreen(
+                                                                        id: provider
+                                                                            .purchase![index]
+                                                                            .productId
+                                                                            .toString(),
+                                                                        number: provider
+                                                                            .purchase![index]
+                                                                            .transactionDetail!
+                                                                            .number!,
+                                                                        mail: provider
+                                                                            .purchase![index]
+                                                                            .transactionDetail!
+                                                                            .email!,
+                                                                      )
+                                                                    : DetailPemesananDataScreen(
+                                                                        id: provider
+                                                                            .purchase![index]
+                                                                            .productId
+                                                                            .toString(),
+                                                                        number: provider
+                                                                            .purchase![index]
+                                                                            .transactionDetail!
+                                                                            .number!,
+                                                                        mail: provider
+                                                                            .purchase![index]
+                                                                            .transactionDetail!
+                                                                            .email!,
+                                                                      ),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Text(
+                                                            'Beli Lagi',
+                                                            style:
+                                                                whiteTextStyle,
+                                                          ),
+                                                        )
+                                                      : ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                navyColor,
+                                                            minimumSize:
+                                                                const Size(
+                                                                    double
+                                                                        .infinity,
+                                                                    40),
+                                                          ),
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Bayar',
+                                                            style:
+                                                                whiteTextStyle,
+                                                          ),
+                                                        ),
                                             ),
                                           ],
                                         ),
@@ -253,7 +369,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             );
                           }
                         case MyState.failed:
-                          return const Text('Ada Masalah');
+                          return const Center(child: Text('Ada Masalah'));
                         default:
                           return const SizedBox();
                       }
@@ -268,7 +384,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                           );
                         case MyState.loaded:
                           if (provider.data!.data == null) {
-                            return const Text('Belum Ada Data');
+                            return const Center(child: Text('Belum Ada Data'));
                           } else {
                             return Padding(
                               padding: const EdgeInsets.only(
@@ -360,7 +476,26 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                 .redeem[index]
                                                                 .type
                                                         ? '${provider.redeem[index].product!.name}'
-                                                        : 'Transfer Bank',
+                                                        : provider.redeem[index]
+                                                                        .method ==
+                                                                    'BRI' ||
+                                                                provider
+                                                                        .redeem[
+                                                                            index]
+                                                                        .method ==
+                                                                    'BCA' ||
+                                                                provider
+                                                                        .redeem[
+                                                                            index]
+                                                                        .method ==
+                                                                    'Mandiri' ||
+                                                                provider
+                                                                        .redeem[
+                                                                            index]
+                                                                        .method ==
+                                                                    'BNI'
+                                                            ? 'Transfer Bank'
+                                                            : 'E-Wallet',
                                                     style:
                                                         navyTextStyle.copyWith(
                                                             fontWeight: bold),
