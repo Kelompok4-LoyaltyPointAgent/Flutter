@@ -5,6 +5,7 @@ import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
 import 'package:loyalty_point_agent/screen/product/widget/transaksi_sukses.dart';
+import 'package:loyalty_point_agent/screen/product/widget/verifikasi_akun.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -194,47 +195,66 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () async {
-                              await transactionProvider.transaction(
-                                TransactionModel(
-                                  productId: provider.dataById!.id,
-                                  number: widget.number,
-                                  email: widget.mail,
-                                  type: 'Purchase',
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) => BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    backgroundColor: grayishColor,
+                                    content: const SingleChildScrollView(
+                                      child: VerifikasiAkun(),
+                                    ),
+                                  ),
                                 ),
                               );
 
-                              Uri url = Uri.parse(
-                                transactionProvider.pembelian!.data!.invoiceUrl
-                                    .toString(),
-                              );
-                              if (await canLaunchUrl(url)) {
-                                await launchUrl(url,
-                                    mode: LaunchMode.externalApplication);
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                              Future.delayed(const Duration(seconds: 3), () {
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) => BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                        sigmaX: 10, sigmaY: 10),
-                                    child: WillPopScope(
-                                      onWillPop: () async => false,
-                                      child: AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        backgroundColor: backgroundColor,
-                                        content: const SingleChildScrollView(
-                                          child: ProductTransaksiBerhasil(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              });
+                              // await transactionProvider.transaction(
+                              //   TransactionModel(
+                              //     productId: provider.dataById!.id,
+                              //     number: widget.number,
+                              //     email: widget.mail,
+                              //     type: 'Purchase',
+                              //   ),
+                              // );
+
+                              // Uri url = Uri.parse(
+                              //   transactionProvider.pembelian!.data!.invoiceUrl
+                              //       .toString(),
+                              // );
+                              // if (await canLaunchUrl(url)) {
+                              //   await launchUrl(url,
+                              //       mode: LaunchMode.externalApplication);
+                              // } else {
+                              //   throw 'Could not launch $url';
+                              // }
+
+                              // Future.delayed(const Duration(seconds: 3), () {
+                              //   showDialog(
+                              //     barrierDismissible: false,
+                              //     context: context,
+                              //     builder: (context) => BackdropFilter(
+                              //       filter: ImageFilter.blur(
+                              //           sigmaX: 10, sigmaY: 10),
+                              //       child: WillPopScope(
+                              //         onWillPop: () async => false,
+                              //         child: AlertDialog(
+                              //           shape: RoundedRectangleBorder(
+                              //               borderRadius:
+                              //                   BorderRadius.circular(20)),
+                              //           backgroundColor: backgroundColor,
+                              //           content: const SingleChildScrollView(
+                              //             child: ProductTransaksiBerhasil(),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   );
+                              // });
                             },
                             child: Container(
                               color: navyColor,
