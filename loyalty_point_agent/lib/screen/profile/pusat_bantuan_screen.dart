@@ -45,164 +45,165 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
           ),
         ),
       ),
-      body: ListView(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    'Bantuan berdasarkan topik',
-                    style: whiteTextStyle.copyWith(
-                        fontSize: 20, fontWeight: semiBold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 55,
-                      vertical: 10,
+      body: SingleChildScrollView(
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      'Bantuan berdasarkan topik',
+                      style: whiteTextStyle.copyWith(
+                          fontSize: 20, fontWeight: semiBold),
                     ),
-                    // height: 124,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/background_card.png',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 55,
+                        vertical: 10,
+                      ),
+                      // height: 124,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(
+                            'assets/background_card.png',
+                          ),
                         ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HolaPulsaScreen(),
-                                  ),
-                                );
-                              },
-                              child: const CardMenu(
-                                image: 'assets/pulsa.png',
-                                title: 'Pulsa',
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HolaPulsaScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const CardMenu(
+                                  image: 'assets/pulsa.png',
+                                  title: 'Pulsa',
+                                ),
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HolaKuotaScreen(),
-                                  ),
-                                );
-                              },
-                              child: const CardMenu(
-                                image: 'assets/paket_data.png',
-                                title: 'Paket Data',
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HolaKuotaScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const CardMenu(
+                                  image: 'assets/paket_data.png',
+                                  title: 'Paket Data',
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HolaPoinScreen(),
-                                  ),
-                                );
-                              },
-                              child: const CardMenu(
-                                image: 'assets/hola_poin.png',
-                                title: 'Hola Poin',
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HolaPoinScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const CardMenu(
+                                  image: 'assets/hola_poin.png',
+                                  title: 'Hola Poin',
+                                ),
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HolaLayananScreen(),
-                                  ),
-                                );
-                              },
-                              child: const CardMenu(
-                                image: 'assets/layanan.png',
-                                title: 'Layanan',
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HolaLayananScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const CardMenu(
+                                  image: 'assets/layanan.png',
+                                  title: 'Layanan',
+                                ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 17,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            //height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                ],
               ),
             ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+            const SizedBox(
+              height: 17,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              //height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
-                Text(
-                  'Hola Pulsa',
-                  style:
-                      yellowTextStyle.copyWith(fontSize: 24, fontWeight: bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Kata sandi digunakan\n untuk masuk ke akun anda',
-                  style: navyTextStyle.copyWith(
-                    fontWeight: semiBold,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Consumer<FaqProvider>(
-                  builder: (context, provider, _) {
-                    return SizedBox(
-                      height: 260,
-                      child: ListView.builder(
+                  Text(
+                    'Hola Pulsa',
+                    style: yellowTextStyle.copyWith(
+                        fontSize: 24, fontWeight: bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Kata sandi digunakan\n untuk masuk ke akun anda',
+                    style: navyTextStyle.copyWith(
+                      fontWeight: semiBold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Consumer<FaqProvider>(
+                    builder: (context, provider, _) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
                         itemCount: 3,
                         itemBuilder: (context, index) {
                           return Card(
@@ -211,6 +212,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                             ),
                             color: yellowColor,
                             child: ExpansionTile(
+                              // key: expansionTileKey,
                               title: Text(
                                 provider.pusatBantuan[index].question,
                                 style: navyTextStyle.copyWith(
@@ -239,14 +241,17 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                             ),
                           );
                         },
-                      ),
-                    );
-                  },
-                ),
-              ],
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
