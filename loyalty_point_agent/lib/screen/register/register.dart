@@ -222,7 +222,9 @@ class _RegisterState extends State<Register> {
                           obscureText: value,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'password tidak boleh kosong';
+                              return 'Kata sandi tidak boleh kosong';
+                            } else if (value.length < 8) {
+                              return 'Kata sandi harus memiliki 8 karakter';
                             }
                             return null;
                           },

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_gagal_login.dart';
 import 'package:loyalty_point_agent/screen/login/widget/dialog_lupa_password.dart';
 import 'package:loyalty_point_agent/screen/register/register.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
@@ -37,10 +38,20 @@ class _LoginState extends State<Login> {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     loginProvider.addListener(() {
       if (loginProvider.myState == MyState.failed) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Email atau Kata Sandi Salah.',
+        showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
+          ),
+          builder: (context) => BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: const DialaogGagalLogin(),
             ),
           ),
         );
@@ -184,12 +195,13 @@ class _LoginState extends State<Login> {
                         key: passKey,
                         child: TextFormField(
                           controller: passwordController,
-                          validator: (String? value) {
+                          validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Mohon masukkan password yang benar';
-                            } else {
-                              return null;
+                              return 'Kata sandi tidak boleh kosong';
+                            } else if (value.length < 8) {
+                              return 'Kata sandi harus memiliki 8 karakter';
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
@@ -224,7 +236,7 @@ class _LoginState extends State<Login> {
                       minimumSize: const Size(double.infinity, 50),
                     ),
                     onPressed: () async {
-                      if (emailKey.currentState!.validate() ||
+                      if (emailKey.currentState!.validate() &&
                           passKey.currentState!.validate()) {
                         emailKey.currentState!.save();
                         passKey.currentState!.save();
