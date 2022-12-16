@@ -1,15 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
-import 'package:loyalty_point_agent/screen/product/widget/transaksi_sukses.dart';
 import 'package:loyalty_point_agent/screen/product/widget/verifikasi_akun.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../providers/pulsa_provider.dart';
 

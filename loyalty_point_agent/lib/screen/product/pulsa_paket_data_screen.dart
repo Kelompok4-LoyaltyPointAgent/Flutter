@@ -155,7 +155,6 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                   onChanged: (value) {
                     pro = value!;
                     selectedProvider(value);
-                    print(pro);
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
