@@ -73,8 +73,12 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     validator: (value) {
+                      String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                      RegExp regExp = RegExp(patttern);
                       if (value!.isEmpty) {
-                        return 'no tidak boleh kosong';
+                        return 'Mohon Masukkan Nomor Telepon';
+                      } else if (!regExp.hasMatch(value)) {
+                        return 'Mohon Masukkan Nomor Telepon Yang Benar';
                       }
                       return null;
                     },

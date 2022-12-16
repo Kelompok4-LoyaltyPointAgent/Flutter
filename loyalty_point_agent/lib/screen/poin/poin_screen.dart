@@ -12,6 +12,7 @@ import 'package:loyalty_point_agent/screen/poin/widgets/card_rekomendasi_poin.da
 import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
 import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -294,13 +295,12 @@ class _PoinScreenState extends State<PoinScreen> {
                                         provider.data!.data![index].icon!.url,
                                     image: provider
                                         .data!.data![index].productPicture!.url,
-                                    voucher: provider.data!.data![index].price
-                                        .toString(),
+                                    voucher: '',
                                     provider:
                                         provider.data!.data![index].provider!,
                                     title: provider.data!.data![index].name!,
                                     deskripsi:
-                                        'Tukarkan poin Anda untuk mendapatkan pulsa ${provider.data!.data![index].price}',
+                                        'Tukarkan poin Anda untuk mendapatkan pulsa ${FormatCurrency.convertToIdr(provider.data!.data![index].price, 0)}',
                                     poin:
                                         '${provider.data!.data![index].pricePoints} Poin',
                                     onTap: () {
@@ -412,8 +412,7 @@ class _PoinScreenState extends State<PoinScreen> {
                                         provider.data!.data![index].icon.url,
                                     image: provider
                                         .data!.data![index].productPicture.url,
-                                    voucher:
-                                        '${provider.data!.data![index].package.totalInternet} GB',
+                                    voucher: '',
                                     provider:
                                         provider.data!.data![index].provider,
                                     title: provider.data!.data![index].name,
