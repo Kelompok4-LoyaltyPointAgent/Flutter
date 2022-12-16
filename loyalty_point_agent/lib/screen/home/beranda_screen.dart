@@ -306,11 +306,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return RekomendasiCard(
-                                      image: provider.recommended[index].icon!
-                                              .url.isEmpty
-                                          ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
-                                          : provider
-                                              .recommended[index].icon!.url,
+                                      image:
+                                          provider.recommended[index].icon!.url,
                                       title: provider.recommended[index].name
                                           .toString(),
                                       description: provider
