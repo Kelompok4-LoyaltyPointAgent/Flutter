@@ -133,8 +133,22 @@ class _LoginState extends State<Login> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const Register(),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return const Register();
+                          },
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(
+                              begin: 0.0,
+                              end: 1.0,
+                            );
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                          },
                         ),
                       );
                     },
@@ -199,7 +213,7 @@ class _LoginState extends State<Login> {
                             if (value!.isEmpty) {
                               return 'Kata sandi tidak boleh kosong';
                             } else if (value.length < 8) {
-                              return 'Kata sandi harus memiliki 8 karakter';
+                              return 'Kata sandi harus minimal 8 karakter';
                             }
                             return null;
                           },
@@ -294,10 +308,11 @@ class _LoginState extends State<Login> {
                             builder: (context) => BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                               child: WillPopScope(
-                                  onWillPop: () async => false,
-                                  child: LupaPasswordScreen(
-                                    mail: emailController.text,
-                                  )),
+                                onWillPop: () async => false,
+                                child: LupaPasswordScreen(
+                                  mail: emailController.text,
+                                ),
+                              ),
                             ),
                           );
                         }

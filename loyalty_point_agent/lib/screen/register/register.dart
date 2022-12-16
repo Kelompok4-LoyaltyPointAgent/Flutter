@@ -121,8 +121,22 @@ class _RegisterState extends State<Register> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const Login(),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return const Login();
+                          },
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(
+                              begin: 0.0,
+                              end: 1.0,
+                            );
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                          },
                         ),
                       );
                     },
@@ -224,7 +238,7 @@ class _RegisterState extends State<Register> {
                             if (value!.isEmpty) {
                               return 'Kata sandi tidak boleh kosong';
                             } else if (value.length < 8) {
-                              return 'Kata sandi harus memiliki 8 karakter';
+                              return 'Kata sandi harus minimal 8 karakter';
                             }
                             return null;
                           },
