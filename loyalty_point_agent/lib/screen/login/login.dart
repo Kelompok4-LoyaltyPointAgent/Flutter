@@ -1,6 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/providers/checkbox_provider.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/models/login_model.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_berhasil.dart';
+import 'package:loyalty_point_agent/screen/login/widget/dialog_lupa_password.dart';
+import 'package:loyalty_point_agent/screen/register/register.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -12,24 +18,68 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GlobalKey<FormState> passKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> emailKey = GlobalKey<FormState>();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   late ValueNotifier<bool> isObscure;
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    loginProvider.addListener(() {
+      if (loginProvider.myState == MyState.failed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Email atau Kata Sandi Salah.',
+            ),
+          ),
+        );
+      } else if (loginProvider.myState == MyState.loaded) {
+        showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
+          ),
+          builder: (context) => BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: const LoginBerhasil(),
+            ),
+          ),
+        );
+      }
+    });
+
     isObscure = ValueNotifier(true);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final val = context.watch<CheckboxProvider>().val == false;
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: MediaQuery.fromWindow(
         child: Column(
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.only(top: 100, bottom: 10),
+                padding: const EdgeInsets.only(top: 80, bottom: 10),
                 child: Column(
                   children: [
                     const Image(
@@ -73,7 +123,7 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const Login(),
+                          builder: (context) => const Register(),
                         ),
                       );
                     },
@@ -81,18 +131,32 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            Form(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 20, right: 20, bottom: 130),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email',
-                      style: navyTextStyle.copyWith(fontWeight: semiBold),
-                    ),
-                    TextFormField(
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Email',
+                    style: navyTextStyle.copyWith(fontWeight: semiBold),
+                  ),
+                  Form(
+                    key: emailKey,
+                    child: TextFormField(
+                      controller: emailController,
+                      validator: (String? value) {
+                        const String expression = "[a-zA-Z0-9+._%-+]{1,256}"
+                            "\\@"
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
+                            "("
+                            "\\."
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
+                            ")+";
+                        final RegExp regExp = RegExp(expression);
+                        return !regExp.hasMatch(value!)
+                            ? "Masukkan email yang valid!"
+                            : null;
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: yellowColor),
@@ -105,17 +169,28 @@ class _LoginState extends State<Login> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Kata Sandi',
-                      style: navyTextStyle.copyWith(fontWeight: semiBold),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: isObscure,
-                      builder: ((context, value, _) {
-                        return TextFormField(
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Kata Sandi',
+                    style: navyTextStyle.copyWith(fontWeight: semiBold),
+                  ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: isObscure,
+                    builder: ((context, value, _) {
+                      return Form(
+                        key: passKey,
+                        child: TextFormField(
+                          controller: passwordController,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Mohon masukkan password yang benar';
+                            } else {
+                              return null;
+                            }
+                          },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: yellowColor),
@@ -136,63 +211,92 @@ class _LoginState extends State<Login> {
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.text,
                           obscureText: value,
-                        );
-                      }),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: val,
-                          onChanged: (value) => context
-                              .read<CheckboxProvider>()
-                              .set(value! ? false : true),
                         ),
-                        Text(
-                          'Ingatkan Saya',
-                          style: yellowTextStyle,
-                        )
-                      ],
+                      );
+                    }),
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: yellowColor,
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    const SizedBox(
-                      height: 70,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: yellowColor,
-                        minimumSize: const Size(double.infinity, 50),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NavBarScreen(),
+                    onPressed: () async {
+                      if (emailKey.currentState!.validate() ||
+                          passKey.currentState!.validate()) {
+                        emailKey.currentState!.save();
+                        passKey.currentState!.save();
+                        Provider.of<LoginProvider>(context, listen: false)
+                            .login(
+                          LoginModel(
+                            email: emailController.text,
+                            password: passwordController.text,
                           ),
-                          (route) => false,
                         );
+                      }
+                    },
+                    child: Consumer<LoginProvider>(
+                      builder: (context, login, circular) {
+                        if (login.myState == MyState.loading) {
+                          return circular!;
+                        } else {
+                          return Text(
+                            'Masuk',
+                            style: blackRegulerTextStyle.copyWith(
+                                fontWeight: semiBold, fontSize: 16),
+                          );
+                        }
+                      },
+                      child: const CircularProgressIndicator(),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: TextButton(
+                      onPressed: () async {
+                        if (emailKey.currentState!.validate()) {
+                          emailKey.currentState!.save();
+
+                          // loginProvider.forgotPassword(
+                          //   LoginModel(
+                          //     email: emailController.text,
+                          //   ),
+                          // );
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .forgotPassword(
+                                  LoginModel(email: emailController.text));
+
+                          showModalBottomSheet(
+                            isDismissible: false,
+                            enableDrag: false,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
+                            ),
+                            builder: (context) => BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: WillPopScope(
+                                  onWillPop: () async => false,
+                                  child: LupaPasswordScreen(
+                                    mail: emailController.text,
+                                  )),
+                            ),
+                          );
+                        }
                       },
                       child: Text(
-                        'Masuk',
-                        style: blackRegulerTextStyle.copyWith(
-                            fontWeight: semiBold, fontSize: 16),
+                        'Lupa Sata Sandi ?',
+                        style: yellowTextStyle.copyWith(fontWeight: semiBold),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Text(
-                          'Lupa Sata Sandi ?',
-                          style: yellowTextStyle.copyWith(fontWeight: semiBold),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

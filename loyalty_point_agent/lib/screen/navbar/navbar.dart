@@ -7,7 +7,8 @@ import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class NavBarScreen extends StatefulWidget {
-  const NavBarScreen({Key? key}) : super(key: key);
+  final int pageIndex;
+  const NavBarScreen({Key? key, this.pageIndex = 0}) : super(key: key);
 
   @override
   State<NavBarScreen> createState() => _NavBarScreenState();
@@ -21,42 +22,51 @@ class _NavBarScreenState extends State<NavBarScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    final navigatorKey = GlobalKey<NavigatorState>();
-    NavBarProvider navBarProvider = Provider.of<NavBarProvider>(context);
-    int currentScreenIndex = navBarProvider.fetchCurrentScreenIndex;
+  void initState() {
+    context.read<NavBarProvider>().screenIndex = widget.pageIndex;
+    super.initState();
+  }
 
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: yellowColor,
-        unselectedItemColor: nabBarColorUnselected,
-        selectedItemColor: navbarColorSelected,
-        elevation: 1.5,
-        currentIndex: currentScreenIndex,
-        showUnselectedLabels: true,
-        onTap: (value) => navBarProvider.updateScreenIndex(value),
-        items: const [
-          BottomNavigationBarItem(
-            label: 'Beranda',
-            icon: Icon(Icons.home),
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<NavBarProvider>(
+      builder: (context, provider, _) {
+        return Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: navyColor,
+            unselectedItemColor: greyColor,
+            selectedItemColor: yellowColor,
+            elevation: 1.5,
+            currentIndex: provider.screenIndex,
+            showUnselectedLabels: true,
+            onTap: (value) => provider.updateScreenIndex(value),
+            items: const [
+              BottomNavigationBarItem(
+                label: 'Beranda',
+                icon: Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: 'Poin',
+                icon: Icon(
+                  Icons.star,
+                  size: 30,
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: 'Profil',
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
+                ),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            label: 'Poin',
-            icon: Icon(Icons.star),
-          ),
-          BottomNavigationBarItem(
-            label: 'Profil',
-            icon: Icon(Icons.person),
-          ),
-        ],
-      ),
-      body: Navigator(
-        key: navigatorKey,
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-              builder: (_) => screens.elementAt(currentScreenIndex));
-        },
-      ),
+          body: screens[provider.screenIndex],
+        );
+      },
     );
   }
 }

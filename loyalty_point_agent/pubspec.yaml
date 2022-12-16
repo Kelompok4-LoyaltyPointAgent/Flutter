@@ -38,9 +38,15 @@ dependencies:
   provider: ^6.0.4
   google_fonts: ^3.0.1
   dropdown_button2: ^1.9.1
-  url_launcher: ^6.1.7
+  url_launcher: ^6.1.6
   carousel_slider: ^4.1.1
   sizer: ^2.0.15
+  dio: ^4.0.6
+  shared_preferences: ^2.0.15
+  flutter_secure_storage: ^6.1.0
+  intl: ^0.17.0
+  pin_code_fields: ^7.4.0
+ 
 
 dev_dependencies:
   flutter_test:

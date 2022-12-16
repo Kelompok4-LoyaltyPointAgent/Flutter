@@ -1,16 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 
-class CheckboxProvider with ChangeNotifier {
-  bool _isChecked = false;
+class CheckboxProvider extends ChangeNotifier {
+  bool status = false;
 
-  // void change() {
-  //   isChecked = !isChecked;
-  //   notifyListeners();
-  // }
-  bool get val => _isChecked;
-
-  void set(bool isChecked) {
-    _isChecked = isChecked;
+  changeStatus(check) {
+    status = check;
     notifyListeners();
   }
 }

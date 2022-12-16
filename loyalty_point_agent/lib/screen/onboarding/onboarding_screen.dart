@@ -17,7 +17,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   CarouselController carouselController = CarouselController();
 
   List<String> titles = [
-    'Solusi Intenetan Tanpa Batas',
+    'Solusi Internetan Tanpa Batas',
     'Kumpulkan POIN Anda ',
     'Tukar & Nikmati Keuntungannya ',
   ];

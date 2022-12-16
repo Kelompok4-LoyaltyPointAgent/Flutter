@@ -1,27 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_screen.dart';
+import 'package:loyalty_point_agent/providers/favorite_provider.dart';
+import 'package:loyalty_point_agent/providers/login_provider.dart';
+import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
+import 'package:loyalty_point_agent/providers/pulsa_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
+import 'package:loyalty_point_agent/screen/login/login.dart';
+import 'package:loyalty_point_agent/screen/profile/pusat_bantuan_screen.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/detail_paket_data_screen.dart';
+import 'package:loyalty_point_agent/screen/rekomendasi/detail_pulsa_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_card.dart';
-import 'package:loyalty_point_agent/screen/product/pulsa_paket-data_screen.dart';
+import 'package:loyalty_point_agent/screen/product/pulsa_paket_data_screen.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_screen.dart';
+import 'package:loyalty_point_agent/utils/finite_state.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 
-class BerandaScreen extends StatelessWidget {
+class BerandaScreen extends StatefulWidget {
   const BerandaScreen({Key? key}) : super(key: key);
+
+  @override
+  State<BerandaScreen> createState() => _BerandaScreenState();
+}
+
+class _BerandaScreenState extends State<BerandaScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+      Provider.of<PulsaProvider>(context, listen: false).fetchPulsa();
+      Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
+      Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
+    });
+  }
+
+  void logout() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const Login()),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: grayishColor,
-        title: Text(
-          'Hai, Kartika Noviyanti!',
-          style: blackTextStyle.copyWith(
-            fontSize: 16,
-            fontWeight: medium,
-          ),
+        automaticallyImplyLeading: false,
+        backgroundColor: whiteColor,
+        title: Consumer<UserProvider>(
+          builder: (context, provider, _) {
+            switch (provider.myState) {
+              case MyState.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case MyState.loaded:
+                if (provider.user == null) {
+                  return const Text('Tidak Ada Data');
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hai, ${provider.user!.name.toString()}!',
+                        style: navyTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: yellowColor,
+                            size: 24,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '${provider.user!.poin.toString()} poin',
+                            style: yellowTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: medium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }
+              case MyState.failed:
+                final deleteToken =
+                    Provider.of<LoginProvider>(context, listen: false);
+
+                deleteToken.deleteToken();
+                logout();
+
+                return const Text('Ada Masalah');
+              default:
+                return const SizedBox();
+            }
+          },
         ),
-        toolbarHeight: 60,
+        toolbarHeight: 70,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
@@ -29,20 +115,37 @@ class BerandaScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RiwayatTransaksiScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.notifications_none,
+              Icons.notifications_rounded,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PusatBantuanScreen(),
+                ),
+              );
+            },
             icon: Icon(
-              Icons.info_outline,
+              Icons.info_rounded,
               size: 30,
-              color: navyColor,
+              color: yellowColor,
             ),
+          ),
+          const SizedBox(
+            width: 10,
           ),
         ],
       ),
@@ -62,7 +165,7 @@ class BerandaScreen extends StatelessWidget {
                   image: const DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                      'assets/background_card.png',
+                      'assets/background_card1.png',
                     ),
                   ),
                 ),
@@ -184,29 +287,65 @@ class BerandaScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) {
-                        return RekomendasiCard(
-                          image: 'assets/provider_telkomsel.png',
-                          title: 'Kring-kring',
-                          description:
-                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                          price: 'Rp. 50.000',
-                          date: '30 Hari',
-                          poin: '5000 Poin',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const RekomendasiPemesananScreen(),
-                              ),
+                    Consumer<PulsaProvider>(
+                      builder: (context, provider, _) {
+                        switch (provider.myState) {
+                          case MyState.loading:
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        );
+                          case MyState.loaded:
+                            if (provider.recommended.isEmpty) {
+                              return const Text('Maaf Belum Ada Rekomendasi');
+                            } else {
+                              return SizedBox(
+                                child: ListView.builder(
+                                  itemCount: 2,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return RekomendasiCard(
+                                      image: provider.recommended[index].icon!
+                                              .url.isEmpty
+                                          ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
+                                          : provider
+                                              .recommended[index].icon!.url,
+                                      title: provider.recommended[index].name
+                                          .toString(),
+                                      description: provider
+                                          .recommended[index].description
+                                          .toString(),
+                                      price: FormatCurrency.convertToIdr(
+                                          provider.recommended[index].price, 0),
+                                      date:
+                                          '${provider.recommended[index].credit!.activePeriod.toString()} Hari',
+                                      poin:
+                                          '${provider.recommended[index].pricePoints} Poin',
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailPulsaScreen(
+                                              productId: provider
+                                                  .data!.data![index].id
+                                                  .toString(),
+                                              id: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+                          case MyState.failed:
+                            return const Text('Ada Masalah');
+                          default:
+                            return const SizedBox();
+                        }
                       },
                     ),
                     const SizedBox(
@@ -256,29 +395,62 @@ class BerandaScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) {
-                        return RekomendasiCard(
-                          image: 'assets/provider_telkomsel.png',
-                          title: 'Kring-kring',
-                          description:
-                              'Teleponan 185 menit sesama telkomsel dan 15 menit ke operator lain',
-                          price: 'Rp. 50.000',
-                          date: '30 Hari',
-                          poin: '5000 Poin',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const RekomendasiPemesananScreen(),
-                              ),
+                    Consumer<PaketDataProvider>(
+                      builder: (context, provider, _) {
+                        switch (provider.myState) {
+                          case MyState.loading:
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          },
-                        );
+                          case MyState.loaded:
+                            if (provider.recommended.isEmpty) {
+                              return const Text('Maaf Belum Ada Rekomendasi');
+                            } else {
+                              return SizedBox(
+                                child: ListView.builder(
+                                  itemCount: 2,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return RekomendasiCard(
+                                      image: provider.recommended[index].icon
+                                              .url.isEmpty
+                                          ? 'https://www.kindpng.com/picc/m/236-2362818_anime-sempai-animegirl-heart-kawaii-cute-anime-girl.png'
+                                          : provider
+                                              .recommended[index].icon.url,
+                                      title: provider.recommended[index].name,
+                                      description: provider
+                                          .recommended[index].description,
+                                      price: FormatCurrency.convertToIdr(
+                                          provider.recommended[index].price, 0),
+                                      date:
+                                          '${provider.recommended[index].package.activePeriod} Hari',
+                                      poin:
+                                          '${provider.recommended[index].pricePoints} Poin',
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailPaketDataScreen(
+                                              productId: provider
+                                                  .data!.data![index].id,
+                                              id: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+                          case MyState.failed:
+                            return const Text('Ada Masalah');
+                          default:
+                            return const SizedBox();
+                        }
                       },
                     ),
                     const SizedBox(

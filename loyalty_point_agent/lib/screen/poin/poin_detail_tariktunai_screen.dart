@@ -1,25 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/rekomendasi/widgets/rekomendasi_transaksi_suksess.dart';
-import 'package:loyalty_point_agent/utils/theme.dart';
+import 'dart:ui';
 
-class RekomendasiDetailPemesananScreen extends StatefulWidget {
-  const RekomendasiDetailPemesananScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_tariktunai.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
+import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user_provider.dart';
+
+class PoinDetailTarikTunaiScreen extends StatefulWidget {
+  final String norek;
+  final String bank;
+  final String nominal;
+  const PoinDetailTarikTunaiScreen({
+    super.key,
+    required this.norek,
+    required this.bank,
+    required this.nominal,
+  });
 
   @override
-  State<RekomendasiDetailPemesananScreen> createState() =>
-      _RekomendasiDetailPemesananScreenState();
+  State<PoinDetailTarikTunaiScreen> createState() =>
+      _PoinDetailTarikTunaiScreenState();
 }
 
-class _RekomendasiDetailPemesananScreenState
-    extends State<RekomendasiDetailPemesananScreen> {
-  bool light = false;
+class _PoinDetailTarikTunaiScreenState
+    extends State<PoinDetailTarikTunaiScreen> {
   @override
   Widget build(BuildContext context) {
+    UserProvider user = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Detail Pemesanan',
+          'Detail Pencairan',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
@@ -50,11 +64,11 @@ class _RekomendasiDetailPemesananScreenState
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Nomor Telepon',
+                'Nomer Rekening',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '081234567890',
+                widget.norek,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -64,11 +78,11 @@ class _RekomendasiDetailPemesananScreenState
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Provider',
+                'Bank',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Telkomsel',
+                widget.bank,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -78,20 +92,48 @@ class _RekomendasiDetailPemesananScreenState
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Voucher',
+                'Atas Nama',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Si Paling Sakti',
+                user.user!.name.toString(),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
             ),
           ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.all(5),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: yellowColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.info_rounded,
+                  color: navyColor,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Pastikan Identitas Sudah Benar',
+                  style: navyTextStyle,
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            thickness: 5,
+            color: greyColor,
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, top: 20, bottom: 5),
+            padding: const EdgeInsets.only(left: 15, top: 10, bottom: 5),
             child: Text(
-              'Detail Pembayaran',
+              'Detail Pencairan',
               style: navyTextStyle.copyWith(
                 fontWeight: semiBold,
                 fontSize: 16,
@@ -102,11 +144,11 @@ class _RekomendasiDetailPemesananScreenState
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Sub Total',
+                'Nominal',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Rp 145.500',
+                FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -120,29 +162,8 @@ class _RekomendasiDetailPemesananScreenState
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Rp 1.000',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Gunakan Poin',
-                style: blackTextStyle,
-              ),
-              trailing: Switch(
-                // This bool value toggles the switch.
-                value: light,
-                activeColor: Colors.red,
-                onChanged: (bool value) {
-                  // This is called when the user toggles the switch.
-                  setState(() {
-                    light = value;
-                  });
-                },
               ),
               visualDensity: const VisualDensity(vertical: -4),
             ),
@@ -162,13 +183,13 @@ class _RekomendasiDetailPemesananScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Total Pembayaran',
+                    'Total Penarikan',
                     style: blackTextStyle.copyWith(
                       fontWeight: medium,
                     ),
                   ),
                   Text(
-                    'Hitung Sendiri !!!',
+                    FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                     style: blackTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -181,12 +202,25 @@ class _RekomendasiDetailPemesananScreenState
               child: Align(
                 alignment: Alignment.centerRight,
                 child: InkWell(
-                  onTap: () {
-                    showDialog(
+                  onTap: () async {
+                    await showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const AlertDialog(
-                        content: SingleChildScrollView(
-                          child: RekomendasiTransaksiSuksess(),
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          backgroundColor: backgroundColor,
+                          content: SingleChildScrollView(
+                            child: KonfirmasiPencairanTarikTunai(
+                              norek: widget.norek,
+                              bank: widget.bank,
+                              nama: user.user!.name.toString(),
+                              nominal: widget.nominal,
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -197,7 +231,7 @@ class _RekomendasiDetailPemesananScreenState
                     width: 120,
                     child: Center(
                       child: Text(
-                        'Buat\nPesanan',
+                        'Cairkan',
                         style: whiteTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: semiBold,

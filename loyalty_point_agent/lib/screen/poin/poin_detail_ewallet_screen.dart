@@ -1,17 +1,34 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/poin/widgets/poin_transaksi_suksess.dart';
+import 'package:loyalty_point_agent/screen/poin/widgets/konfirmasi_pencairan_ewallet.dart';
+import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
-class PoinDetailPemesananScreen extends StatelessWidget {
-  const PoinDetailPemesananScreen({super.key});
+class PoinDetailEwalletScreen extends StatefulWidget {
+  final String noTelepon;
+  final String eWallet;
+  final String nominal;
+  const PoinDetailEwalletScreen({
+    super.key,
+    required this.noTelepon,
+    required this.eWallet,
+    required this.nominal,
+  });
 
+  @override
+  State<PoinDetailEwalletScreen> createState() =>
+      _PoinDetailEwalletScreenState();
+}
+
+class _PoinDetailEwalletScreenState extends State<PoinDetailEwalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: navyColor,
         title: Text(
-          'Detail Pemesanan',
+          'Detail Pencairan',
           style: whiteTextStyle.copyWith(
             fontSize: 18,
             fontWeight: bold,
@@ -31,7 +48,7 @@ class PoinDetailPemesananScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 20, bottom: 5),
             child: Text(
-              'Informasi Prabayar',
+              'Identitas Penerima',
               style: navyTextStyle.copyWith(
                 fontWeight: semiBold,
                 fontSize: 16,
@@ -42,11 +59,11 @@ class PoinDetailPemesananScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Nomor Telepon',
+                'Nomer Telepon',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '081234567890',
+                widget.noTelepon,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -56,41 +73,48 @@ class PoinDetailPemesananScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Provider',
+                'Dompet Virtual',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                'Telkomsel',
+                widget.eWallet,
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Voucher',
-                style: blackTextStyle,
-              ),
-              trailing: Text(
-                'Si Paling Sakti',
-                style: blackTextStyle.copyWith(fontWeight: semiBold),
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.all(5),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: yellowColor,
+              borderRadius: BorderRadius.circular(20),
             ),
-          ),
-          const SizedBox(
-            height: 15,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.info_rounded,
+                  color: navyColor,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Pastikan Identitas Sudah Benar',
+                  style: navyTextStyle,
+                ),
+              ],
+            ),
           ),
           Divider(
             thickness: 5,
             color: greyColor,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, top: 20, bottom: 5),
+            padding: const EdgeInsets.only(left: 15, top: 10, bottom: 5),
             child: Text(
-              'Detail Penukaran',
+              'Detail Pencairan',
               style: navyTextStyle.copyWith(
                 fontWeight: semiBold,
                 fontSize: 16,
@@ -101,11 +125,11 @@ class PoinDetailPemesananScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Poin Yang dibutuhkan',
+                'Nominal',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '45.500',
+                FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -115,25 +139,11 @@ class PoinDetailPemesananScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, right: 5),
             child: ListTile(
               title: Text(
-                'Poin saat ini',
+                'Biaya Admin',
                 style: blackTextStyle,
               ),
               trailing: Text(
-                '1.000',
-                style: blackTextStyle.copyWith(fontWeight: semiBold),
-              ),
-              visualDensity: const VisualDensity(vertical: -4),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5),
-            child: ListTile(
-              title: Text(
-                'Sisa',
-                style: blackTextStyle,
-              ),
-              trailing: Text(
-                '1.000',
+                FormatCurrency.convertToIdr(0, 0),
                 style: blackTextStyle.copyWith(fontWeight: semiBold),
               ),
               visualDensity: const VisualDensity(vertical: -4),
@@ -154,13 +164,13 @@ class PoinDetailPemesananScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Total Pembayaran',
+                    'Total Penarikan',
                     style: blackTextStyle.copyWith(
                       fontWeight: medium,
                     ),
                   ),
                   Text(
-                    'Hitung Sendiri !!!',
+                    FormatCurrency.convertToIdr(int.parse(widget.nominal), 0),
                     style: blackTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -173,12 +183,24 @@ class PoinDetailPemesananScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: InkWell(
-                  onTap: () {
-                    showDialog(
+                  onTap: () async {
+                    await showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const AlertDialog(
-                        content: SingleChildScrollView(
-                          child: PoinTransaksiSuksess(),
+                      builder: (context) => BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          backgroundColor: backgroundColor,
+                          content: SingleChildScrollView(
+                            child: KonfirmasiPencairanEwallet(
+                              noTelepon: widget.noTelepon,
+                              eWallet: widget.eWallet,
+                              nominal: widget.nominal,
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -189,7 +211,7 @@ class PoinDetailPemesananScreen extends StatelessWidget {
                     width: 120,
                     child: Center(
                       child: Text(
-                        'Tukar\nSekarang',
+                        'Cairkan',
                         style: whiteTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: semiBold,
