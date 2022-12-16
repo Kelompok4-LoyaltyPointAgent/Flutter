@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
-import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifikasiAkun extends StatefulWidget {
   const VerifikasiAkun({super.key});
