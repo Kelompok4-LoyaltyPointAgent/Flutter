@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
-import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/product/widget/transaksi_sukses.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
@@ -15,10 +14,11 @@ import '../../providers/pulsa_provider.dart';
 
 class DetailPemesananPulsaScreen extends StatefulWidget {
   const DetailPemesananPulsaScreen(
-      {super.key, required this.id, required this.number});
+      {super.key, required this.id, required this.number, required this.mail});
 
   final String id;
   final String number;
+  final String mail;
 
   @override
   State<DetailPemesananPulsaScreen> createState() =>
@@ -38,8 +38,6 @@ class _DetailPemesananPulsaScreenState
   Widget build(BuildContext context) {
     TransactionProvider transactionProvider =
         Provider.of<TransactionProvider>(context, listen: false);
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
 
     return Consumer<PulsaProvider>(
       builder: (context, provider, _) {
@@ -210,7 +208,7 @@ class _DetailPemesananPulsaScreenState
                                 TransactionModel(
                                   productId: provider.dataById!.id,
                                   number: widget.number,
-                                  email: userProvider.user!.email,
+                                  email: widget.mail,
                                   type: 'Purchase',
                                 ),
                               );
@@ -219,7 +217,6 @@ class _DetailPemesananPulsaScreenState
                                 transactionProvider.pembelian!.data!.invoiceUrl
                                     .toString(),
                               );
-
                               if (await canLaunchUrl(url)) {
                                 await launchUrl(
                                   url,
@@ -229,27 +226,29 @@ class _DetailPemesananPulsaScreenState
                               } else {
                                 throw 'Could not launch $url';
                               }
-
-                              await showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                  child: WillPopScope(
-                                    onWillPop: () async => false,
-                                    child: AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      backgroundColor: backgroundColor,
-                                      content: const SingleChildScrollView(
-                                        child: ProductTransaksiBerhasil(),
+                              Future.delayed(const Duration(seconds: 3), () {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) => BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10, sigmaY: 10),
+                                    child: WillPopScope(
+                                      onWillPop: () async => false,
+                                      child: AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        backgroundColor: backgroundColor,
+                                        content: const SingleChildScrollView(
+                                          child: ProductTransaksiBerhasil(),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
+                                );
+                              });
                             },
                             child: Container(
                               color: navyColor,
