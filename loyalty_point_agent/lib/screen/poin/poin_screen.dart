@@ -308,7 +308,12 @@ class _PoinScreenState extends State<PoinScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              PoinDetailPulsaScreen(id: index),
+                                              PoinDetailPulsaScreen(
+                                            id: index,
+                                            pro: provider
+                                                .data!.data![index].provider
+                                                .toString(),
+                                          ),
                                         ),
                                       );
                                     },
@@ -427,6 +432,8 @@ class _PoinScreenState extends State<PoinScreen> {
                                           builder: (context) =>
                                               PoinDetailPaketDataScreen(
                                             id: index,
+                                            pro: provider
+                                                .data!.data![index].provider,
                                           ),
                                         ),
                                       );

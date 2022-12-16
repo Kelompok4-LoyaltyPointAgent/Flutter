@@ -93,6 +93,9 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                         builder: (context) =>
                                             PoinDetailPulsaScreen(
                                           id: index,
+                                          pro: provider
+                                              .data!.data![index].provider
+                                              .toString(),
                                         ),
                                       ),
                                     );
@@ -178,6 +181,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                         builder: (context) =>
                                             PoinDetailPaketDataScreen(
                                           id: index,
+                                          pro: provider
+                                              .data!.data![index].provider,
                                         ),
                                       ),
                                     );

@@ -329,6 +329,9 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                                   .data!.data![index].id
                                                   .toString(),
                                               id: index,
+                                              pro: provider
+                                                  .recommended[index].provider
+                                                  .toString(),
                                             ),
                                           ),
                                         );
@@ -434,6 +437,8 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                               productId: provider
                                                   .data!.data![index].id,
                                               id: index,
+                                              pro: provider
+                                                  .recommended[index].provider,
                                             ),
                                           ),
                                         );

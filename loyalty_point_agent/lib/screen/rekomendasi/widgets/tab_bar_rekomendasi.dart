@@ -82,6 +82,9 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                           productId:
                                               provider.data!.data![index].id!,
                                           id: index,
+                                          pro: provider
+                                              .recommended[index].provider
+                                              .toString(),
                                         ),
                                       ),
                                     );
@@ -135,6 +138,8 @@ class _TabBarRekomendasiState extends State<TabBarRekomendasi> {
                                           productId:
                                               provider.data!.data![index].id,
                                           id: index,
+                                          pro: provider
+                                              .recommended[index].provider,
                                         ),
                                       ),
                                     );

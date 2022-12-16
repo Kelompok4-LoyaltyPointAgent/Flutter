@@ -43,85 +43,95 @@ class _FavoritScreenState extends State<FavoritScreen> {
           ),
         ),
       ),
-      body: Consumer<FavoritProvider>(
-        builder: (context, provider, _) {
-          switch (provider.myState) {
-            case MyState.loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            case MyState.loaded:
-              if (provider.data!.data == null) {
-                return const Text('Belum Ada Data');
-              } else {
-                return Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: ListView.builder(
-                    itemCount: provider.data!.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return PoinRekomendasiCard(
-                        provider: provider.data!.data![index].product!.provider
-                            .toString(),
-                        image: provider.data!.data![index].product!
-                                .productPicture!.url!.isNotEmpty
-                            ? provider
-                                .data!.data![index].product!.productPicture!.url
-                                .toString()
-                            : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg',
-                        title: provider.data!.data![index].product!.name
-                            .toString(),
-                        deskripsi: provider
-                            .data!.data![index].product!.description
-                            .toString(),
-                        poin: provider.data!.data![index].product!.pricePoints
-                            .toString(),
-                        imageProvider: provider.data!.data![index].product!
-                                .icon!.url!.isNotEmpty
-                            ? provider.data!.data![index].product!.icon!.url
-                                .toString()
-                            : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg',
-                        onTap: () {
-                          provider.data!.data![index].product!.type == 'Credit'
-                              ? Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PoinDetailPulsaScreen(
-                                      id: index,
-                                    ),
-                                  ),
-                                )
-                              : Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        PoinDetailPaketDataScreen(
-                                      id: index,
-                                    ),
-                                  ),
-                                );
-                        },
-                        onPressed: () async {
-                          Provider.of<FavoritProvider>(context, listen: false)
-                              .removeFavorite(provider
-                                  .data!.data![index].product!.id
-                                  .toString());
-
-                          await Future.delayed(Duration.zero, () {
-                            Provider.of<FavoritProvider>(context, listen: false)
-                                .fetchFavorite();
-                          });
-                        },
-                      );
-                    },
-                  ),
+      body: Center(
+        child: Consumer<FavoritProvider>(
+          builder: (context, provider, _) {
+            switch (provider.myState) {
+              case MyState.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              }
-            case MyState.failed:
-              return const Text('Ada Masalah');
-            default:
-              return const SizedBox();
-          }
-        },
+              case MyState.loaded:
+                if (provider.data!.data == null) {
+                  return const Text('Belum Ada Data');
+                } else {
+                  return Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ListView.builder(
+                      itemCount: provider.data!.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PoinRekomendasiCard(
+                          provider: provider
+                              .data!.data![index].product!.provider
+                              .toString(),
+                          image: provider.data!.data![index].product!
+                                  .productPicture!.url!.isNotEmpty
+                              ? provider.data!.data![index].product!
+                                  .productPicture!.url
+                                  .toString()
+                              : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg',
+                          title: provider.data!.data![index].product!.name
+                              .toString(),
+                          deskripsi: provider
+                              .data!.data![index].product!.description
+                              .toString(),
+                          poin: provider.data!.data![index].product!.pricePoints
+                              .toString(),
+                          imageProvider: provider.data!.data![index].product!
+                                  .icon!.url!.isNotEmpty
+                              ? provider.data!.data![index].product!.icon!.url
+                                  .toString()
+                              : 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg',
+                          onTap: () {
+                            provider.data!.data![index].product!.type ==
+                                    'Credit'
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PoinDetailPulsaScreen(
+                                        id: index,
+                                        pro: provider.data!.data![index]
+                                            .product!.provider!,
+                                      ),
+                                    ),
+                                  )
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PoinDetailPaketDataScreen(
+                                        id: index,
+                                        pro: provider.data!.data![index]
+                                            .product!.provider!,
+                                      ),
+                                    ),
+                                  );
+                          },
+                          onPressed: () async {
+                            Provider.of<FavoritProvider>(context, listen: false)
+                                .removeFavorite(provider
+                                    .data!.data![index].product!.id
+                                    .toString());
+
+                            await Future.delayed(Duration.zero, () {
+                              Provider.of<FavoritProvider>(context,
+                                      listen: false)
+                                  .fetchFavorite();
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  );
+                }
+              case MyState.failed:
+                return const Text('Ada Masalah');
+              default:
+                return const SizedBox();
+            }
+          },
+        ),
       ),
     );
   }

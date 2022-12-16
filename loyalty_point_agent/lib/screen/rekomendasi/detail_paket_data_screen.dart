@@ -3,16 +3,19 @@ import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/screen/rekomendasi/rekomendasi_pemesanan_paketdata_screen.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
+import 'package:loyalty_point_agent/utils/provider_number.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class DetailPaketDataScreen extends StatefulWidget {
   final String productId;
+  final String pro;
   final int id;
   const DetailPaketDataScreen({
     super.key,
     required this.productId,
     required this.id,
+    required this.pro,
   });
 
   @override
@@ -81,6 +84,8 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                         return 'Mohon Masukkan Nomor Telepon';
                       } else if (!regExp.hasMatch(value)) {
                         return 'Mohon Masukkan Nomor Telepon Yang Benar';
+                      } else if (checkprovider(value) != widget.pro) {
+                        return 'Mohon Masukkan Nomor Telpon Sesuai Provider';
                       }
                       return null;
                     },
