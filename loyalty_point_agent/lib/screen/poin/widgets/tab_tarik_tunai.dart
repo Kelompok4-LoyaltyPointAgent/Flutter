@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/providers/selected_method_provider.dart';
+import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/poin/data/method.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_ewallet_screen.dart';
 import 'package:loyalty_point_agent/screen/poin/poin_detail_tariktunai_screen.dart';
@@ -24,6 +25,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
   String? eWalletPilihan;
   @override
   Widget build(BuildContext context) {
+    final UserProvider user = Provider.of<UserProvider>(context, listen: false);
     return DefaultTabController(
       length: 2, // length of tabs
       initialIndex: 0,
@@ -268,6 +270,8 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                 final isValidForm =
                                     _formKey1.currentState!.validate();
                                 int limit = 50000;
+                                int userPoin =
+                                    int.parse(user.user!.poin.toString());
                                 if (isValidForm) {
                                   if (bankPilihan == null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -281,34 +285,44 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                         ),
                                       ),
                                     );
+                                  } else if (limit >
+                                      int.parse(nominal1Controller.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: backgroundColor,
+                                        content: Text(
+                                          'Minimal Penarikan Rp.50.000',
+                                          style: whiteTextStyle.copyWith(
+                                            fontWeight: semiBold,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else if (userPoin <=
+                                      int.parse(nominal1Controller.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: backgroundColor,
+                                        content: Text(
+                                          'Poin Anda Tidak Cukup',
+                                          style: whiteTextStyle.copyWith(
+                                            fontWeight: semiBold,
+                                          ),
+                                        ),
+                                      ),
+                                    );
                                   } else {
-                                    if (limit <=
-                                        int.parse(nominal1Controller.text)) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              PoinDetailTarikTunaiScreen(
-                                            norek: nomerRekeningController.text,
-                                            nominal: nominal1Controller.text,
-                                            bank: bankPilihan.toString(),
-                                          ),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PoinDetailTarikTunaiScreen(
+                                          norek: nomerRekeningController.text,
+                                          nominal: nominal1Controller.text,
+                                          bank: bankPilihan.toString(),
                                         ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: backgroundColor,
-                                          content: Text(
-                                            'Poin Tidak Cukup Untuk Anda Tukarkan',
-                                            style: whiteTextStyle.copyWith(
-                                              fontWeight: semiBold,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
+                                      ),
+                                    );
                                   }
                                 }
                               },
@@ -516,15 +530,19 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                 borderSide: BorderSide(color: yellowColor),
                               ),
                               border: const OutlineInputBorder(),
-                              hintText: 'Masukan 10 karakter',
+                              hintText: 'Contoh 08121111111',
                               fillColor: whiteColor,
                               filled: true,
                             ),
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.number,
                             validator: (value) {
+                              String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                              RegExp regExp = RegExp(patttern);
                               if (value!.isEmpty) {
-                                return 'no telepon tidak boleh kosong';
+                                return 'Mohon Masukkan Nomor Telepon';
+                              } else if (!regExp.hasMatch(value)) {
+                                return 'Mohon Masukkan Nomor Telepon Yang Benar';
                               }
                               return null;
                             },
@@ -543,6 +561,8 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                 final isValidForm =
                                     _formKey2.currentState!.validate();
                                 int limit = 50000;
+                                int userPoin =
+                                    int.parse(user.user!.poin.toString());
                                 if (isValidForm) {
                                   if (eWalletPilihan == null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -556,35 +576,45 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                                         ),
                                       ),
                                     );
+                                  } else if (limit >
+                                      int.parse(nominal2Controller.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: backgroundColor,
+                                        content: Text(
+                                          'Minimal Penarikan Rp.50.000',
+                                          style: whiteTextStyle.copyWith(
+                                            fontWeight: semiBold,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else if (userPoin <=
+                                      int.parse(nominal2Controller.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: backgroundColor,
+                                        content: Text(
+                                          'Poin Anda Tidak Cukup',
+                                          style: whiteTextStyle.copyWith(
+                                            fontWeight: semiBold,
+                                          ),
+                                        ),
+                                      ),
+                                    );
                                   } else {
-                                    if (limit <=
-                                        int.parse(nominal2Controller.text)) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              PoinDetailEwalletScreen(
-                                            noTelepon:
-                                                nomerTeleponController.text,
-                                            nominal: nominal2Controller.text,
-                                            eWallet: eWalletPilihan.toString(),
-                                          ),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PoinDetailEwalletScreen(
+                                          eWallet: eWalletPilihan.toString(),
+                                          noTelepon:
+                                              nomerTeleponController.text,
+                                          nominal: nominal2Controller.text,
                                         ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: backgroundColor,
-                                          content: Text(
-                                            'Poin Tidak Cukup Untuk Anda Tukarkan',
-                                            style: whiteTextStyle.copyWith(
-                                              fontWeight: semiBold,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
+                                      ),
+                                    );
                                   }
                                 }
                               },
