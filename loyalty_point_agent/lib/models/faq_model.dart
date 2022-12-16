@@ -17,7 +17,7 @@ class FaqModel {
   });
 
   String message;
-  List<Datum> data;
+  List<Datum>? data;
   dynamic errors;
   int status;
 
@@ -30,7 +30,7 @@ class FaqModel {
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
         "errors": errors,
         "status": status,
       };

@@ -9,38 +9,38 @@ class FaqProvider extends ChangeNotifier {
 
   FaqModel? data;
 
-  List<Datum> get pusatBantuan => data!.data
+  List<Datum> get pusatBantuan => data!.data!
       .where((element) => element.category == 'Pusat Bantuan')
       .toList();
 
   List<Datum> get pulsa =>
-      data!.data.where((element) => element.category == 'Pulsa').toList();
+      data!.data!.where((element) => element.category == 'Pulsa').toList();
 
   List<Datum> get paketData =>
-      data!.data.where((element) => element.category == 'Paket Data').toList();
+      data!.data!.where((element) => element.category == 'Paket Data').toList();
 
   List<Datum> get holaPoin =>
-      data!.data.where((element) => element.category == 'Lah').toList();
+      data!.data!.where((element) => element.category == 'Hola Poin').toList();
 
   List<Datum> get layanan =>
-      data!.data.where((element) => element.answer == "test").toList();
+      data!.data!.where((e) => e.category == 'Layanan').toList();
 
   MyState myState = MyState.loading;
 
   Future fetchData() async {
-    // myState = MyState.loading;
-    // notifyListeners();
+    myState = MyState.loading;
+    notifyListeners();
     try {
       data = await service.getFaq();
 
-      // myState = MyState.loaded;
-      // notifyListeners();
+      myState = MyState.loaded;
+      notifyListeners();
     } catch (e) {
       if (e is DioError) {
         e.response!.statusCode;
       }
-      // myState = MyState.failed;
-      // notifyListeners();
+      myState = MyState.failed;
+      notifyListeners();
     }
   }
 }
