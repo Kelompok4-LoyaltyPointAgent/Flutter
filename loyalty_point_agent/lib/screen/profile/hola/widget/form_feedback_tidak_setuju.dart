@@ -54,7 +54,7 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
                   height: 40,
                 ),
                 Text(
-                  'Apa yang sudah baik ?',
+                  'Apa yang kurang baik ?',
                   style: yellowTextStyle.copyWith(
                     fontSize: 20,
                     fontWeight: semiBold,
