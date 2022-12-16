@@ -15,8 +15,24 @@ import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
-class PoinScreen extends StatelessWidget {
+class PoinScreen extends StatefulWidget {
   const PoinScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PoinScreen> createState() => _PoinScreenState();
+}
+
+class _PoinScreenState extends State<PoinScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+      Provider.of<PulsaProvider>(context, listen: false).fetchPulsa();
+      Provider.of<PaketDataProvider>(context, listen: false).fetchPaketData();
+      Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
