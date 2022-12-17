@@ -435,7 +435,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                                             builder: (context) =>
                                                 DetailPaketDataScreen(
                                               productId: provider
-                                                  .data!.data![index].id,
+                                                  .recommended[index].id,
                                               id: index,
                                               pro: provider
                                                   .recommended[index].provider,
