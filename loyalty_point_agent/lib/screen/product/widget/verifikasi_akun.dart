@@ -29,6 +29,12 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
   late ValueNotifier<bool> isObscure;
 
   @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     isObscure = ValueNotifier(true);
@@ -71,6 +77,7 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
             type: 'Purchase',
           ),
         );
+        print(widget.id);
 
         Uri url = Uri.parse(
           transactionProvider.pembelian!.data!.invoiceUrl.toString(),
@@ -189,13 +196,13 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
           width: 200,
           height: 40,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              print(widget.id);
               final isValidForm = formKey.currentState!.validate();
               if (isValidForm) {
                 checkPassword.validasiAkun(
                   LoginModel(
-                    email: user.user!.email,
-                    password: passwordController.text,
+                    checkPassword: passwordController.text,
                   ),
                 );
               }

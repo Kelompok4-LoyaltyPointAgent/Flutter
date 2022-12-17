@@ -208,6 +208,7 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                                   ),
                                 ),
                               );
+                              print(widget.id);
 
                               // await transactionProvider.transaction(
                               //   TransactionModel(
