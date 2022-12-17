@@ -214,9 +214,10 @@ class _RekomendasiPemesananPaketDataScreenState
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () async {
+                            // print("Rekomendasi : ${widget.productId}");
                             await transactionProvider.transaction(
                               TransactionModel(
-                                productId: provider.recommended[widget.id].id,
+                                productId: widget.productId,
                                 number: widget.nomer,
                                 email: userProvider.user!.email,
                                 type: 'Purchase',
