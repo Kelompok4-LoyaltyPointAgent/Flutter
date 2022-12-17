@@ -47,11 +47,12 @@ class ProductTransaksiBerhasil extends StatelessWidget {
           height: 34,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const NavBarScreen(),
                 ),
+                (route) => false,
               );
             },
             style: TextButton.styleFrom(

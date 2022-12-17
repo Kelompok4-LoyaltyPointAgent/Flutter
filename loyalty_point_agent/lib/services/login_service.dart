@@ -79,10 +79,18 @@ class LoginService {
   }
 
   Future<UserModel> validasiAkun(LoginModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
     try {
       final response = await _dio.post(
-        Urls.baseUrl + Urls.login,
+        Urls.baseUrl + Urls.checkPassword,
         data: data,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
       );
       print(response.data);
       return UserModel.fromJson(response.data);
