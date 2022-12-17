@@ -252,6 +252,11 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                     index]
                                                                 .transactionDetail!
                                                                 .email!,
+                                                            pro: provider
+                                                                .purchase![
+                                                                    index]
+                                                                .product!
+                                                                .provider!,
                                                           )
                                                         : ProductDetailPaketDataScreen(
                                                             id: provider
@@ -318,6 +323,10 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                             .purchase![index]
                                                                             .transactionDetail!
                                                                             .email!,
+                                                                        pro: provider
+                                                                            .purchase![index]
+                                                                            .product!
+                                                                            .provider!,
                                                                       )
                                                                     : DetailPemesananDataScreen(
                                                                         id: provider

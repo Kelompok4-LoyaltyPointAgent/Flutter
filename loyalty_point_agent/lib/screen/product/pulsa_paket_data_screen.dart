@@ -346,6 +346,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                                       .text,
                                                               mail: userProvider
                                                                   .user!.email!,
+                                                              pro: pro!,
                                                             ),
                                                           ),
                                                         );
@@ -406,20 +407,20 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                         Navigator.of(context)
                                                             .push(
                                                           MaterialPageRoute(
-                                                            builder: (context) => DetailPemesananPulsaScreen(
-                                                                id: provider
-                                                                    .besar!
-                                                                    .data![
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                number:
-                                                                    numberController
-                                                                        .text,
-                                                                mail:
-                                                                    userProvider
-                                                                        .user!
-                                                                        .email!),
+                                                            builder: (context) =>
+                                                                DetailPemesananPulsaScreen(
+                                                              id: provider
+                                                                  .besar!
+                                                                  .data![index]
+                                                                  .id
+                                                                  .toString(),
+                                                              number:
+                                                                  numberController
+                                                                      .text,
+                                                              mail: userProvider
+                                                                  .user!.email!,
+                                                              pro: pro!,
+                                                            ),
                                                           ),
                                                         );
                                                       }
@@ -479,20 +480,20 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                         Navigator.of(context)
                                                             .push(
                                                           MaterialPageRoute(
-                                                            builder: (context) => DetailPemesananPulsaScreen(
-                                                                id: provider
-                                                                    .kecil!
-                                                                    .data![
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                number:
-                                                                    numberController
-                                                                        .text,
-                                                                mail:
-                                                                    userProvider
-                                                                        .user!
-                                                                        .email!),
+                                                            builder: (context) =>
+                                                                DetailPemesananPulsaScreen(
+                                                              id: provider
+                                                                  .kecil!
+                                                                  .data![index]
+                                                                  .id
+                                                                  .toString(),
+                                                              number:
+                                                                  numberController
+                                                                      .text,
+                                                              mail: userProvider
+                                                                  .user!.email!,
+                                                              pro: pro!,
+                                                            ),
                                                           ),
                                                         );
                                                       }

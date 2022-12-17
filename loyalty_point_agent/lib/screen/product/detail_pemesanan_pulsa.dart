@@ -12,11 +12,16 @@ import '../../providers/pulsa_provider.dart';
 
 class DetailPemesananPulsaScreen extends StatefulWidget {
   const DetailPemesananPulsaScreen(
-      {super.key, required this.id, required this.number, required this.mail});
+      {super.key,
+      required this.id,
+      required this.number,
+      required this.mail,
+      required this.pro});
 
   final String id;
   final String number;
   final String mail;
+  final String pro;
 
   @override
   State<DetailPemesananPulsaScreen> createState() =>

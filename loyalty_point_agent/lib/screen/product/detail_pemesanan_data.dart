@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class DetailPemesananDataScreen extends StatefulWidget {
   const DetailPemesananDataScreen(
-      {super.key, required this.id, required this.number, required this.mail});
+      {super.key, required this.number, required this.mail, required this.id});
   final String number;
   final String id;
   final String mail;
