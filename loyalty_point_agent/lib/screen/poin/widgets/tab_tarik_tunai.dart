@@ -247,7 +247,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                               fillColor: whiteColor,
                               filled: true,
                             ),
-                            textInputAction: TextInputAction.next,
+                            textInputAction: TextInputAction.done,
                             keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -534,7 +534,7 @@ class _TabTarikTunaiState extends State<TabTarikTunai> {
                               fillColor: whiteColor,
                               filled: true,
                             ),
-                            textInputAction: TextInputAction.next,
+                            textInputAction: TextInputAction.done,
                             keyboardType: TextInputType.number,
                             validator: (value) {
                               String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
