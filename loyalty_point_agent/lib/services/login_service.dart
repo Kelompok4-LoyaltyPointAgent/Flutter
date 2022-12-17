@@ -77,4 +77,17 @@ class LoginService {
       rethrow;
     }
   }
+
+  Future<UserModel> validasiAkun(LoginModel data) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.login,
+        data: data,
+      );
+      print(response.data);
+      return UserModel.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

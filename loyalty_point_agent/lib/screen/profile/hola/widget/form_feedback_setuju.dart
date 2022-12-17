@@ -46,7 +46,12 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
             color: backgroundColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 16,
+              right: 16,
+            ),
+            //padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -107,7 +112,7 @@ class _FormFeedBackSetujuState extends State<FormFeedBackSetuju> {
                     fillColor: whiteColor,
                     filled: true,
                   ),
-                  textInputAction: TextInputAction.next,
+                  textInputAction: TextInputAction.done,
                   keyboardType: TextInputType.name,
                 ),
                 const SizedBox(
