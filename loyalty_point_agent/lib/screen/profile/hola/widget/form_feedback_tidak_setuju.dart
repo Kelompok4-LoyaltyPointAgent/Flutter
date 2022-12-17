@@ -46,7 +46,11 @@ class _FormFeedBackTidaSetujuState extends State<FormFeedBackTidaSetuju> {
             color: backgroundColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 16,
+              right: 16,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

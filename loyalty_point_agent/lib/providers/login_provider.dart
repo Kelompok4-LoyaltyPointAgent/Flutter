@@ -14,6 +14,7 @@ class LoginProvider extends ChangeNotifier {
 
   MyState myState = MyState.initial;
   MyState validasi = MyState.initial;
+  MyState validasiPassword = MyState.initial;
 
   Future login(LoginModel data) async {
     try {
@@ -95,6 +96,25 @@ class LoginProvider extends ChangeNotifier {
       }
       // myState = MyState.failed;
       // notifyListeners();
+    }
+  }
+
+  Future validasiAkun(LoginModel data) async {
+    try {
+      validasiPassword = MyState.loading;
+      notifyListeners();
+
+      final result = await loginService.validasiAkun(data);
+
+      validasiPassword = MyState.loaded;
+      notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      validasiPassword = MyState.failed;
+      notifyListeners();
     }
   }
 }

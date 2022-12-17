@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
 import 'package:loyalty_point_agent/screen/product/widget/verifikasi_akun.dart';
@@ -193,18 +194,16 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           child: InkWell(
                             onTap: () async {
                               showDialog(
-                                barrierDismissible: false,
                                 context: context,
-                                builder: (context) => BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                  child: AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    backgroundColor: grayishColor,
-                                    content: const SingleChildScrollView(
-                                      child: VerifikasiAkun(),
+                                builder: (context) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  backgroundColor: grayishColor,
+                                  content: SingleChildScrollView(
+                                    child: VerifikasiAkun(
+                                      id: widget.id,
+                                      number: widget.number,
+                                      mail: widget.mail,
                                     ),
                                   ),
                                 ),
