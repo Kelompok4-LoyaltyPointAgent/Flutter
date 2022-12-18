@@ -32,8 +32,11 @@ class _DetailPemesananPulsaScreenState
     extends State<DetailPemesananPulsaScreen> {
   @override
   void initState() {
-    Provider.of<PulsaProvider>(context, listen: false)
-        .fetchPulsaByID(widget.id);
+    Future.delayed(Duration.zero, () {
+      Provider.of<PulsaProvider>(context, listen: false)
+          .fetchPulsaByID(widget.id);
+    });
+
     super.initState();
   }
 

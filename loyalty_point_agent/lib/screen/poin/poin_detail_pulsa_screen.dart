@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../providers/pulsa_provider.dart';
 
 class PoinDetailPulsaScreen extends StatefulWidget {
-  final int id;
+  final String id;
   final String pro;
   const PoinDetailPulsaScreen({
     super.key,
@@ -21,6 +21,16 @@ class PoinDetailPulsaScreen extends StatefulWidget {
 }
 
 class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<PulsaProvider>(context, listen: false)
+          .fetchPulsaByID(widget.id);
+    });
+
+    super.initState();
+  }
+
   final formKey = GlobalKey<FormState>();
   TextEditingController nomerController = TextEditingController();
 
@@ -109,7 +119,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                       children: [
                         Center(
                           child: Text(
-                            '${provider.data!.data![widget.id].name}',
+                            '${provider.dataById!.name}',
                             style: navyTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: semiBold,
@@ -134,7 +144,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.data!.data![widget.id].provider!,
+                              provider.dataById!.provider.toString(),
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -159,7 +169,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              '${provider.data!.data![widget.id].credit!.activePeriod} Hari',
+                              '${provider.dataById!.credit!.activePeriod} Hari',
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -184,7 +194,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             ),
                             const Spacer(),
                             Text(
-                              provider.data!.data![widget.id].price.toString(),
+                              provider.dataById!.price.toString(),
                               style: blackTextStyle.copyWith(
                                 fontWeight: semiBold,
                               ),
@@ -285,8 +295,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                             style: whiteTextStyle,
                           ),
                           Text(
-                            provider.data!.data![widget.id].pricePoints
-                                .toString(),
+                            provider.dataById!.pricePoints.toString(),
                             style: whiteTextStyle.copyWith(
                               fontWeight: semiBold,
                             ),
@@ -309,7 +318,7 @@ class _PoinDetailPulsaScreenState extends State<PoinDetailPulsaScreen> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       PoinPenukaranPulsaScreen(
-                                    id: widget.id,
+                                    id: provider.dataById!.id.toString(),
                                     nomer: nomerController.text,
                                   ),
                                 ),

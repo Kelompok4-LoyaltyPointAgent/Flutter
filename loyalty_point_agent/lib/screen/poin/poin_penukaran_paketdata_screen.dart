@@ -11,7 +11,7 @@ import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class PoinPenukaranPaketDataScreen extends StatefulWidget {
-  final int id;
+  final String id;
   final String nomer;
   const PoinPenukaranPaketDataScreen({
     super.key,
@@ -97,7 +97,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].provider,
+                        provider.dataById!.provider,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -111,7 +111,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].name,
+                        provider.dataById!.name,
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -140,7 +140,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                         style: blackTextStyle,
                       ),
                       trailing: Text(
-                        provider.data!.data![widget.id].pricePoints.toString(),
+                        provider.dataById!.pricePoints.toString(),
                         style: blackTextStyle.copyWith(fontWeight: semiBold),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -196,8 +196,7 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                             ),
                           ),
                           Text(
-                            provider.data!.data![widget.id].pricePoints
-                                .toString(),
+                            provider.dataById!.pricePoints.toString(),
                             style: blackTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,
@@ -213,11 +212,10 @@ class _DetailPaketDataScreenState extends State<PoinPenukaranPaketDataScreen> {
                           onTap: () async {
                             int limit =
                                 int.parse(userProvider.user!.poin.toString());
-                            if (limit >=
-                                provider.data!.data![widget.id].pricePoints) {
+                            if (limit >= provider.dataById!.pricePoints) {
                               await transactionProvider.transaction(
                                 TransactionModel(
-                                  productId: provider.data!.data![widget.id].id,
+                                  productId: provider.dataById!.id,
                                   number: widget.nomer,
                                   email: userProvider.user!.email,
                                   type: 'Redeem',
