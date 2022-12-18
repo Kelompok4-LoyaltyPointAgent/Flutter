@@ -92,7 +92,8 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             PoinDetailPulsaScreen(
-                                          id: index,
+                                          id: provider.data!.data![index].id
+                                              .toString(),
                                           pro: provider
                                               .data!.data![index].provider
                                               .toString(),
@@ -180,7 +181,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             PoinDetailPaketDataScreen(
-                                          id: index,
+                                          id: provider.data!.data![index].id,
                                           pro: provider
                                               .data!.data![index].provider,
                                         ),

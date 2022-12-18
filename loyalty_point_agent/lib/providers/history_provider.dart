@@ -39,4 +39,25 @@ class HistoryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  MyState myState2 = MyState.loading;
+
+  Future cancel(String id) async {
+    try {
+      myState2 = MyState.loading;
+      notifyListeners();
+
+      await service.cancelTransaction(id);
+
+      myState2 = MyState.loaded;
+      notifyListeners();
+      //return pembelian;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      myState2 = MyState.failed;
+      notifyListeners();
+    }
+  }
 }
