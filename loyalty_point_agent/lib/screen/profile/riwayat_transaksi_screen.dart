@@ -26,6 +26,14 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<HistoryProvider>(context, listen: false).fetchHistory();
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String reedem = 'Redeem';
     String berhasil = 'Success';
@@ -310,10 +318,14 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                 left: 20,
                                                 bottom: 10,
                                               ),
-                                              child:
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
                                                   provider.purchase![index]
-                                                              .status ==
-                                                          berhasil
+                                                              .status !=
+                                                          'Pending'
                                                       ? ElevatedButton(
                                                           style: ElevatedButton
                                                               .styleFrom(
@@ -321,9 +333,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                 navyColor,
                                                             minimumSize:
                                                                 const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    40),
+                                                                    100, 30),
                                                           ),
                                                           onPressed: () {
                                                             Navigator.of(
@@ -383,9 +393,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                 navyColor,
                                                             minimumSize:
                                                                 const Size(
-                                                                    double
-                                                                        .infinity,
-                                                                    40),
+                                                                    100, 30),
                                                           ),
                                                           onPressed: () {},
                                                           child: Text(
@@ -394,6 +402,55 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                 whiteTextStyle,
                                                           ),
                                                         ),
+                                                  provider.purchase![index]
+                                                              .status ==
+                                                          'Pending'
+                                                      ? ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                dangerColor,
+                                                            minimumSize:
+                                                                const Size(
+                                                                    100, 30),
+                                                          ),
+                                                          onPressed: () async {
+                                                            await Provider.of<
+                                                                        HistoryProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .cancel(provider
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .id!);
+                                                            didChangeDependencies();
+                                                          },
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style:
+                                                                whiteTextStyle,
+                                                          ),
+                                                        )
+                                                      : ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                dangerColor,
+                                                            minimumSize:
+                                                                const Size(
+                                                                    100, 30),
+                                                          ),
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Hapus',
+                                                            style:
+                                                                whiteTextStyle,
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),

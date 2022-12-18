@@ -25,4 +25,26 @@ class HistoryService {
       rethrow;
     }
   }
+
+  Future<HistoryModel> cancelTransaction(String id) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.post(
+        '${Urls.baseUrl}${Urls.canceltransaction}/$id',
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      final pembelian = HistoryModel.fromJson(response.data);
+
+      return pembelian;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }
