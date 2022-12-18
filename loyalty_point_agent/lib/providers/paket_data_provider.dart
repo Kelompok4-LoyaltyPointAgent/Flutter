@@ -12,8 +12,9 @@ class PaketDataProvider extends ChangeNotifier {
   PaketDataModel? filterData;
   PaketDataModel? besar;
   PaketDataModel? kecil;
-  List<Datum> get recommended =>
-      data!.data!.where((element) => element.recommended == true).toList();
+  List<Datum> get recommended => data!.data!
+      .where((element) => element.recommended == true && element.stock != 0)
+      .toList();
 
   MyState myState = MyState.loading;
 

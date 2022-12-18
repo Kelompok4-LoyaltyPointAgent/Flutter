@@ -92,7 +92,6 @@ class LoginService {
           },
         ),
       );
-      print(response.data);
       return UserModel.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;

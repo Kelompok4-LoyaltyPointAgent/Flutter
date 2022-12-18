@@ -1,14 +1,14 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/paket_data_provider.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
-import 'package:loyalty_point_agent/screen/product/widget/verifikasi_akun.dart';
+import 'package:loyalty_point_agent/screen/product/widget/transaksi_sukses.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPemesananDataScreen extends StatefulWidget {
   const DetailPemesananDataScreen(
@@ -193,65 +193,65 @@ class _DetailPemesananScreenState extends State<DetailPemesananDataScreen> {
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () async {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  backgroundColor: grayishColor,
-                                  content: SingleChildScrollView(
-                                    child: VerifikasiAkun(
-                                      id: widget.id,
-                                      number: widget.number,
-                                      mail: widget.mail,
-                                    ),
-                                  ),
-                                ),
-                              );
-                              print(widget.id);
-
-                              // await transactionProvider.transaction(
-                              //   TransactionModel(
-                              //     productId: provider.dataById!.id,
-                              //     number: widget.number,
-                              //     email: widget.mail,
-                              //     type: 'Purchase',
+                              //Pengembangan
+                              // showDialog(
+                              //   context: context,
+                              //   builder: (context) => AlertDialog(
+                              //     shape: RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.circular(20)),
+                              //     backgroundColor: grayishColor,
+                              //     content: SingleChildScrollView(
+                              //       child: VerifikasiAkun(
+                              //         id: widget.id,
+                              //         number: widget.number,
+                              //         mail: widget.mail,
+                              //       ),
+                              //     ),
                               //   ),
                               // );
 
-                              // Uri url = Uri.parse(
-                              //   transactionProvider.pembelian!.data!.invoiceUrl
-                              //       .toString(),
-                              // );
-                              // if (await canLaunchUrl(url)) {
-                              //   await launchUrl(url,
-                              //       mode: LaunchMode.externalApplication);
-                              // } else {
-                              //   throw 'Could not launch $url';
-                              // }
+                              await transactionProvider.transaction(
+                                TransactionModel(
+                                  productId: provider.dataById!.id,
+                                  number: widget.number,
+                                  email: widget.mail,
+                                  type: 'Purchase',
+                                ),
+                              );
 
-                              // Future.delayed(const Duration(seconds: 3), () {
-                              //   showDialog(
-                              //     barrierDismissible: false,
-                              //     context: context,
-                              //     builder: (context) => BackdropFilter(
-                              //       filter: ImageFilter.blur(
-                              //           sigmaX: 10, sigmaY: 10),
-                              //       child: WillPopScope(
-                              //         onWillPop: () async => false,
-                              //         child: AlertDialog(
-                              //           shape: RoundedRectangleBorder(
-                              //               borderRadius:
-                              //                   BorderRadius.circular(20)),
-                              //           backgroundColor: backgroundColor,
-                              //           content: const SingleChildScrollView(
-                              //             child: ProductTransaksiBerhasil(),
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   );
-                              // });
+                              Uri url = Uri.parse(
+                                transactionProvider.pembelian!.data!.invoiceUrl
+                                    .toString(),
+                              );
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(url,
+                                    mode: LaunchMode.externalApplication);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+
+                              Future.delayed(const Duration(seconds: 3), () {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) => BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10, sigmaY: 10),
+                                    child: WillPopScope(
+                                      onWillPop: () async => false,
+                                      child: AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        backgroundColor: backgroundColor,
+                                        content: const SingleChildScrollView(
+                                          child: ProductTransaksiBerhasil(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
                             },
                             child: Container(
                               color: navyColor,

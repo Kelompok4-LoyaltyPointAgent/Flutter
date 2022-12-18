@@ -436,7 +436,6 @@ class _DetailPaketDataScreenState extends State<DetailPaketDataScreen> {
                         height: 42,
                         child: ElevatedButton(
                           onPressed: () {
-                            print("Detail : ${widget.productId}");
                             final isValidForm =
                                 formKey.currentState!.validate();
                             if (isValidForm) {
