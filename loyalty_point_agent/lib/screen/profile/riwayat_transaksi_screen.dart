@@ -500,18 +500,18 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     children: [
                                                       CircleAvatar(
                                                         radius: 5,
-                                                        backgroundColor: berhasil !=
+                                                        backgroundColor: berhasil ==
                                                                 provider
                                                                     .redeem[
                                                                         index]
                                                                     .status
-                                                            ? lightYellow
+                                                            ? succesColor
                                                             : provider
                                                                         .redeem[
                                                                             index]
                                                                         .status ==
-                                                                    'Failed'
-                                                                ? dangerColor
+                                                                    'Pending'
+                                                                ? lightYellow
                                                                 : succesColor,
                                                       ),
                                                       const SizedBox(

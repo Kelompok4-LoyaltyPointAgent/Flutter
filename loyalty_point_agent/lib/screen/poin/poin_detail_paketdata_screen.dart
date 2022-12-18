@@ -7,7 +7,7 @@ import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class PoinDetailPaketDataScreen extends StatefulWidget {
-  final int id;
+  final String id;
   final String pro;
   const PoinDetailPaketDataScreen({
     super.key,
@@ -24,6 +24,15 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
   final formKey = GlobalKey<FormState>();
   TextEditingController nomerController = TextEditingController();
   int check = -1;
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<PaketDataProvider>(context, listen: false)
+          .fetchPulsaByID(widget.id);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +120,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                         children: [
                           Center(
                             child: Text(
-                              provider.data!.data![widget.id].name,
+                              provider.dataById!.name,
                               style: navyTextStyle.copyWith(
                                 fontSize: 20,
                                 fontWeight: semiBold,
@@ -136,7 +145,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                provider.data!.data![widget.id].provider,
+                                provider.dataById!.provider,
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -161,7 +170,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.activePeriod} Hari',
+                                '${provider.dataById!.package.activePeriod} Hari',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -186,7 +195,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.mainInternet} GB',
+                                '${provider.dataById!.package.mainInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -211,7 +220,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.nightInternet} GB',
+                                '${provider.dataById!.package.nightInternet} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -236,7 +245,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                '${provider.data!.data![widget.id].package.socialMedia} GB',
+                                '${provider.dataById!.package.socialMedia} GB',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
                                 ),
@@ -261,10 +270,8 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                check !=
-                                        provider
-                                            .data!.data![widget.id].package.call
-                                    ? '${provider.data!.data![widget.id].package.call} Menit'
+                                check != provider.dataById!.package.call
+                                    ? '${provider.dataById!.package.call} Menit'
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
@@ -290,10 +297,8 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               ),
                               const Spacer(),
                               Text(
-                                check !=
-                                        provider
-                                            .data!.data![widget.id].package.sms
-                                    ? '${provider.data!.data![widget.id].package.sms} SMS'
+                                check != provider.dataById!.package.sms
+                                    ? '${provider.dataById!.package.sms} SMS'
                                     : 'Sepuasnya',
                                 style: blackTextStyle.copyWith(
                                   fontWeight: semiBold,
@@ -417,8 +422,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                           style: whiteTextStyle,
                         ),
                         Text(
-                          provider.data!.data![widget.id].pricePoints
-                              .toString(),
+                          provider.dataById!.pricePoints.toString(),
                           style: whiteTextStyle.copyWith(
                             fontWeight: semiBold,
                           ),
@@ -440,7 +444,7 @@ class _PoinDetailPaketDataScreenState extends State<PoinDetailPaketDataScreen> {
                               MaterialPageRoute(
                                 builder: (context) =>
                                     PoinPenukaranPaketDataScreen(
-                                  id: widget.id,
+                                  id: provider.dataById!.id,
                                   nomer: nomerController.text,
                                 ),
                               ),

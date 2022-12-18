@@ -24,8 +24,11 @@ class _DetailPaketDataScreenState extends State<ProductDetailPaketDataScreen> {
   int check = -1;
   @override
   void initState() {
-    Provider.of<PaketDataProvider>(context, listen: false)
-        .fetchPulsaByID(widget.id);
+    Future.delayed(Duration.zero, () {
+      Provider.of<PaketDataProvider>(context, listen: false)
+          .fetchPulsaByID(widget.id);
+    });
+
     super.initState();
   }
 
