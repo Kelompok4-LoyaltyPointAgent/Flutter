@@ -12,8 +12,9 @@ class PulsaProvider extends ChangeNotifier {
   PulsaModel? besar;
   PulsaModel? kecil;
 
-  List<Datum> get recommended =>
-      data!.data!.where((element) => element.recommended == true).toList();
+  List<Datum> get recommended => data!.data!
+      .where((element) => element.recommended == true && element.stock != 0)
+      .toList();
   MyState myState = MyState.initial;
 
   Future fetchPulsa() async {

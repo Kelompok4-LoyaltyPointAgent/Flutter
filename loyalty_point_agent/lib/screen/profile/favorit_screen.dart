@@ -24,6 +24,14 @@ class _FavoritScreenState extends State<FavoritScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<FavoritProvider>(context, listen: false).fetchFavorite();
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -90,7 +98,9 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           PoinDetailPulsaScreen(
-                                        id: index,
+                                        id: provider
+                                            .data!.data![index].product!.id
+                                            .toString(),
                                         pro: provider.data!.data![index]
                                             .product!.provider!,
                                       ),
@@ -101,24 +111,21 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           PoinDetailPaketDataScreen(
-                                        id: index,
+                                        id: provider
+                                            .data!.data![index].product!.id
+                                            .toString(),
                                         pro: provider.data!.data![index]
                                             .product!.provider!,
                                       ),
                                     ),
                                   );
                           },
-                          onPressed: () async {
+                          onPressed: () {
                             Provider.of<FavoritProvider>(context, listen: false)
                                 .removeFavorite(provider
                                     .data!.data![index].product!.id
                                     .toString());
-
-                            await Future.delayed(Duration.zero, () {
-                              Provider.of<FavoritProvider>(context,
-                                      listen: false)
-                                  .fetchFavorite();
-                            });
+                            didChangeDependencies();
                           },
                         );
                       },
