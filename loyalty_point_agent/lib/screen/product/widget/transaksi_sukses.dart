@@ -23,7 +23,7 @@ class ProductTransaksiBerhasil extends StatelessWidget {
           height: 20,
         ),
         Text(
-          'Transaksi Berhasil',
+          'Transaksi Sedang Di Proses',
           style: yellowTextStyle.copyWith(
             fontSize: 16,
             fontWeight: semiBold,

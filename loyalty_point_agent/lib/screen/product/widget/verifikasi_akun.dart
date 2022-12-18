@@ -5,7 +5,6 @@ import 'package:loyalty_point_agent/models/login_model.dart';
 import 'package:loyalty_point_agent/models/transaction_model.dart';
 import 'package:loyalty_point_agent/providers/login_provider.dart';
 import 'package:loyalty_point_agent/providers/transaction_provider.dart';
-import 'package:loyalty_point_agent/providers/user_provider.dart';
 import 'package:loyalty_point_agent/screen/product/widget/transaksi_sukses.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
@@ -57,13 +56,13 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            content: Text('Password Salah'),
+            content: const Text('Password Salah'),
             actions: [
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('balik'),
+                child: const Text('balik'),
               ),
             ],
           ),
@@ -77,7 +76,6 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
             type: 'Purchase',
           ),
         );
-        print(widget.id);
 
         Uri url = Uri.parse(
           transactionProvider.pembelian!.data!.invoiceUrl.toString(),
@@ -114,7 +112,6 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
 
   @override
   Widget build(BuildContext context) {
-    final UserProvider user = Provider.of<UserProvider>(context, listen: false);
     final LoginProvider checkPassword =
         Provider.of<LoginProvider>(context, listen: false);
     return Column(
@@ -197,7 +194,6 @@ class _VerifikasiAkunState extends State<VerifikasiAkun> {
           height: 40,
           child: ElevatedButton(
             onPressed: () async {
-              print(widget.id);
               final isValidForm = formKey.currentState!.validate();
               if (isValidForm) {
                 checkPassword.validasiAkun(
