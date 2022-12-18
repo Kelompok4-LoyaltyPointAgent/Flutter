@@ -118,13 +118,19 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     children: [
                                                       CircleAvatar(
                                                         radius: 5,
-                                                        backgroundColor: berhasil !=
+                                                        backgroundColor: berhasil ==
                                                                 provider
                                                                     .purchase![
                                                                         index]
                                                                     .status
-                                                            ? dangerColor
-                                                            : succesColor,
+                                                            ? succesColor
+                                                            : provider
+                                                                        .purchase![
+                                                                            index]
+                                                                        .status ==
+                                                                    'Pending'
+                                                                ? lightYellow
+                                                                : dangerColor,
                                                       ),
                                                       const SizedBox(
                                                         width: 10,
@@ -148,20 +154,39 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                     medium,
                                                               ),
                                                             )
-                                                          : Text(
-                                                              provider
-                                                                  .purchase![
-                                                                      index]
-                                                                  .status
-                                                                  .toString(),
-                                                              style:
-                                                                  dangerTextStyle
+                                                          : provider
+                                                                      .purchase![
+                                                                          index]
+                                                                      .status ==
+                                                                  'Pending'
+                                                              ? Text(
+                                                                  provider
+                                                                      .purchase![
+                                                                          index]
+                                                                      .status
+                                                                      .toString(),
+                                                                  style: navyTextStyle
                                                                       .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    medium,
-                                                              ),
-                                                            ),
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        medium,
+                                                                  ),
+                                                                )
+                                                              : Text(
+                                                                  provider
+                                                                      .purchase![
+                                                                          index]
+                                                                      .status
+                                                                      .toString(),
+                                                                  style: dangerTextStyle
+                                                                      .copyWith(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        medium,
+                                                                  ),
+                                                                ),
                                                       Text(
                                                         ' | ',
                                                         style: blackTextStyle
@@ -418,13 +443,18 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                     children: [
                                                       CircleAvatar(
                                                         radius: 5,
-                                                        backgroundColor:
-                                                            berhasil !=
-                                                                    provider
+                                                        backgroundColor: berhasil ==
+                                                                provider
+                                                                    .redeem[
+                                                                        index]
+                                                                    .status
+                                                            ? succesColor
+                                                            : provider
                                                                         .redeem[
                                                                             index]
-                                                                        .status
-                                                                ? dangerColor
+                                                                        .status ==
+                                                                    'Pending'
+                                                                ? lightYellow
                                                                 : succesColor,
                                                       ),
                                                       const SizedBox(
@@ -447,19 +477,39 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                                                     medium,
                                                               ),
                                                             )
-                                                          : Text(
-                                                              provider
-                                                                  .redeem[index]
-                                                                  .status
-                                                                  .toString(),
-                                                              style:
-                                                                  dangerTextStyle
+                                                          : provider
+                                                                      .redeem[
+                                                                          index]
+                                                                      .status ==
+                                                                  'Pending'
+                                                              ? Text(
+                                                                  provider
+                                                                      .redeem[
+                                                                          index]
+                                                                      .status
+                                                                      .toString(),
+                                                                  style: navyTextStyle
                                                                       .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    medium,
-                                                              ),
-                                                            ),
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        medium,
+                                                                  ),
+                                                                )
+                                                              : Text(
+                                                                  provider
+                                                                      .redeem[
+                                                                          index]
+                                                                      .status
+                                                                      .toString(),
+                                                                  style: dangerTextStyle
+                                                                      .copyWith(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        medium,
+                                                                  ),
+                                                                ),
                                                       Text(
                                                         ' | ',
                                                         style: blackTextStyle
