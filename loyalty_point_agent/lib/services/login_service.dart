@@ -9,86 +9,92 @@ class LoginService {
 
   Future<UserModel> login(LoginModel data) async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
-    // String? token;
     try {
       final response = await _dio.post(
         Urls.baseUrl + Urls.login,
         data: data,
       );
 
-      // print(response.data['data']);
       UserModel user = UserModel.fromJson(response.data);
       await prefs.setString("token", response.data['data']["token"]);
-      // token = response.data['data']['token'];
-      //await storeCredentialToLocal(user);
-      // print(token);
+
       return user;
     } on DioError catch (_) {
       rethrow;
     }
   }
 
-  // Future<void> storeCredentialToLocal(UserModel user) async {
-  //   try {
-  //     const storage = FlutterSecureStorage();
-  //     await storage.write(key: 'token', value: user.token);
-  //     await storage.write(key: 'email', value: user.email);
-  //     await storage.write(key: 'password', value: user.password);
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  Future<UserModel> reqOtp(LoginModel data) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.requestOTP,
+        data: data,
+      );
 
-  // Future<LoginModel> getCredentialFromLocal() async {
-  //   try {
-  //     const storage = FlutterSecureStorage();
-  //     Map<String, String> values = await storage.readAll();
-  //     print(values);
-  //     if (values['email'] == null || values['password'] == null) {
-  //       throw '';
-  //     } else {
-  //       final LoginModel data = LoginModel(
-  //         email: values['email'],
-  //         password: values['password'],
-  //       );
+      return response.data;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 
-  //       return data;
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  Future<UserModel> verifyOtp(LoginModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.verifyOTP,
+        data: data,
+      );
+      UserModel user = UserModel.fromJson(response.data);
+      await prefs.setString("token", response.data['data']["token"]);
 
-  // Future<String> getToken() async {
-  //   String token = '';
-  //   const storage = FlutterSecureStorage();
-  //   String? value = await storage.read(key: 'token');
+      return user;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 
-  //   if (value != null) {
-  //     token = 'Bearer ' + value;
-  //   }
+  Future changePassword(UserModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.put(
+        Urls.baseUrl + Urls.resetPassword,
+        data: data,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
 
-  //   return token;
-  // }
+      if (response.statusCode == 200) {
+        prefs.clear();
 
-  // Future<void> clearLocalStorage() async {
-  //   const storage = FlutterSecureStorage();
-  //   await storage.deleteAll();
-  // }
+        return response.data;
+      }
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 
-  // Future<UserModel> fetchUsers() async {
-  //   final storage = await SharedPreferences.getInstance();
-  //   final auth = storage.getString('token');
-  //   try {
-  //     final response = await _dio.get(Urls.baseUrl + Urls.user,
-  //         options: Options(headers: {
-  //           "Authorization": "Bearer $auth",
-  //         }));
-
-  //     print(auth);
-  //     return UserModel.fromJson(response.data['data']);
-  //   } on DioError catch (_) {
-  //     rethrow;
-  //   }
-  // }
+  Future<UserModel> validasiAkun(LoginModel data) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.checkPassword,
+        data: data,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      return UserModel.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

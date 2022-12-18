@@ -9,6 +9,7 @@ class PoinRekomendasiCard extends StatelessWidget {
   final String deskripsi;
   final String poin;
   final Function()? onPressed;
+  final Function()? onTap;
 
   const PoinRekomendasiCard({
     super.key,
@@ -19,34 +20,36 @@ class PoinRekomendasiCard extends StatelessWidget {
     required this.poin,
     required this.imageProvider,
     this.onPressed,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), //color of shadow
-              spreadRadius: 3, //spread radius
-              blurRadius: 4, // blur radius
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Stack(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), //color of shadow
+            spreadRadius: 3, //spread radius
+            blurRadius: 4, // blur radius
+            offset: const Offset(0, 2), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Stack(
               children: [
-                Image.asset(
+                Image.network(
                   image,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  height: 175,
+                  fit: BoxFit.scaleDown,
                 ),
                 Positioned(
                   top: 10,
@@ -61,8 +64,11 @@ class PoinRekomendasiCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Image.asset(
+                        Image.network(
                           imageProvider,
+                          height: 20,
+                          width: 20,
+                          fit: BoxFit.cover,
                         ),
                         Text(
                           provider,
@@ -76,35 +82,38 @@ class PoinRekomendasiCard extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: navyTextStyle.copyWith(
-                      fontSize: 14,
-                      fontWeight: semiBold,
-                    ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: navyTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: semiBold,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          deskripsi,
-                          style: blackTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        deskripsi,
+                        style: blackTextStyle.copyWith(
+                          fontSize: 12,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: onPressed,
+                      child: Container(
                         padding: const EdgeInsets.all(5),
                         // width: 34,
                         decoration: BoxDecoration(
@@ -122,39 +131,39 @@ class PoinRekomendasiCard extends StatelessWidget {
                           ],
                         ),
                         child: const Icon(
-                          Icons.favorite_outline,
+                          Icons.favorite_sharp,
                           color: Colors.red,
                           size: 34,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: yellowColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: yellowColor,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      poin,
+                      style: yellowTextStyle.copyWith(
+                        fontSize: 12,
+                        fontWeight: semiBold,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        poin,
-                        style: yellowTextStyle.copyWith(
-                          fontSize: 12,
-                          fontWeight: semiBold,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

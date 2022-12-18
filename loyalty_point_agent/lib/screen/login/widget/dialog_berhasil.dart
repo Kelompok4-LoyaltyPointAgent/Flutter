@@ -15,7 +15,7 @@ class LoginBerhasil extends StatelessWidget {
         color: backgroundColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         child: Column(
           children: [
             Image.asset(
@@ -49,11 +49,12 @@ class LoginBerhasil extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const NavBarScreen(),
                   ),
+                  (route) => false,
                 );
               },
               child: Text(

@@ -69,8 +69,9 @@ class _KeamananScreenState extends State<KeamananScreen> {
           //   ),
           // );
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
+            SnackBar(
+              backgroundColor: backgroundColor,
+              content: const Text(
                 'Berhasil Mengganti Password',
               ),
             ),
@@ -158,7 +159,9 @@ class _KeamananScreenState extends State<KeamananScreen> {
                           obscureText: value,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Password Tidak Boleh Kosong';
+                              return 'Kata sandi tidak boleh kosong';
+                            } else if (value.length < 8) {
+                              return 'Kata sandi harus memiliki 8 karakter';
                             }
                             return null;
                           },
@@ -198,7 +201,9 @@ class _KeamananScreenState extends State<KeamananScreen> {
                           obscureText: value,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Password Tidak Boleh Kosong';
+                              return 'Kata sandi tidak boleh kosong';
+                            } else if (value.length < 8) {
+                              return 'Kata sandi harus memiliki 8 karakter';
                             }
                             return null;
                           },
@@ -238,7 +243,9 @@ class _KeamananScreenState extends State<KeamananScreen> {
                           obscureText: value,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Password Tidak Boleh Kosong';
+                              return 'Kata sandi tidak boleh kosong';
+                            } else if (value.length < 8) {
+                              return 'Kata sandi harus memiliki 8 karakter';
                             }
                             return null;
                           },

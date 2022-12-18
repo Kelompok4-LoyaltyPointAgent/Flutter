@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_point_agent/providers/faq_provider.dart';
+import 'package:loyalty_point_agent/screen/profile/hola/widget/feedback.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class HolaPoinScreen extends StatefulWidget {
@@ -10,6 +13,14 @@ class HolaPoinScreen extends StatefulWidget {
 }
 
 class _HolaPoinScreenState extends State<HolaPoinScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<FaqProvider>(context, listen: false).fetchData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +48,7 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 // image: AssetImage('assets/logo_utama.png'),
-                image: NetworkImage(
-                    'https://anievo.id/wp-content/uploads/2022/05/etyert34.jpg'),
+                image: AssetImage('assets/portrait3.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -52,7 +62,7 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                    horizontal: 16,
                     vertical: 10,
                   ),
                   width: MediaQuery.of(context).size.width,
@@ -81,90 +91,61 @@ class _HolaPoinScreenState extends State<HolaPoinScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Masa berlaku Hola Poin',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
+                      Consumer<FaqProvider>(
+                        builder: (context, provider, _) {
+                          return SizedBox(
+                            // height: 230,
+                            child: ListView.builder(
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: provider.holaPoin.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  color: yellowColor,
+                                  child: ExpansionTile(
+                                    title: Text(
+                                      provider.holaPoin[index].question,
+                                      style: navyTextStyle.copyWith(
+                                        fontWeight: semiBold,
+                                      ),
+                                    ),
+                                    children: [
+                                      ListTile(
+                                        tileColor: whiteColor,
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                provider.holaPoin[index].answer,
+                                                style: blackRegulerTextStyle,
+                                                textAlign: TextAlign.justify,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Keuntungan yang saya dapatkan setelah memiliki Hola POIN',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
-                      ),
+                      const FeedBack(),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Penukaran poin berhasil, namun hadiah belum saya terima',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: yellowColor,
-                        child: ListTile(
-                          title: Text(
-                            'Syarat dan ketentuan dalam pengumpulan dan penukaran poin',
-                            style: navyTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: semiBold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: navyColor,
-                          ),
-                        ),
+                        height: 50,
                       ),
                     ],
                   ),

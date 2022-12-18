@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:loyalty_point_agent/models/login_model.dart';
+import 'package:loyalty_point_agent/models/user_model.dart';
 import 'package:loyalty_point_agent/services/login_service.dart';
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,8 @@ class LoginProvider extends ChangeNotifier {
   LoginModel? result;
 
   MyState myState = MyState.initial;
+  MyState validasi = MyState.initial;
+  MyState validasiPassword = MyState.initial;
 
   Future login(LoginModel data) async {
     try {
@@ -37,18 +40,81 @@ class LoginProvider extends ChangeNotifier {
     _prefs!.remove('token');
   }
 
-  // Future getCurrentUser() async {
-  //   try {
-  //     myState = MyState.loading;
-  //     notifyListeners();
-  //     final LoginModel data = await LoginService().getCredentialFromLocal();
+  Future forgotPassword(LoginModel data) async {
+    try {
+      // myState = MyState.loading;
+      // notifyListeners();
 
-  //     final UserModel user = await LoginService().login(data);
-  //     myState = MyState.loaded;
-  //     notifyListeners();
-  //     return user;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+      final result = await loginService.reqOtp(data);
+
+      // myState = MyState.loaded;
+      // notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      // myState = MyState.failed;
+      // notifyListeners();
+    }
+  }
+
+  Future verOTP(LoginModel data) async {
+    try {
+      validasi = MyState.loading;
+      notifyListeners();
+
+      final result = await loginService.verifyOtp(data);
+
+      validasi = MyState.loaded;
+      notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      validasi = MyState.failed;
+      notifyListeners();
+    }
+  }
+
+  Future changePassword(UserModel data) async {
+    // myState = MyState.loading;
+    // notifyListeners();
+    try {
+      // myState = MyState.loading;
+      // notifyListeners();
+
+      final result = await loginService.changePassword(data);
+
+      // myState = MyState.loaded;
+      // notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      // myState = MyState.failed;
+      // notifyListeners();
+    }
+  }
+
+  Future validasiAkun(LoginModel data) async {
+    try {
+      validasiPassword = MyState.loading;
+      notifyListeners();
+
+      final result = await loginService.validasiAkun(data);
+
+      validasiPassword = MyState.loaded;
+      notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      validasiPassword = MyState.failed;
+      notifyListeners();
+    }
+  }
 }

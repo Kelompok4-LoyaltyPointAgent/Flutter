@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_point_agent/screen/navbar/navbar.dart';
+import 'package:loyalty_point_agent/screen/profile/riwayat_transaksi_screen.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 
 class PoinTransaksiSuksess extends StatelessWidget {
@@ -20,7 +21,7 @@ class PoinTransaksiSuksess extends StatelessWidget {
         ),
         Text(
           'Penukaran Berhasil',
-          style: navyTextStyle.copyWith(
+          style: yellowTextStyle.copyWith(
             fontSize: 16,
             fontWeight: semiBold,
           ),
@@ -29,8 +30,8 @@ class PoinTransaksiSuksess extends StatelessWidget {
           height: 20,
         ),
         Text(
-          'Terima kasih sudah melakukan penukaran poin Anda. Nikmati promo menarik lainnya dan jangan terlewatkan',
-          style: blackTextStyle.copyWith(
+          'Pembelian produk dengan poin berhasil dilakukan',
+          style: whiteTextStyle.copyWith(
             fontSize: 12,
           ),
           textAlign: TextAlign.center,
@@ -61,6 +62,22 @@ class PoinTransaksiSuksess extends StatelessWidget {
               style: navyTextStyle.copyWith(
                 fontWeight: semiBold,
               ),
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const RiwayatTransaksiScreen(),
+              ),
+            );
+          },
+          child: Text(
+            'Lihat riwayat pembelian ?',
+            style: yellowTextStyle.copyWith(
+              fontSize: 12,
+              fontWeight: semiBold,
             ),
           ),
         ),

@@ -17,7 +17,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   CarouselController carouselController = CarouselController();
 
   List<String> titles = [
-    'Solusi Intenetan Tanpa Batas',
+    'Solusi Internetan Tanpa Batas',
     'Kumpulkan POIN Anda ',
     'Tukar & Nikmati Keuntungannya ',
   ];
@@ -152,8 +152,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => const Register(),
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return const Register();
+                                },
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  final tween = Tween(
+                                    begin: 0.0,
+                                    end: 1.0,
+                                  );
+                                  return FadeTransition(
+                                    opacity: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
                               ),
                             );
                           },
