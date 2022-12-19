@@ -10,6 +10,7 @@ import 'package:loyalty_point_agent/utils/idr.dart';
 import 'package:loyalty_point_agent/utils/provider_number.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
 import 'detail_pemesanan_pulsa.dart';
@@ -42,13 +43,20 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<PaketDataProvider>(context, listen: false)
           .fetchFilterPaketData('');
+      Provider.of<PulsaProvider>(context, listen: false)
+          .fetchFilterPulsa('Telkomsel');
     });
     super.initState();
   }
 
   String? pro;
 
-  void selectedProvider(val) async {
+  void selectedProviderPulsa(val) async {
+    await Provider.of<PulsaProvider>(context, listen: false)
+        .fetchFilterPulsa(val.toString());
+  }
+
+  void selectedProviderData(val) async {
     await Provider.of<PaketDataProvider>(context, listen: false)
         .fetchFilterPaketData(val.toString());
   }
@@ -154,7 +162,8 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                       .toList(),
                   onChanged: (value) {
                     pro = value!;
-                    selectedProvider(value);
+                    selectedProviderPulsa(value);
+                    selectedProviderData(value);
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -274,19 +283,39 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                               Center(
                                 child: Consumer<PulsaProvider>(
                                   builder: (context, provider, index) {
-                                    switch (provider.myState) {
+                                    switch (provider.myState3) {
                                       case MyState.loading:
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
+                                        // return const Center(
+                                        //   child: CircularProgressIndicator(),
+                                        // );
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.black12,
+                                          highlightColor: Colors.white10,
+                                          child: ListView.builder(
+                                              itemCount: provider
+                                                  .filterData!.data!.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 10,
+                                                      left: 10,
+                                                      right: 10),
+                                                  child: SizedBox(
+                                                      height: 70,
+                                                      child: Card()),
+                                                );
+                                              }),
                                         );
                                       case MyState.loaded:
-                                        if (provider.data!.data == null) {
+                                        if (provider.filterData == null) {
                                           return const Text(
                                               'Maaf, Data Masih Kosong');
                                         } else if (isSelected[0]) {
                                           return ListView.builder(
-                                              itemCount:
-                                                  provider.data!.data!.length,
+                                              itemCount: provider
+                                                  .filterData!.data!.length,
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int index) {
@@ -294,7 +323,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                   color: grayishColor,
                                                   child: ListTile(
                                                     title: Text(
-                                                      provider.data!
+                                                      provider.filterData!
                                                           .data![index].name
                                                           .toString(),
                                                       style: navyTextStyle
@@ -304,7 +333,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                     subtitle: Row(
                                                       children: [
                                                         Text(
-                                                            '${provider.data!.data![index].credit!.activePeriod} Hari'),
+                                                            '${provider.filterData!.data![index].credit!.activePeriod} Hari'),
                                                         const Text(' | '),
                                                         Icon(
                                                           Icons.star,
@@ -312,14 +341,14 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                           size: 15,
                                                         ),
                                                         Text(
-                                                            '${provider.data!.data![index].rewardPoints} Poin'),
+                                                            '${provider.filterData!.data![index].rewardPoints} Poin'),
                                                       ],
                                                     ),
                                                     trailing: Text(
                                                       FormatCurrency
                                                           .convertToIdr(
                                                               provider
-                                                                  .data!
+                                                                  .filterData!
                                                                   .data![index]
                                                                   .price,
                                                               0),
@@ -337,7 +366,7 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                                             builder: (context) =>
                                                                 DetailPemesananPulsaScreen(
                                                               id: provider
-                                                                  .data!
+                                                                  .filterData!
                                                                   .data![index]
                                                                   .id
                                                                   .toString(),
@@ -517,8 +546,25 @@ class _PulsaPaketDataScreenState extends State<PulsaPaketDataScreen> {
                                   builder: (context, provider, index) {
                                     switch (provider.myState2) {
                                       case MyState.loading:
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.black12,
+                                          highlightColor: Colors.white10,
+                                          child: ListView.builder(
+                                              itemCount: provider
+                                                  .filterData!.data!.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 10,
+                                                      left: 10,
+                                                      right: 10),
+                                                  child: SizedBox(
+                                                      height: 70,
+                                                      child: Card()),
+                                                );
+                                              }),
                                         );
                                       case MyState.loaded:
                                         if (provider.filterData!.data == null) {

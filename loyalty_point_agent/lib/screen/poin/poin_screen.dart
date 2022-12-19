@@ -47,9 +47,9 @@ class _PoinScreenState extends State<PoinScreen> {
           builder: (context, provider, _) {
             switch (provider.myState) {
               case MyState.loading:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+              // return const Center(
+              //   child: CircularProgressIndicator(),
+              // );
               case MyState.loaded:
                 if (provider.user == null) {
                   return const Text('Sorry, your data still empty');
@@ -275,9 +275,9 @@ class _PoinScreenState extends State<PoinScreen> {
                     builder: (context, provider, _) {
                       switch (provider.myState) {
                         case MyState.loading:
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                        // return const Center(
+                        //   child: CircularProgressIndicator(),
+                        // );
                         case MyState.loaded:
                           if (provider.data!.data == null) {
                             return const Text('Maaf Data Kosong');
@@ -398,9 +398,9 @@ class _PoinScreenState extends State<PoinScreen> {
                     builder: (context, provider, _) {
                       switch (provider.myState) {
                         case MyState.loading:
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                        // return const Center(
+                        //   child: CircularProgressIndicator(),
+                        // );
                         case MyState.loaded:
                           if (provider.data!.data == null) {
                             return const Text('Maaf Belum Ada Data');

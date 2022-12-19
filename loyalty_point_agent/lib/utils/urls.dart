@@ -17,4 +17,5 @@ class Urls {
   static const String faq = 'api/v1/faqs';
   static const String checkPassword = 'api/v1/users/check-password';
   static const String canceltransaction = 'api/v1/transactions/cancel';
+  static const String paypending = 'api/v1/transactions/invoice-url';
 }

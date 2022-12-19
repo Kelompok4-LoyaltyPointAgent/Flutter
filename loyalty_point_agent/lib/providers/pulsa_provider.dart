@@ -8,6 +8,7 @@ class PulsaProvider extends ChangeNotifier {
   final PulsaService dataPulsa = PulsaService();
 
   PulsaModel? data;
+  PulsaModel? filterData;
   Datum? dataById;
   PulsaModel? besar;
   PulsaModel? kecil;
@@ -22,15 +23,6 @@ class PulsaProvider extends ChangeNotifier {
     notifyListeners();
     try {
       data = await dataPulsa.getPulsa();
-
-      besar = await dataPulsa.getPulsa();
-
-      besar!.data!.sort((a, b) => b.price!.compareTo(a.price!));
-      notifyListeners();
-
-      kecil = await dataPulsa.getPulsa();
-      kecil!.data!.sort((a, b) => a.price!.compareTo(b.price!));
-      notifyListeners();
 
       myState = MyState.loaded;
       notifyListeners();
@@ -57,6 +49,33 @@ class PulsaProvider extends ChangeNotifier {
         e.response!.statusCode;
       }
       myState2 = MyState.failed;
+      notifyListeners();
+    }
+  }
+
+  MyState myState3 = MyState.initial;
+  Future fetchFilterPulsa(String filter) async {
+    myState3 = MyState.loading;
+    notifyListeners();
+    try {
+      filterData = await dataPulsa.getFilterPulsa(filter);
+
+      besar = await dataPulsa.getFilterPulsa(filter);
+
+      besar!.data!.sort((a, b) => b.price!.compareTo(a.price!));
+      notifyListeners();
+
+      kecil = await dataPulsa.getFilterPulsa(filter);
+      kecil!.data!.sort((a, b) => a.price!.compareTo(b.price!));
+      notifyListeners();
+
+      myState3 = MyState.loaded;
+      notifyListeners();
+    } catch (e) {
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+      myState3 = MyState.failed;
       notifyListeners();
     }
   }
