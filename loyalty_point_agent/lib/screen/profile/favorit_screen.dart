@@ -6,6 +6,7 @@ import 'package:loyalty_point_agent/screen/poin/widgets/poin_rekomendasi_card.da
 import 'package:loyalty_point_agent/utils/finite_state.dart';
 import 'package:loyalty_point_agent/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FavoritScreen extends StatefulWidget {
   const FavoritScreen({super.key});
@@ -56,8 +57,27 @@ class _FavoritScreenState extends State<FavoritScreen> {
           builder: (context, provider, _) {
             switch (provider.myState) {
               case MyState.loading:
-                return const Center(
-                  child: CircularProgressIndicator(),
+                // return const Center(
+                //   child: CircularProgressIndicator(),
+                // );
+                return Shimmer.fromColors(
+                  baseColor: Colors.black12,
+                  highlightColor: Colors.white10,
+                  child: ListView.builder(
+                      itemCount: provider.data!.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 300,
+                          child: PoinRekomendasiCard(
+                            deskripsi: '',
+                            image: '',
+                            imageProvider: '',
+                            poin: '',
+                            provider: '',
+                            title: '',
+                          ),
+                        );
+                      }),
                 );
               case MyState.loaded:
                 if (provider.data!.data == null) {

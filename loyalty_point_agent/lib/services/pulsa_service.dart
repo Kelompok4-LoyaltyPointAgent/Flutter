@@ -46,4 +46,24 @@ class PulsaService {
       rethrow;
     }
   }
+
+  Future<PulsaModel> getFilterPulsa(String filter) async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    String? token;
+    token = prefs.getString("token");
+    try {
+      final response = await _dio.request(
+        Urls.baseUrl + Urls.pulsa,
+        queryParameters: {'provider': filter},
+        options: Options(
+          method: 'GET',
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+
+      return PulsaModel.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

@@ -1,6 +1,6 @@
 class Urls {
   static const String baseUrl =
-      'https://loyaltypointagent-staging-7vx5k3vnra-uc.a.run.app/';
+      'https://loyaltypointagent-7vx5k3vnra-uc.a.run.app/';
 
   static const String login = 'api/v1/login';
   static const String register = 'api/v1/register';
@@ -17,4 +17,5 @@ class Urls {
   static const String faq = 'api/v1/faqs';
   static const String checkPassword = 'api/v1/users/check-password';
   static const String canceltransaction = 'api/v1/transactions/cancel';
+  static const String paypending = 'api/v1/transactions/invoice-url';
 }
