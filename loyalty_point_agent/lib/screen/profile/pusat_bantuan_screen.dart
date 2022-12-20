@@ -47,7 +47,6 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -163,7 +162,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
               ),
             ),
             const SizedBox(
-              height: 17,
+              height: 20,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -245,7 +244,7 @@ class _PusatBantuanScreenState extends State<PusatBantuanScreen> {
                     },
                   ),
                   const SizedBox(
-                    height: 60,
+                    height: 100,
                   ),
                 ],
               ),

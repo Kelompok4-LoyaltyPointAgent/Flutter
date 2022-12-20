@@ -103,8 +103,8 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           deskripsi: provider
                               .data!.data![index].product!.description
                               .toString(),
-                          poin: provider.data!.data![index].product!.pricePoints
-                              .toString(),
+                          poin:
+                              '${provider.data!.data![index].product!.pricePoints.toString()} Poin',
                           imageProvider: provider.data!.data![index].product!
                                   .icon!.url!.isNotEmpty
                               ? provider.data!.data![index].product!.icon!.url
